@@ -64,6 +64,55 @@
         </div>
       </div>
 
+      <!-- How It Works Section -->
+<section id="howitworks" class="w-full py-20 bg-gray-50">
+  <div class="max-w-6xl mx-auto px-4 text-center">
+    <h2 class="text-4xl font-bold text-gray-900 mb-6">How It Works</h2>
+    <p class="text-gray-600 text-lg mb-16 max-w-3xl mx-auto">
+      Set it once. Let the system handle the rest.
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+      <!-- Step 1 -->
+      <div class="flex flex-col items-center text-center">
+        <img src="./Illustrations/1.png" alt="Step 1" class="w-32 h-32 mb-4 rounded-xl shadow-md object-contain">
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">Read the pending rows</h3>
+        <p class="text-gray-600 text-sm">
+          Automatically finds rows that haven’t been emailed.
+        </p>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="flex flex-col items-center text-center">
+        <img src="./Illustrations/2.png" alt="Step 2" class="w-32 h-32 mb-4 rounded-xl shadow-md object-contain">
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">Generate personalized emails</h3>
+        <p class="text-gray-600 text-sm">
+          Uses your business tone to write professional emails.
+        </p>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="flex flex-col items-center text-center">
+        <img src="./Illustrations/3.png" alt="Step 3" class="w-32 h-32 mb-4 rounded-xl shadow-md object-contain">
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">Send via Gmail</h3>
+        <p class="text-gray-600 text-sm">
+          Sends directly from your Gmail or Workspace account.
+        </p>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="flex flex-col items-center text-center">
+        <img src="./Illustrations/4.png" alt="Step 4" class="w-32 h-32 mb-4 rounded-xl shadow-md object-contain">
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">Update the sheet</h3>
+        <p class="text-gray-600 text-sm">
+          Marks the row with sent date — zero manual work.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
       <!-- CTA Section -->
       <div id="pricing" class="mt-16 w-full max-w-3xl text-center">
         <h2 class="text-3xl font-semibold mb-4">
@@ -156,7 +205,117 @@
           <h2 class="text-3xl font-bold text-center mb-12 text-gray-900">Frequently Asked Questions</h2>
 
           <div class="space-y-4">
-            <!-- Single FAQ -->
+
+             <!-- FAQ 5 -->
+            <div class="border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
+              <button 
+                onclick="toggleFAQ(this)" 
+                class="w-full flex justify-between items-center px-6 py-5 bg-white hover:bg-gray-50 transition font-medium text-lg text-gray-800"
+              >
+                <span> Will this work with any Gmail account?</span>
+                <svg class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              <div class="faq-answer px-6 max-h-0 overflow-hidden transition-all duration-500 text-gray-600">
+                <div class="py-4 border-t border-gray-100">
+                    Yes, it works with any Gmail or Google Workspace account. To run the system, you’ll need to generate a few API keys (like for Gmail and Google Sheets).
+                    The keys belong to you, and we’ll guide you through the setup step-by-step. Once connected, the system runs securely within your own Google account — no technical skills needed.
+                </div>
+              </div>
+            </div>
+
+             <!-- FAQ 6 -->
+            <div class="border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
+              <button 
+                onclick="toggleFAQ(this)" 
+                class="w-full flex justify-between items-center px-6 py-5 bg-white hover:bg-gray-50 transition font-medium text-lg text-gray-800"
+              >
+                <span> Do I need any coding skills?</span>
+                <svg class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              <div class="faq-answer px-6 max-h-0 overflow-hidden transition-all duration-500 text-gray-600">
+                <div class="py-4 border-t border-gray-100">
+                  Nope. The entire system is designed for non-technical users. We’ll guide you through the setup step-by-step — no code, no complexity, just results.                </div>
+              </div>
+            </div>
+            
+            <!-- FAQ 6 -->
+            <div class="border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
+              <button 
+                onclick="toggleFAQ(this)" 
+                class="w-full flex justify-between items-center px-6 py-5 bg-white hover:bg-gray-50 transition font-medium text-lg text-gray-800"
+              >
+                <span> Can I customize the email format?</span>
+                <svg class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              <div class="faq-answer px-6 max-h-0 overflow-hidden transition-all duration-500 text-gray-600">
+                <div class="py-4 border-t border-gray-100">
+                    Absolutely. We personalize the message using your business tone. You can share a sample or we'll work with you to create the perfect template before sending.
+                </div>
+              </div>
+            </div>
+
+            <!-- FAQ 7 -->
+            <div class="border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
+              <button 
+                onclick="toggleFAQ(this)" 
+                class="w-full flex justify-between items-center px-6 py-5 bg-white hover:bg-gray-50 transition font-medium text-lg text-gray-800"
+              >
+                <span> Is my data secure?</span>
+                <svg class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              <div class="faq-answer px-6 max-h-0 overflow-hidden transition-all duration-500 text-gray-600">
+                <div class="py-4 border-t border-gray-100">
+                    Yes, everything runs within your environment. You create your own API keys, and you can revoke, regenerate, or delete them anytime. We never store your data — we only help you set it up securely and guide you through the process.
+                </div>
+              </div>
+            </div>
+
+            <!-- FAQ 7 -->
+            <div class="border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
+              <button 
+                onclick="toggleFAQ(this)" 
+                class="w-full flex justify-between items-center px-6 py-5 bg-white hover:bg-gray-50 transition font-medium text-lg text-gray-800"
+              >
+                <span>Do you offer support if I get stuck?</span>
+                <svg class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              <div class="faq-answer px-6 max-h-0 overflow-hidden transition-all duration-500 text-gray-600">
+                <div class="py-4 border-t border-gray-100">
+                    Yes! We’re available to help with setup, troubleshooting, or even brainstorming your email templates.
+                    You’re not alone — we’ll walk with you until everything runs smoothly.
+                </div>
+              </div>
+            </div>
+
+            <!-- FAQ 8 -->
+            <div class="border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
+              <button 
+                onclick="toggleFAQ(this)" 
+                class="w-full flex justify-between items-center px-6 py-5 bg-white hover:bg-gray-50 transition font-medium text-lg text-gray-800"
+              >
+                <span> How often does it run?</span>
+                <svg class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              <div class="faq-answer px-6 max-h-0 overflow-hidden transition-all duration-500 text-gray-600">
+                <div class="py-4 border-t border-gray-100">
+                  By default, it runs once a day — checking your sheet for pending invoices and sending follow-ups. However, we can fully customize the frequency based on your preference. Whether you want to run it multiple times a day or trigger it manually, we’ve got you covered.
+              </div>
+            </div>
+            </div>
+
+            <!-- FAQ 1 -->
             <div class="border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
               <button 
                 onclick="toggleFAQ(this)" 
@@ -169,30 +328,12 @@
               </button>
               <div class="faq-answer px-6 max-h-0 overflow-hidden transition-all duration-500 text-gray-600">
                 <div class="py-4 border-t border-gray-100">
-                  You’ll get early access, priority support, and direct communication with the founding team. Your feedback shapes the product.
+                    We’ll get in touch as soon as possible. After finalizing the details, your project will be delivered within the next 24 hours.
                 </div>
               </div>
             </div>
 
-            <!-- FAQ 2 -->
-            <div class="border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
-              <button 
-                onclick="toggleFAQ(this)" 
-                class="w-full flex justify-between items-center px-6 py-5 bg-white hover:bg-gray-50 transition font-medium text-lg text-gray-800"
-              >
-                <span>Why is it $99 only?</span>
-                <svg class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              <div class="faq-answer px-6 max-h-0 overflow-hidden transition-all duration-500 text-gray-600">
-                <div class="py-4 border-t border-gray-100">
-                  We're offering this one-time early access rate in exchange for feedback. You get lifetime premium access — and help us shape the future.
-                </div>
-              </div>
-            </div>
-
-            <!-- FAQ 3 -->
+             <!-- FAQ 3 -->
             <div class="border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
               <button 
                 onclick="toggleFAQ(this)" 
@@ -205,11 +346,30 @@
               </button>
               <div class="faq-answer px-6 max-h-0 overflow-hidden transition-all duration-500 text-gray-600">
                 <div class="py-4 border-t border-gray-100">
-                  Yes. You’re in control — cancel, pause, or upgrade anytime. No long-term contracts or pressure.
+                    Yes, you can cancel anytime — your plan will stay active for the rest of the current month, and you won’t be charged for the next one.  
+                    We don’t lock you into long-term contracts or upfront yearly payments.
                 </div>
               </div>
             </div>
-          </div>
+
+             <!-- FAQ 2 -->
+            <div class="border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
+              <button 
+                onclick="toggleFAQ(this)" 
+                class="w-full flex justify-between items-center px-6 py-5 bg-white hover:bg-gray-50 transition font-medium text-lg text-gray-800"
+              >
+                <span>Why is it $99 only?</span>
+                <svg class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              <div class="faq-answer px-6 max-h-0 overflow-hidden transition-all duration-500 text-gray-600">
+                <div class="py-4 border-t border-gray-100">
+                    We’re new to the industry and want to build something truly valuable — so we’re offering this limited $99 early access deal to the first 20 people.  
+                    In return, we’re looking for honest feedback to help shape the product. You’ll get full premium access at a fraction of the future price.                
+                </div>
+              </div>
+            </div>
         </section>
 
         <!-- Contact CTA Section After FAQ -->
