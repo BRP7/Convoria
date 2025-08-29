@@ -1,611 +1,638 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Convoria — Set It Once. Never Chase Payments Again.</title>
-    <style>
-      @keyframes fade-in {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Convoria – AI Automation Architect | Build Once, Run Forever</title>
+  <meta name="description" content="Convoria builds AI automations that replace repetitive work with reliable, revenue-driving workflows. Build once, run forever." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              400: '#8B66FF',
+              500: '#6A3BFF',
+              600: '#572DDB',
+            },
+            gold: '#E6C76E'
+          }
+        }
       }
-      .animate-fade-in {
-        animation: fade-in 0.4s ease-out forwards;
-      }
+    }
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    .glass { backdrop-filter: saturate(140%) blur(8px); }
+    .gradient-bg {
+      background: radial-gradient(1000px 600px at 10% -10%, rgba(106,59,255,0.25), transparent),
+                  radial-gradient(900px 500px at 110% -20%, rgba(230,199,110,0.12), transparent);
+    }
+  </style>
+</head>
+<body class="antialiased gradient-bg bg-slate-950 text-white light:bg-white light:text-slate-900">
 
-      .mobile-menu { display: none; }
-      @media (max-width: 768px) {
-        .desktop-menu { display: none; }
-        .mobile-menu { display: block; }
-      }
-    </style>
-    <script src="https://cdn.tailwindcss.com"></script>
-  </head>
-  <body class="bg-white text-gray-900">
+  <!-- Header -->
+<header class="sticky top-0 z-50 border-b border-white/10 bg-slate-950/70 light:bg-white/70 glass">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex h-16 items-center justify-between">
+    <!-- Logo -->
+    <a href="#" class="flex items-center gap-2 font-semibold tracking-tight">
+      <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-white text-white">
+        <img src="black.png" alt="Convoria Logo">
+      </span>
+      <span class="text-lg">Convoria</span>
+    </a>
 
-    <!-- Navbar -->
-    <nav class="flex items-center justify-between px-6 py-4 shadow-md bg-white sticky top-0 z-50">
-      <div class="flex items-center space-x-2">
-        <img src="black-Bg.png" alt="Convoria Logo" class="w-25 h-20">
-      </div>
-      <div class="desktop-menu space-x-6">
-        <a href="#contactus" class="hover:underline">Contact Us</a>
-        <a href="#pricing" class="hover:underline">Pricing</a>
-        <a href="#faq" class="hover:underline">FAQ</a>
-      </div>
-      <div class="mobile-menu">
-      <button id="menu-btn" class="text-xl">☰</button>
-      <div id="mobile-nav" class="mt-2 space-y-2 bg-white shadow-md rounded-xl p-4 absolute right-4 top-20 hidden z-50">
-        <a href="#contactus" class="block text-gray-800 hover:underline">Contact Us</a>
-        <a href="#pricing" class="block text-gray-800 hover:underline">Pricing</a>
-        <a href="#faq" class="block text-gray-800 hover:underline">FAQ</a>
-      </div>
-    </div>
+    <!-- Desktop nav -->
+    <nav class="hidden md:flex items-center gap-6 text-sm text-white/80 light:text-slate-700">
+      <a href="#services" class="hover:text-white light:hover:text-slate-900">Services</a>
+      <a href="#contact" class="hover:text-white light:hover:text-slate-900">Contact</a>
+      <a href="#faq" class="hover:text-white light:hover:text-slate-900">FAQ</a>
     </nav>
 
-    <!-- Container -->
-    <div id="htw" class="min-h-screen flex flex-col items-center justify-center px-4 py-12">
+    <!-- CTA + Mobile toggle -->
+    <div class="flex items-center gap-2">
+      <a href="#contact" class="hidden sm:inline-flex items-center rounded-2xl bg-brand-500 px-4 py-2 text-sm font-semibold hover:bg-brand-600">Book a Free Call</a>
 
-      <!-- Hero Section -->
-      <div class="max-w-4xl w-full text-center">
-        <h1 class="text-5xl font-semibold mb-4 leading-tight">
-          Time is your most valuable client.
-        </h1>
-        <p class="text-lg text-gray-600">
-          You didn’t build your business to chase payments.
-        </p>
+      <!-- Mobile menu button -->
+      <button id="mobileMenuBtn" class="inline-flex md:hidden items-center justify-center rounded-2xl border border-white/15 p-2 text-white/80 hover:text-white focus:outline-none">
+        <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <nav id="mobileMenu" class="md:hidden hidden px-4 pb-4 space-y-2 text-sm text-white/80 light:text-slate-700">
+    <a href="#services" class="block hover:text-white light:hover:text-slate-900">Services</a>
+    <a href="#contact" class="block hover:text-white light:hover:text-slate-900">Contact</a>
+    <a href="#faq" class="block hover:text-white light:hover:text-slate-900">FAQ</a>
+    <!-- <a href="#contact" class="block rounded-2xl bg-brand-500 px-4 py-2 text-center font-semibold hover:bg-brand-600">Book a Free Call</a> -->
+  </nav>
+</header>
+
+
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-20 pb-16">
+      <div class="grid items-center gap-10 md:grid-cols-2">
+        <div>
+            <p class="mb-3 inline-flex items-center gap-2 rounded-full border border-white/10 px-3 py-1 text-xs text-white/70">
+            <span class="h-2 w-2 rounded-full bg-emerald-400"></span> AI Automation Architect
+          </p>
+          <h1 id="heroHeadline" class="text-4xl font-black tracking-tight sm:text-5xl">
+            Build once. <span class="text-brand-400">Run forever.</span>
+          </h1>
+          <p class="mt-4 text-white/80 light:text-slate-700">
+            We design automations that remove grunt work and scale revenue—without hiring more people.
+          </p>
+          <ul class="mt-6 grid gap-2 text-white/80 light:text-slate-700">
+            <!-- <li class="flex items-start gap-3"><span class="mt-1 h-2.5 w-2.5 rounded-full bg-gold"></span> Automations that follow up with leads and unpaid invoices automatically.</li>
+            <li class="flex items-start gap-3"><span class="mt-1 h-2.5 w-2.5 rounded-full bg-gold"></span> Streamlined onboarding and intake processes for clients or events.</li> -->
+            <!-- <li class="flex items-start  gap-3"><span class="mt-1 h-2.5 w-2.5 rounded-full bg-gold"></span> Custom workflows tailored to your business needs.</li> -->
+          </ul>
+          <!-- <div class="mt-8">
+            <a href="#contact" class="inline-flex items-center rounded-2xl bg-brand-500 px-6 py-3 font-semibold hover:bg-brand-600">Book a Free Call</a>
+          </div> -->
+
+          <!-- Compact CTA + Offer pill (place inside hero, after bullets) -->
+<div class="mt-4">
+  <div class="flex items-center gap-3">
+    <!-- Primary CTA (compact) -->
+    <a href="#contact"
+       class="inline-flex items-center rounded-2xl bg-gradient-to-r from-brand-500 to-brand-400 px-5 py-2.5 text-sm font-semibold text-white shadow-md hover:scale-105 transition-transform duration-150"
+       aria-label="Book a Free Call">
+      Book a Free Call
+      <br>(First 5: Setup & 30 days free)
+    </a>
+
+    <!-- Offer pill (smaller, clickable) -->
+    <!-- <a href="#contact"
+       class="inline-flex items-center rounded-full border border-emerald-500 bg-emerald-500/10 text-emerald-300 text-xs px-3 py-1.5 font-medium hover:bg-emerald-500/20 transition-colors"
+       aria-label="Limited offer - first 5 clients">
+      🚀 First 5: Setup & 30 days free
+    </a> -->
+  </div>
+
+  <!-- Small supporting copy -->
+  <!-- <p class="mt-2 text-sm text-white/70 light:text-slate-300">
+    After trial: <span class="font-semibold text-white">$999 setup</span>. Limited to first 5 signups.
+  </p> -->
+</div>
+
+          <!-- <p class="mt-3 text-xs text-white/60 light:text-slate-500">Under 60 seconds to get started.</p> -->
+        </div>
+        <div class="relative">
+          <div class="rounded-3xl border border-white/10 bg-white/5 light:bg-slate-100 p-2 shadow-2xl">
+            <div class="rounded-2xl bg-slate-950 light:bg-white p-6">
+              <!-- <div class="mb-4 flex items-center justify-between text-xs text-white/60 light:text-slate-500">
+                <span>Automation Preview</span>
+                <span class="inline-flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-emerald-400"></span> Live</span>
+              </div> -->
+              <!-- <div class="grid grid-cols-3 gap-4 text-sm"> -->
+                <!-- <div class="rounded-xl border border-white/10 bg-white/5 light:bg-slate-100 p-4 text-center">Trigger<br><span class="text-white/60 light:text-slate-600">New lead</span></div>
+                <div class="rounded-xl border border-white/10 bg-white/5 light:bg-slate-100 p-4 text-center">Router<br><span class="text-white/60 light:text-slate-600">Owner/Queue</span></div>
+                <div class="rounded-xl border border-white/10 bg-white/5 light:bg-slate-100 p-4 text-center">CRM<br><span class="text-white/60 light:text-slate-600">Update deal</span></div> -->
+              
+             <div class="grid grid-cols-3 gap-4">
+                <div class="rounded-xl border border-white/10 bg-white/5 p-4 text-center text-sm">Trigger<br><span class="text-white/60">New Lead / Invoice </span></div>
+                <div class="rounded-xl border border-white/10 bg-white/5 p-4 text-center text-sm">Process<br><span class="text-white/60">Classify & Route</span></div>
+                <div class="rounded-xl border border-white/10 bg-white/5 p-4 text-center text-sm">Act<br><span class="text-white/60">Follow-up / Outreach</span></div>
+                <div class="col-span-2 rounded-xl border border-white/10 bg-white/5 p-4 text-center text-sm">Notify<br><span class="text-white/60">Alerts & Updates</span></div>
+                <div class="rounded-xl border border-white/10 bg-white/5 p-4 text-center text-sm">Record<br><span class="text-white/60">CRM / Sheets Sync</span></div>
+              </div>
+                <!-- </div> -->
+              <!-- <button id="simulateBtn" class="mt-6 w-full rounded-xl bg-brand-500 px-4 py-2 text-sm font-semibold hover:bg-brand-600">Simulate Workflow</button> -->
+              <p id="simResult" class="mt-3 text-xs text-emerald-300/90 hidden">Lead routed in 0.9s • Reply sent • Deal stage updated</p>
+            </div>
+          </div>
+        </div>
       </div>
+    </div>
+  </section>
 
-      <!-- Video Placeholder -->
-      <div class="mt-12 w-full max-w-4xl aspect-video rounded-2xl overflow-hidden shadow-xl bg-black">
-        <div class="text-white text-xl flex items-center justify-center h-full">
-          <!-- [Premium Story Video Placeholder] -->
-           <img src="/hero.png"/>
+<!-- Offer Section: improved desktop alignment for "Free" + badge (mobile-stacked preserved) -->
+<!-- Offer Section: brand-gradient "Free" + gold badge (mobile-first stacking preserved) -->
+<section id="offer" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
+  <div class="rounded-3xl border border-white/10 bg-white/5 light:bg-white p-4 sm:p-6 flex flex-col md:flex-row items-center md:items-center justify-between gap-4">
+    <!-- PRICE BLOCK -->
+    <div class="min-w-0">
+      <!-- Mobile stacked (visible on small screens) -->
+      <div class="flex flex-col items-center md:hidden text-center">
+        <div class="text-sm text-white/70 light:text-slate-600">Normal setup</div>
+
+        <div class="mt-2">
+          <div class="text-lg line-through text-white/60 light:text-slate-500">$999</div>
+
+          <!-- Free: brand gradient text -->
+          <div class="text-2xl sm:text-3xl font-extrabold mt-1 leading-none bg-gradient-to-r from-brand-400 to-brand-500 bg-clip-text text-transparent">
+            Free
+          </div>
+
+          <!-- Gold badge -->
+          <div class="mt-2 inline-flex items-center rounded-full bg-gold/10 text-gold text-xs px-2 py-1 light:bg-gold/20 light:text-gold">
+            30-day trial — first 5 clients
+          </div>
         </div>
       </div>
 
-      <!-- How It Works Section -->
-<section id="howitworks" class="w-full py-20 bg-gray-50">
-  <div class="max-w-6xl mx-auto px-4 text-center">
-    <h2 class="text-4xl font-bold text-gray-900 mb-6">How It Works</h2>
-    <p class="text-gray-600 text-lg mb-16 max-w-3xl mx-auto">
-      Set it once. Let the system handle the rest.
-    </p>
+      <!-- Desktop inline (hidden on small screens) -->
+      <div class="hidden md:flex items-center gap-4 text-left">
+        <div class="text-sm text-white/70 light:text-slate-600">Normal setup</div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-      <!-- Step 1 -->
-      <div class="flex flex-col items-center text-center">
-        <img src="./Illustrations/1.png" alt="Step 1" class="w-32 h-32 mb-4 rounded-xl shadow-md object-contain">
-        <h3 class="text-xl font-semibold text-gray-800 mb-2">Read the pending rows</h3>
-        <p class="text-gray-600 text-sm">
-          Automatically finds rows that haven’t been emailed.
-        </p>
-      </div>
+        <!-- price row: baseline alignment makes Free sit nicely with strike price & badge -->
+        <div class="flex items-baseline gap-4 min-w-0">
+          <span class="text-lg line-through text-white/60 light:text-slate-500">$999</span>
 
-      <!-- Step 2 -->
-      <div class="flex flex-col items-center text-center">
-        <img src="./Illustrations/2.png" alt="Step 2" class="w-32 h-32 mb-4 rounded-xl shadow-md object-contain">
-        <h3 class="text-xl font-semibold text-gray-800 mb-2">Generate personalized emails</h3>
-        <p class="text-gray-600 text-sm">
-          Uses your business tone to write professional emails.
-        </p>
-      </div>
+          <!-- Free: larger brand-gradient label (matches brand CTAs) -->
+          <span class="text-3xl font-extrabold leading-none bg-gradient-to-r from-brand-400 to-brand-500 bg-clip-text text-transparent">
+            Free
+          </span>
 
-      <!-- Step 3 -->
-      <div class="flex flex-col items-center text-center">
-        <img src="./Illustrations/3.png" alt="Step 3" class="w-32 h-32 mb-4 rounded-xl shadow-md object-contain">
-        <h3 class="text-xl font-semibold text-gray-800 mb-2">Send via Gmail</h3>
-        <p class="text-gray-600 text-sm">
-          Sends directly from your Gmail or Workspace account.
-        </p>
+          <!-- Gold badge aligned with Free -->
+          <span class="inline-flex items-center h-6 rounded-full bg-gold/10 text-gold text-xs px-2 py-0.5 light:bg-gold/20 light:text-gold">
+            30-day trial — first 5 clients
+          </span>
+        </div>
       </div>
+    </div>
 
-      <!-- Step 4 -->
-      <div class="flex flex-col items-center text-center">
-        <img src="./Illustrations/4.png" alt="Step 4" class="w-32 h-32 mb-4 rounded-xl shadow-md object-contain">
-        <h3 class="text-xl font-semibold text-gray-800 mb-2">Update the sheet</h3>
-        <p class="text-gray-600 text-sm">
-          Marks the row with sent date — zero manual work.
-        </p>
-      </div>
+    <!-- MESSAGE (center on mobile, left on desktop) -->
+    <div class="flex-1 text-sm text-white/70 light:text-slate-600 px-1 md:px-6 text-center md:text-left">
+      Get complete setup (normally <span class="font-semibold text-white">$999</span>) + first month free. <b>No credit card required</b> — limited to the first 5 signups.
+    </div>
+
+    <!-- CTA -->
+    <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full md:w-auto">
+      <button
+        id="claimOfferBtn"
+        class="w-full md:w-auto inline-flex justify-center items-center rounded-2xl bg-gradient-to-r from-brand-500 to-brand-400 px-4 py-2 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(106,59,255,0.12)] hover:scale-105 transition-transform duration-150"
+        aria-label="Claim free trial - Book a call">
+        Claim Free Trial
+      </button>
+
+      <!-- Learn more -->
+      <a href="#learn"
+         class="hidden md:inline-flex items-center text-sm font-medium text-white/80 light:text-slate-700 hover:underline px-3 py-2">
+        Learn more
+      </a>
+      <!-- <a href="#learn" class="md:hidden mt-1 text-xs text-white/70 text-center hover:underline">Learn more</a> -->
+
+      <a href="#learn" class="md:hidden mt-1 text-xs text-white/70 text-center hover:underline">Learn more</a>
     </div>
   </div>
 </section>
 
 
-      <!-- CTA Section -->
-      <div id="pricing" class="mt-16 w-full max-w-3xl text-center">
-        <h2 class="text-3xl font-semibold mb-4">
-          You’ll never follow up on another unpaid invoice again.
-        </h2>
-
-        <p class="text-gray-600 mb-8">
-          Built quietly for professionals who don’t want to chase money.
+<!-- Learn More (hidden by default) -->
+<section id="learn" class="hidden mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-0" aria-hidden="true">
+  <div class="rounded-3xl border border-white/10 bg-white/5 light:bg-white p-6 sm:p-8 opacity-0 transform -translate-y-3">
+    <div class="grid gap-8 md:grid-cols-2 items-start">
+      <!-- Left column: header + CTA -->
+      <div class="md:col-span-1">
+      <h2 class="text-2xl font-bold tracking-tight">Learn More — Beta Offer</h2>
+        <p class="mt-3 text-sm text-white/70 light:text-slate-600">
+          We’re in the starting phase and want to improve our system by working with real clients and solving real problems. 
+          For the first 5 beta clients, the original setup fee of <span class="font-semibold text-white">$999</span> is completely waived. 
+          You get a <span class="font-semibold text-white">30-day free trial</span> — cancel anytime, no credit card required. 
+          After the trial, if you choose to continue using the system, it’s just <span class="font-semibold text-white">$99/month</span>. 
+          This offer is in exchange for your valuable feedback to help us improve the product.
         </p>
+         <!-- <ul class="mt-3 space-y-2 text-sm text-white/70 light:text-slate-600">
+          <li>• The original $999 setup (waived for first 5 clients)</li>
+          <li>• Free 30-day trial, cancel anytime, no credit card</li>
+          <li>• After-trial pricing is just $99/month</li>
+          <li>• Offer in exchange for real feedback to improve your system</li>
+          <li>• 1 weeks hypercare and QA</li>
+        </ul> -->
 
-        <!-- Pricing Table -->
-        <div class="flex flex-col md:flex-row gap-6 justify-center">
-          <!-- Standard Plan -->
-          <div class="border border-gray-200 rounded-2xl p-6 shadow-md w-full md:w-1/2">
-            <h3 class="text-2xl font-semibold mb-2">Standard</h3>
-            <p class="text-gray-500 mb-4">For busy professionals</p>
-            <p class="text-xl font-bold">$999 setup</p>
-            <p class="text-lg">$99/month</p>
-          </div>
+        
 
-          <!-- Early Access Plan -->
-          <div class="border border-green-500 rounded-2xl p-6 shadow-xl w-full md:w-1/2 bg-green-50">
-            <h3 class="text-2xl font-semibold mb-2">Early Access (First 10)</h3>
-            <p class="text-gray-500 mb-4">In exchange for your feedback</p>
-            <p class="text-xl font-bold text-green-700">
-              <s class="mr-2 text-gray-400">$999</s> $0 (FREE)
-            </p>
-            <p class="text-lg text-green-700">for 30 days</p>
-          </div>
-        </div>
-
-        <div class="mt-12 text-center">
-          <button onclick="toggleModal('join')" class="px-6 py-3 bg-black text-white rounded-full font-medium hover:bg-gray-800 transition">Join the First 10 →</button>
-          <p class="mt-4 text-sm text-gray-600">
-            Not sure yet? <button onclick="toggleModal('query')" class="underline text-black hover:text-gray-800">Ask a Question</button>
-          </p>
-        </div>
-
-        <!-- Modal -->
-        <div id="modal" class="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 hidden">
-          <div class="bg-white rounded-2xl w-full max-w-xl p-6 relative animate-fade-in">
-            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700">&times;</button>
-
-            <!-- Toggle Tabs -->
-            <div class="flex mb-6 border-b">
-              <button onclick="switchTab('join')" id="tab-join" class="flex-1 py-2 font-semibold text-center border-b-2 border-black">Book Slot</button>
-              <button onclick="switchTab('query')" id="tab-query" class="flex-1 py-2 font-semibold text-center text-gray-500">Have a Query?</button>
-              <button onclick="switchTab('review')" id="tab-review" class="flex-1 py-2 font-semibold text-center text-gray-500">Leave a Review</button>
-            </div>
-
-            <!-- Book Slot Form -->
-            <form id="form-join" class="space-y-4">
-              <input name="name" type="text" placeholder="Full Name" class="w-full px-4 py-3 border rounded-xl" required>
-              <input name="email" type="email" placeholder="Email Address" class="w-full px-4 py-3 border rounded-xl" required>
-              <input type="text" hidden value="Book Slot" name="formType">
-              <textarea name="message" placeholder="Share how you currently follow up on unpaid invoices (optional)" class="w-full px-4 py-3 border rounded-xl"></textarea>
-              <button type="submit" class="w-full bg-black text-white py-3 rounded-full hover:bg-gray-800">Secure My Spot →</button>
-            </form>
-
-            <!-- Query Form -->
-            <form id="form-query" class="space-y-4 hidden">
-              <input name="name" type="text" placeholder="Full Name" class="w-full px-4 py-3 border rounded-xl" required>
-              <input name="email" type="email" placeholder="Email Address" class="w-full px-4 py-3 border rounded-xl" required>
-              <textarea id="form-question" name="message" placeholder="What's your question?" class="w-full px-4 py-3 border rounded-xl"></textarea>
-              <p id="form-error" class="text-red-500 text-sm mt-2 hidden"></p>
-              <input type="text" hidden value="Query" name="formType">
-              <button type="submit" class="w-full bg-black text-white py-3 rounded-full hover:bg-gray-800">Send My Question</button>
-            </form>
-
-            <!-- Review Form -->
-            <form id="form-review" class="space-y-4 hidden">
-              <input name="name" type="text" placeholder="Full Name" class="w-full px-4 py-3 border rounded-xl" required>
-              <input name="email" type="email" placeholder="Email Address" class="w-full px-4 py-3 border rounded-xl" required>
-              <div class="flex items-center space-x-2">
-                <span class="text-gray-700">Rating:</span>
-                <div id="star-rating" class="flex space-x-1 cursor-pointer">
-                  <!-- Stars will be generated by JS -->
-                </div>
-                <input type="hidden" id="rating" name="rating" value="0" required>
-              </div>
-              <textarea name="message" placeholder="Your honest feedback..." class="w-full px-4 py-3 border rounded-xl"></textarea>
-              <input type="text" hidden value="Review" name="formType">
-              <button type="submit" class="w-full bg-black text-white py-3 rounded-full hover:bg-gray-800">Submit Review</button>
-            </form>
-          </div>
-        </div>
-
-        <!-- Enhanced FAQ Section -->
-        <section id="faq" class="mt-32 max-w-3xl mx-auto px-4">
-          <h2 class="text-3xl font-bold text-center mb-12 text-gray-900">Frequently Asked Questions</h2>
-
-          <div class="space-y-4">
-
-             <!-- FAQ 5 -->
-            <div class="border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
-              <button 
-                onclick="toggleFAQ(this)" 
-                class="w-full flex justify-between items-center px-6 py-5 bg-white hover:bg-gray-50 transition font-medium text-lg text-gray-800"
-              >
-                <span> Will this work with any Gmail account?</span>
-                <svg class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              <div class="faq-answer px-6 max-h-0 overflow-hidden transition-all duration-500 text-gray-600">
-                <div class="py-4 border-t border-gray-100">
-                    Yes, it works with any Gmail or Google Workspace account. To run the system, you’ll need to generate a few API keys (like for Gmail and Google Sheets).
-                    The keys belong to you, and we’ll guide you through the setup step-by-step. Once connected, the system runs securely within your own Google account — no technical skills needed.
-                </div>
-              </div>
-            </div>
-
-             <!-- FAQ 6 -->
-            <div class="border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
-              <button 
-                onclick="toggleFAQ(this)" 
-                class="w-full flex justify-between items-center px-6 py-5 bg-white hover:bg-gray-50 transition font-medium text-lg text-gray-800"
-              >
-                <span> Do I need any coding skills?</span>
-                <svg class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              <div class="faq-answer px-6 max-h-0 overflow-hidden transition-all duration-500 text-gray-600">
-                <div class="py-4 border-t border-gray-100">
-                  Nope. The entire system is designed for non-technical users. We’ll guide you through the setup step-by-step — no code, no complexity, just results.                </div>
-              </div>
-            </div>
-            
-            <!-- FAQ 6 -->
-            <div class="border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
-              <button 
-                onclick="toggleFAQ(this)" 
-                class="w-full flex justify-between items-center px-6 py-5 bg-white hover:bg-gray-50 transition font-medium text-lg text-gray-800"
-              >
-                <span> Can I customize the email format?</span>
-                <svg class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              <div class="faq-answer px-6 max-h-0 overflow-hidden transition-all duration-500 text-gray-600">
-                <div class="py-4 border-t border-gray-100">
-                    Absolutely. We personalize the message using your business tone. You can share a sample or we'll work with you to create the perfect template before sending.
-                </div>
-              </div>
-            </div>
-
-            <!-- FAQ 7 -->
-            <div class="border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
-              <button 
-                onclick="toggleFAQ(this)" 
-                class="w-full flex justify-between items-center px-6 py-5 bg-white hover:bg-gray-50 transition font-medium text-lg text-gray-800"
-              >
-                <span> Is my data secure?</span>
-                <svg class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              <div class="faq-answer px-6 max-h-0 overflow-hidden transition-all duration-500 text-gray-600">
-                <div class="py-4 border-t border-gray-100">
-                    Yes, everything runs within your environment. You create your own API keys, and you can revoke, regenerate, or delete them anytime. We never store your data — we only help you set it up securely and guide you through the process.
-                </div>
-              </div>
-            </div>
-
-            <!-- FAQ 7 -->
-            <div class="border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
-              <button 
-                onclick="toggleFAQ(this)" 
-                class="w-full flex justify-between items-center px-6 py-5 bg-white hover:bg-gray-50 transition font-medium text-lg text-gray-800"
-              >
-                <span>Do you offer support if I get stuck?</span>
-                <svg class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              <div class="faq-answer px-6 max-h-0 overflow-hidden transition-all duration-500 text-gray-600">
-                <div class="py-4 border-t border-gray-100">
-                    Yes! We’re available to help with setup, troubleshooting, or even brainstorming your email templates.
-                    You’re not alone — we’ll walk with you until everything runs smoothly.
-                </div>
-              </div>
-            </div>
-
-            <!-- FAQ 8 -->
-            <div class="border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
-              <button 
-                onclick="toggleFAQ(this)" 
-                class="w-full flex justify-between items-center px-6 py-5 bg-white hover:bg-gray-50 transition font-medium text-lg text-gray-800"
-              >
-                <span> How often does it run?</span>
-                <svg class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              <div class="faq-answer px-6 max-h-0 overflow-hidden transition-all duration-500 text-gray-600">
-                <div class="py-4 border-t border-gray-100">
-                  By default, it runs once a day — checking your sheet for pending invoices and sending follow-ups. However, we can fully customize the frequency based on your preference. Whether you want to run it multiple times a day or trigger it manually, we’ve got you covered.
-              </div>
-            </div>
-            </div>
-
-            <!-- FAQ 1 -->
-            <div class="border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
-              <button 
-                onclick="toggleFAQ(this)" 
-                class="w-full flex justify-between items-center px-6 py-5 bg-white hover:bg-gray-50 transition font-medium text-lg text-gray-800"
-              >
-                <span>What happens after I join?</span>
-                <svg class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              <div class="faq-answer px-6 max-h-0 overflow-hidden transition-all duration-500 text-gray-600">
-                <div class="py-4 border-t border-gray-100">
-                    We’ll get in touch as soon as possible. After finalizing the details, your project will be delivered within the next 24 hours.
-                </div>
-              </div>
-            </div>
-
-             <!-- FAQ 3 -->
-            <div class="border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
-              <button 
-                onclick="toggleFAQ(this)" 
-                class="w-full flex justify-between items-center px-6 py-5 bg-white hover:bg-gray-50 transition font-medium text-lg text-gray-800"
-              >
-                <span>Can I cancel anytime?</span>
-                <svg class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              <div class="faq-answer px-6 max-h-0 overflow-hidden transition-all duration-500 text-gray-600">
-                <div class="py-4 border-t border-gray-100">
-                    Yes, you can cancel anytime — your plan will stay active for the rest of the current month, and you won’t be charged for the next one.  
-                    We don’t lock you into long-term contracts or upfront yearly payments.
-                </div>
-              </div>
-            </div>
-
-             <!-- FAQ 2 -->
-            <div class="border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
-              <button 
-                onclick="toggleFAQ(this)" 
-                class="w-full flex justify-between items-center px-6 py-5 bg-white hover:bg-gray-50 transition font-medium text-lg text-gray-800"
-              >
-                <span>Why is it $99 only?</span>
-                <svg class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              <div class="faq-answer px-6 max-h-0 overflow-hidden transition-all duration-500 text-gray-600">
-                <div class="py-4 border-t border-gray-100">
-                    We’re new to the industry and want to build something truly valuable — so we’re offering this limited $99 early access deal to the first 20 people.  
-                    In return, we’re looking for honest feedback to help shape the product. You’ll get full premium access at a fraction of the future price.                
-                </div>
-              </div>
-            </div>
-        </section>
-
-        <!-- Contact CTA Section After FAQ -->
-        <section id="contactus" class="mt-20 text-center">
-          <h3 class="text-2xl font-semibold text-gray-900 mb-4">Want more info?</h3>
-          <p class="text-gray-600 mb-6">We’d love to help. Reach out with your query.</p>
-          <button onclick="toggleModal('query')" class="px-6 py-3 bg-black text-white rounded-full font-medium hover:bg-gray-800 transition">
-            Ask a Question
+        <div class="mt-6 flex gap-3">
+          <button id="claimOfferBtn2" class="inline-flex items-center rounded-2xl bg-gradient-to-r from-brand-500 to-brand-400 px-4 py-2 text-sm font-semibold text-white shadow-md hover:scale-105 transition-transform duration-150">
+            Claim Free Trial
           </button>
-        </section>
+          <!-- <a href="#contact" class="inline-flex items-center rounded-2xl border border-white/10 px-4 py-2 text-sm text-white/80 hover:text-white">Book a Call</a> -->
+        </div>
+
+        <p class="mt-3 text-xs text-white/60 light:text-slate-500">No credit card required. Limited to the first 5 signups.</p>
+
+
+                    <!-- Small footer for the section -->
+    <div class="mt-8 text-sm text-white/60 light:text-slate-600">
+      <strong>Questions?</strong> Email <a class="underline hover:text-white" href="mailto:convoria@gmail.com">convoria@gmail.com</a> or <a class="underline hover:text-white" href="#contact">book a call</a>.
+    </div>
+      </div>
+
+      <!-- Middle column: what's included -->
+      <!-- <div class="md:col-span-1">
+        <h3 class="text-lg font-semibold">What's included</h3>
+        <ul class="mt-3 space-y-2 text-sm text-white/70 light:text-slate-600">
+          <li>• The original $999 setup (waived for first 5 clients)</li>
+          <li>• Free 30-day trial, cancel anytime, no credit card</li>
+          <li>• After-trial pricing is just $99/month</li>
+          <li>• Offer in exchange for real feedback to improve your system</li>
+          <li>• 1 weeks hypercare and QA</li>
+        </ul>
+      </div> -->
+
+      <!-- Right column: timeline, eligibility, terms -->
+      <div class="md:col-span-1">
+        <h3 class="text-lg font-semibold">Timeline & terms</h3>
+        <div class="mt-3 space-y-2 text-sm text-white/70 light:text-slate-600">
+          <div><strong>Timeline:</strong> Most automations launch in <span class="font-semibold">2–4 days</span> depending on integrations.</div>
+          <div><strong>Eligibility:</strong> Offer limited to the first <span class="font-semibold">5</span> customers.</div>
+          <div><strong>After trial:</strong> Setup fee returns to <span class="font-semibold">$999</span>.</div>
+          <div><strong>Cancel:</strong> You can cancel anytime — we’ll assist with transfer/export of configs.</div>
+        </div>
+
+        <h4 class="mt-6 text-sm font-semibold">Next steps</h4>
+        <ol class="mt-2 text-sm text-white/70 light:text-slate-600 list-decimal list-inside space-y-1">
+          <li>Book a free call or hit “Claim Free Trial”.</li>
+          <li>We run a 15–30 min discovery call and confirm scope.</li>
+          <li>We start the build — you review & approve in the first 48–72 hours.</li>
+        </ol>
+
+
       </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="mt-24 bg-black pt-6 pb-8 text-center text-sm text-gray-500">
-      <p>&copy; 2025 Convoria. All rights reserved. For inquiries, email us at convoria@gmail.com </p>
-    </footer>
 
-    <!-- Success Popup -->
-    <div id="success-popup" class="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 hidden">
-      <div class="bg-white rounded-2xl max-w-md w-full p-6 text-center relative animate-fade-in">
-        <button onclick="closeSuccessPopup()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-xl">&times;</button>
-        <h3 id="success-title" class="text-xl font-semibold text-gray-900 mb-2">Thank you!</h3>
-        <p id="success-msg" class="text-gray-600">Your response has been recorded.</p>
+</section>
+
+
+  <!-- Services -->
+  <section id="services" class="border-t border-white/10 bg-slate-950/40 light:bg-slate-50">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
+      <h2 class="text-2xl font-bold tracking-tight">What we automate</h2>
+      <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <article class="rounded-3xl border border-white/10 bg-white/5 light:bg-white p-6">
+          <h3 class="font-semibold">Lead Response</h3>
+          <p class="mt-2 text-sm text-white/70 light:text-slate-600">Route hot leads and trigger outreach in seconds.</p>
+        </article>
+        <article class="rounded-3xl border border-white/10 bg-white/5 light:bg-white p-6">
+          <h3 class="font-semibold">Invoices</h3>
+          <p class="mt-2 text-sm text-white/70 light:text-slate-600">Automated reminders and reporting, no manual follow-up.</p>
+        </article>
+        <article class="rounded-3xl border border-white/10 bg-white/5 light:bg-white p-6">
+          <h3 class="font-semibold">Onboarding</h3>
+          <p class="mt-2 text-sm text-white/70 light:text-slate-600">Checklists and syncs that run in the background.</p>
+        </article>
       </div>
     </div>
+  </section>
 
-    <!-- Loader -->
-    <div id="loader" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-[9999] hidden">
-      <div class="w-16 h-16 border-4 border-t-transparent border-white rounded-full animate-spin"></div>
+  <!-- FAQ -->
+<section id="faq" class="border-t border-white/10 bg-slate-950/40 light:bg-slate-50">
+  <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-16">
+    <h2 class="text-2xl font-bold tracking-tight">Frequently Asked Questions</h2>
+    <div class="mt-10 space-y-4">
+      <!-- FAQ Item -->
+      <details class="group rounded-2xl border border-white/10 bg-white/5 light:bg-white p-4">
+        <summary class="flex cursor-pointer items-center justify-between text-sm font-semibold text-white/80 light:text-slate-700">
+          How quickly can I set up an automation?
+          <span class="ml-2 transition-transform duration-200 group-open:rotate-45">+</span>
+        </summary>
+        <p class="mt-2 text-sm text-white/70 light:text-slate-600">
+            Most automations can be up and running in under 2–4 days, depending on complexity.
+        </p>
+      </details>
+
+      <details class="group rounded-2xl border border-white/10 bg-white/5 light:bg-white p-4">
+  <summary class="flex cursor-pointer items-center justify-between text-sm font-semibold text-white/80 light:text-slate-700">
+    Is the free beta for the first 5 clients still available?
+    <span class="ml-2 transition-transform duration-200 group-open:rotate-45">+</span>
+  </summary>
+  <p class="mt-2 text-sm text-white/70 light:text-slate-600">
+    Yes! If you see the offer mentioned on the site, it means the beta slots are still open and you can claim one of the 5 free spots. Once all slots are filled, the offer will no longer be displayed.
+  </p>
+      </details>
+
+    <details class="group rounded-2xl border border-white/10 bg-white/5 light:bg-white p-4">
+        <summary
+            class="flex cursor-pointer items-center justify-between text-sm font-semibold text-white/80 light:text-slate-700">
+            What kind of tasks can your AI automate?
+            <span class="ml-2 transition-transform duration-200 group-open:rotate-45">+</span>
+        </summary>
+        <p class="mt-2 text-sm text-white/70 light:text-slate-600">
+            We automate repetitive, rule-based tasks — anything from invoice follow-ups, lead responses, onboarding
+            workflows, customer intake forms, to cold outreach. Basically, if it’s repetitive, we can automate it! </p>
+    </details>
+
+<details class="group rounded-2xl border border-white/10 bg-white/5 light:bg-white p-4">
+  <summary class="flex cursor-pointer items-center justify-between text-sm font-semibold text-white/80 light:text-slate-700">
+    Can you automate overdue invoices?
+    <span class="ml-2 transition-transform duration-200 group-open:rotate-45">+</span>
+  </summary>
+  <p class="mt-2 text-sm text-white/70 light:text-slate-600">
+    Yes. We automatically send reminders, follow up on unpaid invoices, and can integrate with your accounting system to streamline collections.
+  </p>
+</details>
+
+<!-- FAQ: Lead management -->
+<details class="group rounded-2xl border border-white/10 bg-white/5 light:bg-white p-4">
+  <summary class="flex cursor-pointer items-center justify-between text-sm font-semibold text-white/80 light:text-slate-700">
+    Can you handle lead generation and cold outreach?
+    <span class="ml-2 transition-transform duration-200 group-open:rotate-45">+</span>
+  </summary>
+  <p class="mt-2 text-sm text-white/70 light:text-slate-600">
+    Yes! We can fetch leads, send personalized cold emails, follow up automatically, and track responses — helping you grow without manual effort.
+  </p>
+</details>
+
+<!-- FAQ: Onboarding & intake -->
+<details class="group rounded-2xl border border-white/10 bg-white/5 light:bg-white p-4">
+  <summary class="flex cursor-pointer items-center justify-between text-sm font-semibold text-white/80 light:text-slate-700">
+    Can you automate client onboarding or intake?
+    <span class="ml-2 transition-transform duration-200 group-open:rotate-45">+</span>
+  </summary>
+  <p class="mt-2 text-sm text-white/70 light:text-slate-600">
+    Yes. We can set up forms, notifications, approvals, and follow-ups — making onboarding seamless for event planners, consultants, or service providers.
+  </p>
+</details>
+
+      <details class="group rounded-2xl border border-white/10 bg-white/5 light:bg-white p-4">
+        <summary class="flex cursor-pointer items-center justify-between text-sm font-semibold text-white/80 light:text-slate-700">
+          Do I need a developer to maintain these workflows?
+          <span class="ml-2 transition-transform duration-200 group-open:rotate-45">+</span>
+        </summary>
+        <p class="mt-2 text-sm text-white/70 light:text-slate-600">
+          No. Our automations are designed to run reliably on their own with minimal oversight.
+        </p>
+      </details>
+
+      <details class="group rounded-2xl border border-white/10 bg-white/5 light:bg-white p-4">
+        <summary class="flex cursor-pointer items-center justify-between text-sm font-semibold text-white/80 light:text-slate-700">
+          What kind of businesses benefit most?
+          <span class="ml-2 transition-transform duration-200 group-open:rotate-45">+</span>
+        </summary>
+        <p class="mt-2 text-sm text-white/70 light:text-slate-600">
+          Any business with repetitive workflows like lead follow-up, invoicing, or onboarding can benefit immediately.
+        </p>
+      </details>
+
+      <details class="group rounded-2xl border border-white/10 bg-white/5 light:bg-white p-4">
+        <summary class="flex cursor-pointer items-center justify-between text-sm font-semibold text-white/80 light:text-slate-700">
+          Can I customize the automations for my workflow?
+          <span class="ml-2 transition-transform duration-200 group-open:rotate-45">+</span>
+        </summary>
+        <p class="mt-2 text-sm text-white/70 light:text-slate-600">
+          Absolutely. Each automation can be tailored to fit your exact process requirements.
+        </p>
+      </details>
     </div>
-  </body>
-  <script>
-    function showSuccessPopup(type) {
-      const popup = document.getElementById('success-popup');
-      const msg = document.getElementById('success-msg');
-      const title = document.getElementById('success-title');
+  </div>
+</section>
 
-      popup.classList.remove('hidden');
 
-      if (type === 'Book Slot') {
-        title.textContent = "You're booked!";
-        msg.textContent = "We'll get in touch shortly.";
-      } else if (type === 'Query') {
-        title.textContent = "Question received!";
-        msg.textContent = "We’ll respond to your query soon.";
-      } else if (type === 'Review') {
-        title.textContent = "Thanks for your review!";
-        msg.textContent = "Your feedback helps us improve.";
+  <!-- Contact -->
+  <section id="contact" class="border-t border-white/10">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
+      <div class="rounded-3xl border border-white/10 bg-white/5 p-8 grid gap-8 md:grid-cols-2">
+        <div>
+          <h2 class="text-2xl font-bold tracking-tight">Let’s automate your bottleneck</h2>
+          <p class="mt-2 text-white/70">Tell us your goal. We’ll propose a fast, low‑risk automation you can launch next week.</p>
+          <div class="mt-6 text-sm text-white/70">
+            <div>Email: <a class="underline hover:text-white" href="mailto:convoria@gmail.com">convoria@gmail.com</a></div>
+            <div>Site: <a class="underline hover:text-white" href="https://convoria.com" target="_blank" rel="noopener">convoria.com</a></div>
+          </div>
+        </div>
+        <form id="contactForm" class="grid gap-3" novalidate>
+          <div>
+            <label class="text-sm text-white/70">Name</label>
+            <input required name="name" class="mt-1 w-full rounded-xl border border-white/15 bg-slate-950 px-4 py-3 outline-none focus:ring-2 focus:ring-brand-400" placeholder="Your name" />
+          </div>
+          <div>
+            <label class="text-sm text-white/70">Email</label>
+            <input required type="email" name="email" class="mt-1 w-full rounded-xl border border-white/15 bg-slate-950 px-4 py-3 outline-none focus:ring-2 focus:ring-brand-400" placeholder="you@company.com" />
+          </div>
+          <div>
+            <label class="text-sm text-white/70">What should we automate?</label>
+            <textarea required name="message" rows="4" class="mt-1 w-full rounded-xl border border-white/15 bg-slate-950 px-4 py-3 outline-none focus:ring-2 focus:ring-brand-400" placeholder="Describe the workflow or outcome you want"></textarea>
+          </div>
+          <div class="flex items-center justify-between">
+            <!-- <label class="inline-flex items-center gap-2 text-xs text-white/70"><input id="consent" type="checkbox" class="h-4 w-4 rounded border-white/20 bg-slate-900" /> I agree to the privacy policy.</label> -->
+            <button class="rounded-2xl bg-brand-500 px-5 py-3 font-semibold hover:bg-brand-600" type="submit">Send Request</button>
+          </div>
+          <p id="formMsg" class="hidden text-sm"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+<!-- Footer -->
+<footer class="border-t border-white/10 bg-slate-950/80 light:bg-slate-100">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 text-sm text-white/60 light:text-slate-600 flex justify-center items-center">
+    ©&nbsp;<span id="year"></span>&nbsp;Convoria. All rights reserved.
+  </div>
+</footer>
+
+
+  <script defer>
+        const $ = (s, el=document) => el.querySelector(s);
+
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Hero demo simulate
+    // document.getElementById('simulateBtn').addEventListener('click', () => {
+    //   const p = document.getElementById('simResult');
+    //   p.classList.remove('hidden');
+    //   p.textContent = 'Lead routed in ' + (0.7 + Math.random()*0.6).toFixed(1) + 's • Reply sent • Deal updated';
+    // });
+// Shortcut for querySelector
+// const $ = (selector) => document.querySelector(selector);
+
+// Contact form submission
+$('#contactForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const form = e.currentTarget;
+  const msg = $('#formMsg');
+
+  // Gather form data
+  const data = Object.fromEntries(new FormData(form).entries());
+  data.formType = 'Book Slot';
+
+  // Minimal validation
+  if (!data.name || !data.email || !data.message) {
+    msg.className = 'text-sm text-amber-400';
+    msg.textContent = 'Fill all fields to send.';
+    msg.classList.remove('hidden');
+    return;
+  }
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(data.email)) {
+    msg.className = 'text-sm text-amber-400';
+    msg.textContent = 'Please enter a valid email address.';
+    msg.classList.remove('hidden');
+    return;
+  }
+
+  // Show success message and reset form
+  msg.className = 'text-sm text-emerald-400';
+  msg.textContent = 'Thanks! Your request is queued. We will reply within 24 hours.';
+  msg.classList.remove('hidden');
+  form.reset();
+
+  // Analytics hook
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({ event: 'lead_submit', payload: data });
+  console.log('Analytics event', { event: 'lead_submit', payload: data });
+
+  // Send data to Google Sheet via Apps Script
+  try {
+    await fetch(
+            'https://script.google.com/macros/s/AKfycbz_ITaPNbVxKQNZx4xJBAHKnJB1LjVSfjsOAzDD9NIdsScH1lKOmTM1py-PmfRWKNISzg/exec',
+      {
+        method: 'POST',
+        mode: 'no-cors', // required for Apps Script POST without CORS errors
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
       }
+    );
+    console.log('Form data sent to Google Sheet.');
+  } catch (err) {
+    console.error('Error sending to Google Sheet:', err);
+  }
+});
 
-      // Close modal if open
-      closeModal();
 
-      // Auto-close after 5 seconds
+    
+  // Offer CTA behaviour: scroll to contact, focus first input, push analytics event
+  document.getElementById('claimOfferBtn').addEventListener('click', function (e) {
+    e.preventDefault();
+    // analytics hook
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: 'offer_claim', offer: 'free_trial_first5' });
+
+    // smooth scroll to contact and focus input
+    const contact = document.getElementById('contact');
+    if (contact) {
+      contact.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // slight delay to let browser scroll, then focus
       setTimeout(() => {
-        closeSuccessPopup();
-      }, 3000);
+        const firstInput = contact.querySelector('input, textarea, button');
+        if (firstInput) firstInput.focus({ preventScroll: true });
+      }, 600);
+    }
+  });
+
+   (function () {
+    const learnLinks = document.querySelectorAll('a[href="#learn"]');
+    const learnSection = document.getElementById('learn');
+    const learnCard = learnSection?.querySelector('div.rounded-3xl');
+
+    // safety
+    if (!learnSection || !learnCard) return;
+
+    // small animation helper: show
+    function showLearn() {
+      learnSection.classList.remove('hidden');
+      learnSection.setAttribute('aria-hidden', 'false');
+      // animate: remove opacity/transform, with small delay for smoothness
+      requestAnimationFrame(() => {
+        learnCard.style.transition = 'opacity 320ms ease, transform 320ms ease, max-height 320ms ease';
+        learnCard.style.opacity = '1';
+        learnCard.style.transform = 'translateY(0)';
+      });
+      // scroll into view after a short delay so layout settled
+      setTimeout(() => {
+        learnSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 80);
     }
 
-    function closeSuccessPopup() {
-      document.getElementById('success-popup').classList.add('hidden');
+    // hide
+    function hideLearn() {
+      // reverse animation
+      learnCard.style.opacity = '0';
+      learnCard.style.transform = 'translateY(-10px)';
+      setTimeout(() => {
+        learnSection.classList.add('hidden');
+        learnSection.setAttribute('aria-hidden', 'true');
+      }, 300);
     }
 
-    const starContainer = document.getElementById("star-rating");
-    const hiddenRating = document.getElementById("rating");
-
-    for (let i = 1; i <= 5; i++) {
-      console.log(4345)
-      const star = document.createElement("span");
-      star.innerHTML = "&#9734;"; // empty star ★
-      star.classList.add("text-2xl", "text-yellow-400");
-
-      star.addEventListener("click", () => {
-        hiddenRating.value = i;
-
-        // Fill stars up to selected rating
-        [...starContainer.children].forEach((s, index) => {
-          s.innerHTML = index < i ? "&#9733;" : "&#9734;"; // filled or empty
-        });
-      });
-
-      starContainer.appendChild(star);
-    }
-
-    function showForm() {
-      const btn = document.getElementById("joinBtn");
-      const form = document.getElementById("joinForm");
-
-      btn.style.display = "none";
-      form.classList.remove("hidden");
-    }
-
-    document.getElementById('menu-btn').addEventListener('click', function () {
-      const menu = document.getElementById('mobile-nav');
-      menu.classList.toggle('hidden');
-    });
-
-    document.querySelectorAll('#mobile-nav a').forEach(link => {
-      link.addEventListener('click', () => {
-        document.getElementById('mobile-nav').classList.add('hidden');
-      });
-    });
-
-    const loader = document.getElementById('loader');
-    const status = document.getElementById('form-status');
-
-    ['form-join', 'form-query', 'form-review'].forEach(formId => {
-      const form = document.getElementById(formId);
-      const questionField = document.getElementById('form-question');
-      const errorMessage = document.getElementById('form-error');
-      if (!form) return;
-
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        // Reset error
-        if (errorMessage) {
-          errorMessage.classList.add('hidden');
-          errorMessage.textContent = '';
-        }
-        const questionValue = questionField.value.trim();
-
-        if (form.id === 'form-query' && questionValue === '') {
-          errorMessage.textContent = 'Please enter your question before submitting.';
-          errorMessage.classList.remove('hidden');
-          return;
-        }
-
-        if (status) status.textContent = 'Submitting...';
-        loader.classList.remove('hidden');
-
-        const formData = new FormData(form);
-        const data = Object.fromEntries(formData.entries());
-
-        const formType = data.formType || (
-          formId === 'form-join' ? 'Book Slot' :
-          formId === 'form-query' ? 'Query' :
-          'Review'
-        );
-
-        try {
-            const response = await fetch('https://script.google.com/macros/s/AKfycbz_ITaPNbVxKQNZx4xJBAHKnJB1LjVSfjsOAzDD9NIdsScH1lKOmTM1py-PmfRWKNISzg/exec', {
-            method: 'POST',
-            mode: 'no-cors',
-            body: JSON.stringify(data),
-            headers: { 'Content-Type': 'application/json' }
-          });
-
-          // Hide loader
-          loader.classList.add('hidden'); 
-          if (status) status.textContent = '';
-
-          // Show popup feedback
-          showSuccessPopup(formType);
-
-          // Reset form
-          form.reset();
-
-          // Reset stars if it's a review form
-          if (formId === 'form-review') {
-            document.getElementById("rating").value = 0;
-            [...document.getElementById("star-rating").children].forEach(s => s.innerHTML = "&#9734;");
-          }
-
-        } catch (err) {
-          loader.classList.add('hidden');
-          if (status) status.textContent = 'Oops! Something went wrong.';
-        }
-      });
-    });
-
-    document.querySelectorAll('.faq-toggle').forEach(button => {
-      button.addEventListener('click', () => {
-        const content = button.nextElementSibling;
-        const icon = button.querySelector('svg');
-
-        content.classList.toggle('hidden');
-        icon.classList.toggle('rotate-180');
-      });
-    });
-
-    function toggleFAQ(button) {
-      const content = button.nextElementSibling;
-      const icon = button.querySelector("svg");
-      const isOpen = content.style.maxHeight && content.style.maxHeight !== "0px";
-
-      if (isOpen) {
-        content.style.maxHeight = null;
-        icon.style.transform = "";
+    // toggle
+    function toggleLearn(e) {
+      if (e) e.preventDefault();
+      const isHidden = learnSection.classList.contains('hidden');
+      if (isHidden) {
+        showLearn();
       } else {
-        content.style.maxHeight = content.scrollHeight + "px";
-        icon.style.transform = "rotate(180deg)";
+        hideLearn();
+        // optionally scroll back up to offer
+        const offer = document.getElementById('offer');
+        if (offer) offer.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
     }
 
-    function toggleModal(mode) {
-      document.getElementById('modal').classList.remove('hidden');
-      switchTab(mode);
-    }
+    // wire all links that point to #learn
+    learnLinks.forEach(a => {
+      a.addEventListener('click', toggleLearn);
+    });
 
-    function closeModal() {
-      document.getElementById('modal').classList.add('hidden');
-    }
+    // wire claim button inside learn to existing handler (if any)
+    document.getElementById('claimOfferBtn2')?.addEventListener('click', function (e) {
+      // reuse existing offer claim handler if present
+      const evt = new Event('click', { bubbles: true });
+      document.getElementById('claimOfferBtn')?.dispatchEvent(evt);
+    });
 
-    function switchTab(tab) {
-      const joinForm = document.getElementById('form-join');
-      const queryForm = document.getElementById('form-query');
-      const reviewForm = document.getElementById('form-review');
+    // initialize card styles for animation (hidden state)
+    learnCard.style.opacity = '0';
+    learnCard.style.transform = 'translateY(-10px)';
+  })();
 
-      const tabJoin = document.getElementById('tab-join');
-      const tabQuery = document.getElementById('tab-query');
-      const tabReview = document.getElementById('tab-review');
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
 
-      // Hide all forms
-      joinForm.classList.add('hidden');
-      queryForm.classList.add('hidden');
-      reviewForm.classList.add('hidden');
-
-      // Reset tab styles
-      [tabJoin, tabQuery, tabReview].forEach(tabEl => {
-        tabEl.classList.remove('border-black', 'text-black', 'border-b-2');
-        tabEl.classList.add('text-gray-500');
-      });
-
-      // Show selected form and highlight tab
-      if (tab === 'join') {
-        joinForm.classList.remove('hidden');
-        tabJoin.classList.add('border-black', 'text-black', 'border-b-2');
-      } else if (tab === 'query') {
-        queryForm.classList.remove('hidden');
-        tabQuery.classList.add('border-black', 'text-black', 'border-b-2');
-      } else if (tab === 'review') {
-        reviewForm.classList.remove('hidden');
-        tabReview.classList.add('border-black', 'text-black', 'border-b-2');
-      }
-    }
+  mobileMenuBtn.addEventListener('click', () => {
+    mobileMenu.classList.toggle('hidden');
+  });
   </script>
+</body>
 </html>
