@@ -2,9 +2,83 @@
   const widget = document.getElementById("ai-chatbot-widget");
 
   widget.innerHTML = `
-    <style>
-      /* same styles as before */
-    </style>
+ <style>
+  #chat-bubble {
+    position: fixed; bottom: 25px; right: 25px;
+    width: 60px; height: 60px; border-radius: 50%;
+    background: #6d28d9;
+    display: flex; justify-content: center; 
+    align-items: center; color: white; cursor: pointer;
+    font-size: 26px; box-shadow: 0 3px 15px rgba(0,0,0,0.4);
+    z-index: 9999;
+  }
+
+  #chat-window {
+    position: fixed; bottom: 100px; right: 25px;
+    width: 350px; height: 480px;
+    background: #0f1222;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    box-shadow: 0 3px 25px rgba(0,0,0,0.5);
+    display: none; flex-direction: column;
+    z-index: 9999;
+    color: #e5e7eb;
+  }
+
+  #chat-header {
+    padding: 10px;
+    background: #6d28d9;
+    color: white;
+    border-radius: 12px 12px 0 0;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+
+  #chat-header button {
+    background: rgba(255,255,255,0.2);
+    color: white;
+    border: none; padding: 4px 8px; cursor: pointer;
+    border-radius: 6px; font-size: 12px;
+  }
+
+  #chat-log {
+    flex: 1; overflow-y: auto; padding: 10px;
+    font-size: 14px; line-height: 1.4;
+  }
+
+  #chat-log p strong {
+    color: #a78bfa;
+  }
+
+  #chat-input {
+    display: flex; gap: 8px; padding: 10px;
+  }
+
+  #chat-input input {
+    flex: 1; padding: 10px;
+    border-radius: 6px; border: 1px solid rgba(255,255,255,0.15);
+    background: #1a1c2e;
+    color: white;
+  }
+
+  #chat-input input::placeholder {
+    color: #9ca3af;
+  }
+
+  #chat-input button {
+    padding: 10px 14px;
+    background: #6d28d9;
+    color: white; border: none;
+    border-radius: 6px; cursor: pointer;
+    font-weight: 600;
+  }
+
+  #typing {
+    padding: 5px 12px; font-size: 13px;
+    opacity: 0.7; display: none;
+    color: #c4b5fd;
+  }
+</style>
+
 
     <div id="chat-bubble">💬</div>
 
