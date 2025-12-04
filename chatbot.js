@@ -148,18 +148,35 @@
   }
 
   // ⭐ Detect phone or email
-  function detectContactInfo(text) {
-    const phoneRegex = /(\+?\d{7,15})/;
-    const emailRegex = /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i;
+ function detectContactInfo(text) {
+  // Capture phone numbers in any format
+  const phoneRegex = /(\+?\d[\d\s-]{7,15}\d)/;
 
-    const phoneMatch = text.match(phoneRegex);
-    const emailMatch = text.match(emailRegex);
+  const rawPhone = text.match(phoneRegex);
+  let phone = null;
 
-    return {
-      phone: phoneMatch ? phoneMatch[0] : null,
-      email: emailMatch ? emailMatch[0] : null
-    };
+  if (rawPhone) {
+    // Clean number: remove spaces and dashes
+    const cleaned = rawPhone[0].replace(/\s|-/g, "");
+
+    // Add +91 automatically if missing and number length = 10
+    if (!cleaned.startsWith("+") && cleaned.length === 10) {
+      phone = `+91${cleaned}`;
+    } else {
+      phone = cleaned;
+    }
   }
+
+  // email detection unchanged
+  const emailRegex = /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i;
+  const email = text.match(emailRegex);
+
+  return {
+    phone: phone || null,
+    email: email ? email[0] : null
+  };
+}
+
 
   // ⭐ Updated sendMessage()
   async function sendMessage() {
