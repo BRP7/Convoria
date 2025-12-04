@@ -6,7 +6,7 @@
   #chat-bubble {
     position: fixed; bottom: 25px; right: 25px;
     width: 60px; height: 60px; border-radius: 50%;
-    background: #6d28d9;  /* purple accent */
+    background: #6d28d9;
     display: flex; justify-content: center; 
     align-items: center; color: white; cursor: pointer;
     font-size: 26px; box-shadow: 0 3px 15px rgba(0,0,0,0.4);
@@ -16,18 +16,18 @@
   #chat-window {
     position: fixed; bottom: 100px; right: 25px;
     width: 350px; height: 480px;
-    background: #0f1222; /* your dark background */
+    background: #0f1222;
     border: 1px solid rgba(255,255,255,0.1);
     border-radius: 12px;
     box-shadow: 0 3px 25px rgba(0,0,0,0.5);
     display: none; flex-direction: column;
     z-index: 9999;
-    color: #e5e7eb; /* light gray text */
+    color: #e5e7eb;
   }
 
   #chat-header {
     padding: 10px;
-    background: #6d28d9; /* purple header */
+    background: #6d28d9;
     color: white;
     border-radius: 12px 12px 0 0;
     display: flex; justify-content: space-between; align-items: center;
@@ -46,7 +46,7 @@
   }
 
   #chat-log p strong {
-    color: #a78bfa; /* soft purple for speaker labels */
+    color: #a78bfa;
   }
 
   #chat-input {
@@ -56,7 +56,7 @@
   #chat-input input {
     flex: 1; padding: 10px;
     border-radius: 6px; border: 1px solid rgba(255,255,255,0.15);
-    background: #1a1c2e; /* dark input */
+    background: #1a1c2e;
     color: white;
   }
 
@@ -66,7 +66,7 @@
 
   #chat-input button {
     padding: 10px 14px;
-    background: #6d28d9; /* your purple */
+    background: #6d28d9;
     color: white; border: none;
     border-radius: 6px; cursor: pointer;
     font-weight: 600;
@@ -75,7 +75,7 @@
   #typing {
     padding: 5px 12px; font-size: 13px;
     opacity: 0.7; display: none;
-    color: #c4b5fd; /* light purple */
+    color: #c4b5fd;
   }
 </style>
 
@@ -105,7 +105,7 @@
   const downloadBtn = document.getElementById("download-btn");
 
   let history = [];
-  let rawHistory = []; // for download
+  let rawHistory = [];
 
   bubble.onclick = () => {
     windowBox.style.display = windowBox.style.display === "none" ? "flex" : "none";
@@ -121,11 +121,55 @@
     typing.style.display = state ? "block" : "none";
   }
 
+  // ⭐ Detect and send lead to backend
+  async function sendLeadToServer(name, contact, query) {
+    try {
+      await fetch("https://www.convoria.com/api/lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, contact, query })
+      });
+    } catch (e) {
+      console.error("Failed to send lead:", e);
+    }
+  }
+
+  // ⭐ Detect phone number or email
+  function detectContactInfo(text) {
+    const phoneRegex = /(\+?\d{7,15})/;
+    const emailRegex = /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i;
+
+    const phoneMatch = text.match(phoneRegex);
+    const emailMatch = text.match(emailRegex);
+
+    return {
+      phone: phoneMatch ? phoneMatch[0] : null,
+      email: emailMatch ? emailMatch[0] : null
+    };
+  }
+
+  // ⭐ Updated sendMessage() with lead detection
   async function sendMessage() {
     const message = document.getElementById("msg").value.trim();
     if (!message) return;
 
     addMessage("You", message);
+
+    // LEAD DETECTION
+    const contactInfo = detectContactInfo(message);
+
+    if (contactInfo.phone || contactInfo.email) {
+      const contact = contactInfo.phone || contactInfo.email;
+      const lastQuery = history.length > 0 ? history[history.length - 1].content : "";
+
+      sendLeadToServer("Website User", contact, lastQuery);
+
+      addMessage("Bot", "Thank you! I’ve forwarded your details to our team. They will contact you on WhatsApp soon.");
+      
+      document.getElementById("msg").value = "";
+      return; 
+    }
+
     history.push({ role: "user", content: message });
     document.getElementById("msg").value = "";
 
@@ -147,7 +191,6 @@
 
   sendBtn.onclick = sendMessage;
 
-  // Download chat history
   downloadBtn.onclick = () => {
     const text = rawHistory.join("\n\n");
     const blob = new Blob([text], { type: "text/plain" });
