@@ -1,7 +1,0 @@
-{
-  "name": "convoria",
-  "version": "1.0.0",
-  "dependencies": {
-    "twilio": "^4.20.0"
-  }
-}
