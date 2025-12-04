@@ -6,37 +6,32 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { name, contact, query } = req.body;
+    const { name, contact, query, fullHistory } = req.body;
 
-    if (!contact) {
-      return res.status(400).json({ error: "Contact number is required" });
-    }
-
-    // Initialize Twilio
-    const client = twilio(
-      process.env.TWILIO_SID,
-      process.env.TWILIO_AUTH_TOKEN
-    );
+    const client = twilio(process.env.TWILIO_SID, process.env.TWILIO_AUTH_TOKEN);
 
     const message = `
-New Lead from Convoria 🚀
+🔥 New Lead from Convoria
 
-Name: ${name || "Not provided"}
-Contact: ${contact}
-Query: ${query || "No query provided"}
+👤 Name: ${name}
+📞 Contact: ${contact}
+❓ Query: ${query}
+
+📝 Conversation History:
+${fullHistory}
 
 Sent automatically from your website.
     `;
 
     await client.messages.create({
-      from: process.env.TWILIO_WHATSAPP_NUMBER, // twilio sandbox number
-      to: process.env.YOUR_WHATSAPP_NUMBER,     // your whatsapp number
-      body: message.trim()
+      from: process.env.TWILIO_WHATSAPP_NUMBER,
+      to: process.env.YOUR_WHATSAPP_NUMBER,
+      body: message
     });
 
-    return res.status(200).json({ success: true, message: "Lead sent to WhatsApp!" });
+    return res.status(200).json({ success: true });
   } catch (error) {
-    console.error("Twilio Lead Error:", error);
-    return res.status(500).json({ error: "Failed to send lead to WhatsApp." });
+    console.error(error);
+    return res.status(500).json({ error: "Lead failed" });
   }
 }
