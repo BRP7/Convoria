@@ -1,5 +1,3 @@
-// /api/lead.js
-
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method Not Allowed" });
@@ -12,31 +10,33 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "Contact number is required" });
     }
 
-    const phoneId = process.env.WHATSAPP_PHONE_NUMBER_ID;
-    const token = process.env.WHATSAPP_TOKEN;
-    const yourWhatsapp = process.env.WHATSAPP_NUMBER;
+    // Environment Variables
+    const phoneId = process.env.WHATSAPP_PHONE_NUMBER_ID; // Your test number phone ID
+    const token = process.env.WHATSAPP_TOKEN;            // Permanent token
+    const adminNumber = process.env.WHATSAPP_NUMBER.replace(/\D/g, ""); // YOUR WhatsApp number only
 
-    const leadMessage = `
+    // Format outgoing message to YOU
+    const adminMessage = `
 New Lead from Convoria 🚀
 
 Name: ${name || "Not provided"}
-Contact: ${contact}
+Client WhatsApp: ${contact}
 Query: ${query || "No query provided"}
 
 Conversation History:
 ${history?.join("\n")}
 
 Sent automatically from your website.
-    `;
+    `.trim();
 
-    // WhatsApp Cloud API endpoint
+    // WhatsApp Cloud API endpoint (send message TO YOU only)
     const url = `https://graph.facebook.com/v18.0/${phoneId}/messages`;
 
     const payload = {
       messaging_product: "whatsapp",
-      to: yourWhatsapp.replace("+", ""), // WhatsApp expects no '+'
+      to: adminNumber, // ONLY you receive message
       type: "text",
-      text: { body: leadMessage }
+      text: { body: adminMessage }
     };
 
     const response = await fetch(url, {
@@ -49,13 +49,13 @@ Sent automatically from your website.
     });
 
     const data = await response.json();
-    console.log("WA API Response:", data);
+    console.log("WA Response:", data);
 
     if (data.error) {
       return res.status(500).json({ error: data.error.message });
     }
 
-    return res.status(200).json({ success: true, message: "Lead sent to WhatsApp!" });
+    return res.status(200).json({ success: true, message: "Lead sent to your WhatsApp!" });
 
   } catch (error) {
     console.error("Lead Error:", error);
