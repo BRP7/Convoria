@@ -177,7 +177,7 @@
       const c = detectContactInfo(message);
       if (c.phone || c.email) {
         leadData.contact = c.phone || c.email;
-        addMessage("Bot", "Great! When would you prefer the team to contact you? (Now / Afternoon / Evening)");
+        addMessage("Bot","Great! When would you prefer the team to contact you? (today / tomorrow / or any specific time?)");
         return true;
       }
       return false;
