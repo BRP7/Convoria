@@ -4,7 +4,8 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { name, contact, query, history } = req.body;
+    const { name, contact, query, fullHistory } = req.body;
+
 
     if (!contact) {
       return res.status(400).json({ error: "Contact number is required" });
@@ -24,7 +25,7 @@ Client WhatsApp: ${contact}
 Query: ${query || "No query provided"}
 
 Conversation History:
-${history?.join("\n")}
+${fullHistory || "No history available"}
 
 Sent automatically from your website.
     `.trim();

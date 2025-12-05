@@ -79,7 +79,6 @@
   }
 </style>
 
-
     <div id="chat-bubble">💬</div>
 
     <div id="chat-window">
@@ -108,11 +107,18 @@
   let history = [];
   let rawHistory = [];
 
+  // Lead state
+  let leadData = {
+    contact: null,
+    time: null,
+    name: null,
+    query: null
+  };
+
   bubble.onclick = () => {
     const opening = windowBox.style.display === "none";
     windowBox.style.display = opening ? "flex" : "none";
 
-    // ⭐ FIRST MESSAGE (welcome message)
     if (opening && history.length === 0) {
       addMessage("Bot", "Hi 👋! What kind of automation are you looking for today?");
       history.push({ role: "assistant", content: "Hi 👋! What kind of automation are you looking for today?" });
@@ -129,7 +135,6 @@
     typing.style.display = state ? "block" : "none";
   }
 
-  // ⭐ Send lead to backend WITH FULL HISTORY
   async function sendLeadToServer(name, contact, query, fullHistory) {
     try {
       await fetch("https://www.convoria.com/api/lead", {
@@ -147,64 +152,88 @@
     }
   }
 
-  // ⭐ Detect phone or email
- function detectContactInfo(text) {
-  // Capture phone numbers in any format
-  const phoneRegex = /(\+?\d[\d\s-]{7,15}\d)/;
+  function detectContactInfo(text) {
+    const phoneRegex = /(\+?\d[\d\s-]{7,15}\d)/;
+    const rawPhone = text.match(phoneRegex);
+    let phone = null;
 
-  const rawPhone = text.match(phoneRegex);
-  let phone = null;
-
-  if (rawPhone) {
-    // Clean number: remove spaces and dashes
-    const cleaned = rawPhone[0].replace(/\s|-/g, "");
-
-    // Add +91 automatically if missing and number length = 10
-    if (!cleaned.startsWith("+") && cleaned.length === 10) {
-      phone = `+91${cleaned}`;
-    } else {
-      phone = cleaned;
+    if (rawPhone) {
+      const cleaned = rawPhone[0].replace(/\s|-/g, "");
+      phone = !cleaned.startsWith("+") && cleaned.length === 10 ? `+91${cleaned}` : cleaned;
     }
+
+    const emailRegex = /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i;
+    const email = text.match(emailRegex);
+
+    return {
+      phone: phone || null,
+      email: email ? email[0] : null
+    };
   }
 
-  // email detection unchanged
-  const emailRegex = /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i;
-  const email = text.match(emailRegex);
+  async function processLeadFunnel(message) {
+    // 1️⃣ detect number
+    if (!leadData.contact) {
+      const c = detectContactInfo(message);
+      if (c.phone || c.email) {
+        leadData.contact = c.phone || c.email;
+        addMessage("Bot", "Great! When would you prefer the team to contact you? (Now / Afternoon / Evening)");
+        return true;
+      }
+      return false;
+    }
 
-  return {
-    phone: phone || null,
-    email: email ? email[0] : null
-  };
-}
+    // 2️⃣ detect contact time
+    if (!leadData.time) {
+      const lower = message.toLowerCase();
+      if (["now", "afternoon", "evening"].includes(lower)) {
+        leadData.time = lower;
+        addMessage("Bot", "Perfect! May I know your name?");
+        return true;
+      }
+      addMessage("Bot", "Please choose one: Now, Afternoon, or Evening.");
+      return true;
+    }
 
+    // 3️⃣ capture name
+    if (!leadData.name) {
+      leadData.name = message.trim();
+      addMessage("Bot", "Thanks! Lastly, what specific task or automation would you like help with?");
+      return true;
+    }
 
-  // ⭐ Updated sendMessage()
+    // 4️⃣ capture query → send lead
+    if (!leadData.query) {
+      leadData.query = message.trim();
+
+      await sendLeadToServer(
+        leadData.name,
+        leadData.contact,
+        leadData.query,
+        rawHistory
+      );
+
+      addMessage("Bot", `Everything is set! I've shared your details with the team. They will contact you ${leadData.time}.`);
+
+      leadData = { contact: null, time: null, name: null, query: null };
+      return true;
+    }
+
+    return false;
+  }
+
   async function sendMessage() {
     const message = document.getElementById("msg").value.trim();
     if (!message) return;
 
     addMessage("You", message);
 
-    // ------- LEAD DETECTION -------
-    const contactInfo = detectContactInfo(message);
-
-    if (contactInfo.phone || contactInfo.email) {
-      const contact = contactInfo.phone || contactInfo.email;
-      const lastQuery = history.length > 0 ? history[history.length - 1].content : "";
-
-      await sendLeadToServer(
-        "Website User",
-        contact,
-        lastQuery,
-        rawHistory // ⭐ FULL CHAT HISTORY
-      );
-
-      addMessage("Bot", "Thank you! I've sent your details + conversation history to our team. They'll contact you on WhatsApp soon.");
+    const handled = await processLeadFunnel(message);
+    if (handled) {
       document.getElementById("msg").value = "";
       return;
     }
 
-    // Continue normal AI conversation
     history.push({ role: "user", content: message });
     document.getElementById("msg").value = "";
     showTyping(true);
@@ -216,7 +245,6 @@
     });
 
     const data = await response.json();
-
     showTyping(false);
 
     addMessage("Bot", data.reply);
