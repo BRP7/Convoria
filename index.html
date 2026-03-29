@@ -1,765 +1,865 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-  <title>Convoria – AI Automation Architect | Build Once, Run Forever</title>
-  <meta name="description" content="Convoria builds AI automations that replace repetitive work with reliable, revenue-driving workflows. Build once, run forever." />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            brand: {
-              400: '#8B66FF',
-              500: '#6A3BFF',
-              600: '#572DDB',
-            },
-            gold: '#E6C76E'
-          }
-        }
-      }
-    }
-  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Convoria | Operations Automation</title>
+  <meta
+    name="description"
+    content="Convoria builds structured automation systems so incoming requests, follow-ups, and payment reminders never get missed."
+  />
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
   <style>
+    :root {
+      --bg: #05060a;
+      --bg-soft: #0b0f17;
+      --panel: rgba(14, 18, 28, 0.7);
+      --panel-strong: rgba(18, 22, 34, 0.92);
+      --border: rgba(255, 255, 255, 0.1);
+      --border-strong: rgba(255, 255, 255, 0.16);
+      --text: #f5f7fb;
+      --muted: #9ba3b4;
+      --muted-strong: #c6cedd;
+      --accent: #a56eff;
+      --accent-2: #6b8cff;
+      --accent-soft: rgba(165, 110, 255, 0.18);
+      --success: #7ee7c3;
+      --shadow: 0 24px 80px rgba(3, 6, 18, 0.45);
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --max-width: 1180px;
+      --nav-height: 78px;
+      --grid-line: rgba(255, 255, 255, 0.05);
+      --font-stack: "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    .glass { backdrop-filter: saturate(140%) blur(8px); }
-    .gradient-bg {
-      background: radial-gradient(1000px 600px at 10% -10%, rgba(106,59,255,0.25), transparent),
-                  radial-gradient(900px 500px at 110% -20%, rgba(230,199,110,0.12), transparent);
+    body {
+      margin: 0;
+      font-family: var(--font-stack);
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(128, 74, 255, 0.22), transparent 30%),
+        radial-gradient(circle at 85% 12%, rgba(112, 84, 255, 0.16), transparent 24%),
+        radial-gradient(circle at 50% 100%, rgba(87, 117, 255, 0.12), transparent 32%),
+        linear-gradient(180deg, #06070c 0%, #070a11 35%, #05060a 100%);
+      min-height: 100vh;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--grid-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: linear-gradient(180deg, rgba(255, 255, 255, 0.45), transparent 85%);
+      pointer-events: none;
+      z-index: -1;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    button, input, textarea { font: inherit; }
+    .container { width: min(calc(100% - 2rem), var(--max-width)); margin: 0 auto; }
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(18px);
+      background: rgba(5, 6, 10, 0.65);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .nav-shell {
+      min-height: var(--nav-height);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.9rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      padding: 7px;
+      background: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
+    }
+    .brand-mark img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: inherit;
+      display: block;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.4rem;
+      color: var(--muted-strong);
+      font-size: 0.95rem;
+    }
+    .nav-links a {
+      position: relative;
+      padding: 0.35rem 0;
+      transition: color 180ms ease;
+    }
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -0.1rem;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.9), transparent);
+      transform: scaleX(0.2);
+      transform-origin: center;
+      opacity: 0;
+      transition: opacity 180ms ease, transform 180ms ease;
+    }
+    .nav-links a:hover, .nav-links a:focus-visible { color: var(--text); }
+    .nav-links a:hover::after, .nav-links a:focus-visible::after { opacity: 1; transform: scaleX(1); }
+    .menu-toggle {
+      display: none;
+      width: 46px;
+      height: 46px;
+      padding: 0;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .menu-toggle span, .menu-toggle::before, .menu-toggle::after {
+      content: "";
+      display: block;
+      width: 18px;
+      height: 2px;
+      border-radius: 999px;
+      background: currentColor;
+      transition: transform 180ms ease, opacity 180ms ease;
+    }
+    .menu-toggle span { margin: 4px 0; }
+    .menu-toggle[aria-expanded="true"]::before { transform: translateY(6px) rotate(45deg); }
+    .menu-toggle[aria-expanded="true"] span { opacity: 0; }
+    .menu-toggle[aria-expanded="true"]::after { transform: translateY(-6px) rotate(-45deg); }
+    .button, .button-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      min-height: 52px;
+      padding: 0 1.25rem;
+      border-radius: 999px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
+      cursor: pointer;
+    }
+    .button {
+      color: white;
+      background: linear-gradient(135deg, #a56eff 0%, #7b8bff 100%);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 16px 34px rgba(122, 109, 255, 0.28);
+    }
+    .button-secondary {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+    }
+    .button:hover, .button-secondary:hover, .button:focus-visible, .button-secondary:focus-visible {
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, 0.18);
+      box-shadow: 0 18px 38px rgba(11, 16, 29, 0.32);
+    }
+    main section { padding: 5.5rem 0; }
+    .hero { padding-top: calc(4rem + var(--nav-height)); padding-bottom: 4.5rem; }
+    .hero-layout, .split-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(360px, 1fr);
+      gap: 2.5rem;
+      align-items: center;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.55rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--muted-strong);
+      font-size: 0.85rem;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 0.55rem;
+      height: 0.55rem;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #bc9aff, #8aa7ff);
+      box-shadow: 0 0 0 6px rgba(165, 110, 255, 0.12);
+    }
+    h1, h2, h3, p { margin: 0; }
+    h1 {
+      margin-top: 1.4rem;
+      font-size: clamp(2.6rem, 6vw, 4.65rem);
+      line-height: 1;
+      letter-spacing: -0.06em;
+      max-width: 13ch;
+    }
+    .hero p.lead {
+      margin-top: 1.4rem;
+      max-width: 58ch;
+      color: var(--muted-strong);
+      font-size: 1.08rem;
+    }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 0.9rem; margin-top: 2rem; }
+    .trust-line { margin-top: 1rem; color: var(--muted); font-size: 0.95rem; }
+    .panel, .card, .contact-card, .faq-item, .diagram, .about-card, .service-card, .process-step {
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(22px);
+    }
+    .diagram {
+      border-radius: var(--radius-xl);
+      padding: 1.85rem;
+      position: relative;
+      overflow: hidden;
+      min-height: 420px;
+      border-color: rgba(165, 110, 255, 0.18);
+      box-shadow:
+        0 24px 80px rgba(3, 6, 18, 0.5),
+        0 0 0 1px rgba(165, 110, 255, 0.08),
+        0 0 48px rgba(123, 108, 255, 0.14);
+    }
+    .diagram::before, .diagram::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(12px);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+    .diagram::before { inset: auto auto 24px -30px; width: 170px; height: 170px; background: rgba(165, 110, 255, 0.26); }
+    .diagram::after { inset: -34px -24px auto auto; width: 200px; height: 200px; background: rgba(107, 140, 255, 0.22); }
+    .diagram-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 0.8rem;
+      border-radius: 999px;
+      background: rgba(126, 231, 195, 0.08);
+      border: 1px solid rgba(126, 231, 195, 0.18);
+      color: #cbffee;
+      font-size: 0.85rem;
+    }
+    .status-pill::before {
+      content: "";
+      width: 0.45rem;
+      height: 0.45rem;
+      border-radius: 999px;
+      background: var(--success);
+      box-shadow: 0 0 0 6px rgba(126, 231, 195, 0.12);
+    }
+    .workflow-list { display: grid; gap: 1rem; position: relative; z-index: 1; }
+    .workflow-item {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 0.9rem;
+      align-items: center;
+      padding: 1rem 1rem 1rem 0.95rem;
+      border-radius: 20px;
+      background: rgba(7, 10, 17, 0.74);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transform: translateY(0);
+      transition: transform 220ms ease, border-color 220ms ease, background 220ms ease;
+      animation: floatY 6s ease-in-out infinite;
+    }
+    .workflow-item:nth-child(2) { animation-delay: 0.5s; }
+    .workflow-item:nth-child(3) { animation-delay: 1s; }
+    .workflow-item:nth-child(4) { animation-delay: 1.5s; }
+    .workflow-item:nth-child(5) { animation-delay: 2s; }
+    .workflow-item:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255, 255, 255, 0.16);
+      background: rgba(12, 16, 26, 0.9);
+    }
+    .workflow-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      color: white;
+      font-weight: 800;
+      background: linear-gradient(135deg, rgba(165, 110, 255, 0.85), rgba(107, 140, 255, 0.65));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16);
+    }
+    .workflow-copy strong, .service-card h3, .process-step h3, .contact-card h2, .about-card h2, .faq-intro h2, .section-heading h2 {
+      display: block;
+      letter-spacing: -0.04em;
+    }
+    .workflow-copy span, .section-heading p, .service-card p, .process-step p, .about-card p, .faq-intro p, .contact-copy p { color: var(--muted); }
+    .workflow-meta { color: var(--muted); font-size: 0.85rem; }
+    .section-heading { max-width: 680px; margin-bottom: 2rem; }
+    .section-heading h2, .about-card h2, .contact-card h2, .faq-intro h2 {
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      line-height: 1.02;
+      margin-bottom: 0.9rem;
+    }
+    .section-heading p, .about-card p, .contact-copy p, .faq-intro p { font-size: 1rem; max-width: 62ch; }
+    .cards-grid { display: grid; gap: 1.2rem; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .service-card, .process-step, .about-card, .contact-card, .faq-item {
+      border-radius: var(--radius-lg);
+      padding: 1.4rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 220ms ease, border-color 220ms ease, background 220ms ease;
+    }
+    .service-card::before, .process-step::before, .about-card::before, .contact-card::before, .faq-item::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(165, 110, 255, 0.12), transparent 40%, transparent 60%, rgba(107, 140, 255, 0.08));
+      opacity: 0;
+      transition: opacity 220ms ease;
+      pointer-events: none;
+    }
+    .service-card:hover, .process-step:hover, .about-card:hover, .contact-card:hover, .faq-item:hover {
+      transform: translateY(-6px);
+      border-color: var(--border-strong);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03));
+    }
+    .service-card:hover::before, .process-step:hover::before, .about-card:hover::before, .contact-card:hover::before, .faq-item:hover::before { opacity: 1; }
+    .card-label, .step-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 44px;
+      min-height: 44px;
+      border-radius: 14px;
+      margin-bottom: 1rem;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--muted-strong);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+    .step-number {
+      width: 52px;
+      height: 52px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(165, 110, 255, 0.18), rgba(107, 140, 255, 0.16));
+    }
+    .service-card h3, .process-step h3 { font-size: 1.35rem; margin-bottom: 0.7rem; }
+    .how-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; }
+    .about-card { padding: 2rem; }
+    .about-copy {
+      display: grid;
+      gap: 1.2rem;
+      grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.8fr);
+      align-items: start;
+    }
+    .about-metrics { display: grid; gap: 0.9rem; }
+    .metric {
+      padding: 1rem 1.1rem;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .metric strong { display: block; font-size: 1.3rem; letter-spacing: -0.04em; margin-bottom: 0.2rem; }
+    .faq-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: 1.25rem;
+      align-items: start;
+    }
+    .faq-list { display: grid; gap: 0.85rem; }
+    .faq-item button {
+      width: 100%;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      cursor: pointer;
+      text-align: left;
+    }
+    .faq-item h3 { margin: 0; font-size: 1.05rem; letter-spacing: -0.02em; }
+    .faq-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.03);
+      flex: 0 0 auto;
+      transition: transform 180ms ease, background 180ms ease;
+    }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 220ms ease; }
+    .faq-answer p { padding-top: 0.9rem; color: var(--muted); }
+    .faq-item[data-open="true"] .faq-icon { transform: rotate(45deg); background: rgba(165, 110, 255, 0.12); }
+    .contact-shell {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: 1.25rem;
+      align-items: stretch;
+    }
+    .contact-card { padding: 2rem; }
+    .contact-points { display: grid; gap: 0.9rem; margin-top: 1.4rem; }
+    .contact-point {
+      display: flex;
+      gap: 0.9rem;
+      align-items: flex-start;
+      color: var(--muted-strong);
+    }
+    .contact-point::before {
+      content: "";
+      width: 0.65rem;
+      height: 0.65rem;
+      margin-top: 0.45rem;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #c9a9ff, #87a7ff);
+      box-shadow: 0 0 0 7px rgba(165, 110, 255, 0.08);
+      flex: 0 0 auto;
+    }
+    form { display: grid; gap: 1rem; }
+    .field { display: grid; gap: 0.45rem; }
+    label { font-size: 0.95rem; color: var(--muted-strong); }
+    input, textarea {
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text);
+      padding: 0.95rem 1rem;
+      outline: none;
+      transition: border-color 180ms ease, background 180ms ease, transform 180ms ease;
+    }
+    input::placeholder, textarea::placeholder { color: #7e8798; }
+    input:focus, textarea:focus {
+      border-color: rgba(165, 110, 255, 0.55);
+      background: rgba(255, 255, 255, 0.04);
+      transform: translateY(-1px);
+    }
+    textarea { resize: vertical; min-height: 150px; }
+    .form-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+    .form-note, .form-status, footer p { color: var(--muted); font-size: 0.95rem; }
+    .form-status { min-height: 1.4rem; }
+    footer { padding: 0 0 2rem; }
+    .footer-shell {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: center;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 480ms ease, transform 480ms ease;
+      transition-delay: var(--delay, 0ms);
+    }
+    .reveal.is-visible { opacity: 1; transform: translateY(0); }
+    @keyframes floatY {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-4px); }
+    }
+    @media (max-width: 980px) {
+      .hero-layout, .split-layout, .faq-layout, .contact-shell, .about-copy { grid-template-columns: 1fr; }
+      .cards-grid, .how-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .diagram { min-height: auto; }
+    }
+    @media (max-width: 760px) {
+      :root { --nav-height: 72px; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: calc(100% + 0.65rem);
+        left: 1rem;
+        right: 1rem;
+        padding: 1rem;
+        border-radius: 22px;
+        background: rgba(8, 11, 18, 0.94);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: var(--shadow);
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .nav-links[data-open="true"] { display: flex; }
+      .menu-toggle { display: inline-flex; }
+      .nav-shell > .button { display: none; }
+      .cards-grid, .how-grid, .form-row { grid-template-columns: 1fr; }
+      h1 { max-width: none; }
+      .hero { padding-top: calc(2.5rem + var(--nav-height)); }
+      .service-card, .process-step, .about-card, .contact-card, .faq-item, .diagram { padding: 1.2rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation: none !important;
+        transition-duration: 0.01ms !important;
+        transition-delay: 0ms !important;
+      }
+      .reveal, .reveal.is-visible { opacity: 1; transform: none; }
     }
   </style>
 </head>
-<body class="antialiased gradient-bg bg-slate-950 text-white light:bg-white light:text-slate-900">
-
-  <!-- Header -->
-<header class="sticky top-0 z-50 border-b border-white/10 bg-slate-950/70 light:bg-white/70 glass">
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex h-16 items-center justify-between">
-    <!-- Logo -->
-    <a href="#" class="flex items-center gap-2 font-semibold tracking-tight">
-      <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-white text-white">
-        <img src="black.png" alt="Convoria Logo">
-      </span>
-      <span class="text-lg">Convoria</span>
-    </a>
-
-    <!-- Desktop nav -->
-    <nav class="hidden md:flex items-center gap-6 text-sm text-white/80 light:text-slate-700">
-      <a href="#services" class="hover:text-white light:hover:text-slate-900">Services</a>
-      <a href="#about" class="hover:text-white light:hover:text-slate-900">About</a>
-      <a href="#faq" class="hover:text-white light:hover:text-slate-900">FAQ</a>
-      <a href="#contact" class="hover:text-white light:hover:text-slate-900">Contact</a>
-    </nav>
-
-    <!-- CTA + Mobile toggle -->
-    <div class="flex items-center gap-2">
-      <a href="#contact" class="hidden sm:inline-flex items-center rounded-2xl bg-brand-500 px-4 py-2 text-sm font-semibold hover:bg-brand-600">Book a Free Call</a>
-
-      <!-- Mobile menu button -->
-      <button id="mobileMenuBtn" class="inline-flex md:hidden items-center justify-center rounded-2xl border border-white/15 p-2 text-white/80 hover:text-white focus:outline-none">
-        <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-      </button>
-    </div>
-  </div>
-
-  <!-- Mobile menu -->
-  <nav id="mobileMenu" class="md:hidden hidden px-4 pb-4 space-y-2 text-sm text-white/80 light:text-slate-700">
-    <a href="#services" class="block hover:text-white light:hover:text-slate-900">Services</a>
-    <a href="#about" class="hover:text-white light:hover:text-slate-900">About</a>
-    <a href="#faq" class="block hover:text-white light:hover:text-slate-900">FAQ</a>
-    <a href="#contact" class="block hover:text-white light:hover:text-slate-900">Contact</a>
-    <!-- <a href="#contact" class="block rounded-2xl bg-brand-500 px-4 py-2 text-center font-semibold hover:bg-brand-600">Book a Free Call</a> -->
-  </nav>
-</header>
-
-
-
-  <!-- Hero -->
-  <section class="relative overflow-hidden">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-20 pb-16">
-      <div class="grid items-center gap-10 md:grid-cols-2">
-        <div>
-            <p class="mb-3 inline-flex items-center gap-2 rounded-full border border-white/10 px-3 py-1 text-xs text-white/70">
-            <span class="h-2 w-2 rounded-full bg-emerald-400"></span> AI Automation Architect
-          </p>
-          <h1 id="heroHeadline" class="text-4xl font-black tracking-tight sm:text-5xl">
-            Build once. <span class="text-brand-400">Run forever.</span>
-          </h1>
-          <p class="mt-4 text-white/80 light:text-slate-700">
-            We audit your workflows and show you the fastest, lowest-cost automations your business can launch next.
-          </p>
-          <ul class="mt-6 grid gap-2 text-white/80 light:text-slate-700">
-            <!-- <li class="flex items-start gap-3"><span class="mt-1 h-2.5 w-2.5 rounded-full bg-gold"></span> Automations that follow up with leads and unpaid invoices automatically.</li>
-            <li class="flex items-start gap-3"><span class="mt-1 h-2.5 w-2.5 rounded-full bg-gold"></span> Streamlined onboarding and intake processes for clients or events.</li> -->
-            <!-- <li class="flex items-start  gap-3"><span class="mt-1 h-2.5 w-2.5 rounded-full bg-gold"></span> Custom workflows tailored to your business needs.</li> -->
-          </ul>
-          <!-- <div class="mt-8">
-            <a href="#contact" class="inline-flex items-center rounded-2xl bg-brand-500 px-6 py-3 font-semibold hover:bg-brand-600">Book a Free Call</a>
-          </div> -->
-
-          <!-- Compact CTA + Offer pill (place inside hero, after bullets) -->
-          <div class="mt-4">
-            <div class="flex items-center gap-3">
-              <!-- Primary CTA (compact) -->
-              <a href="#contact"
-                class="inline-flex items-center rounded-2xl bg-gradient-to-r from-brand-500 to-brand-400 px-5 py-2.5 text-sm font-semibold text-white shadow-md hover:scale-105 transition-transform duration-150"
-                aria-label="Book a Free Call">
-                Book a Free Call
-                <br>(Free Automation Audit Included)
-              </a>
-
-              <!-- Offer pill (smaller, clickable) -->
-              <!-- <a href="#contact"
-                class="inline-flex items-center rounded-full border border-emerald-500 bg-emerald-500/10 text-emerald-300 text-xs px-3 py-1.5 font-medium hover:bg-emerald-500/20 transition-colors"
-                aria-label="Limited offer - first 5 clients">
-                🚀 First 5: Setup & 30 days free
-              </a> -->
-            </div>
-
-            <!-- Small supporting copy -->
-            <!-- <p class="mt-2 text-sm text-white/70 light:text-slate-300">
-              After trial: <span class="font-semibold text-white">$999 setup</span>. Limited to first 5 signups.
-            </p> -->
-          </div>
-
-          <!-- <p class="mt-3 text-xs text-white/60 light:text-slate-500">Under 60 seconds to get started.</p> -->
-        </div>
-        <div class="relative">
-          <div class="rounded-3xl border border-white/10 bg-white/5 light:bg-slate-100 p-2 shadow-2xl">
-            <div class="rounded-2xl bg-slate-950 light:bg-white p-6">
-              <!-- <div class="mb-4 flex items-center justify-between text-xs text-white/60 light:text-slate-500">
-                <span>Automation Preview</span>
-                <span class="inline-flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-emerald-400"></span> Live</span>
-              </div> -->
-              <!-- <div class="grid grid-cols-3 gap-4 text-sm"> -->
-                <!-- <div class="rounded-xl border border-white/10 bg-white/5 light:bg-slate-100 p-4 text-center">Trigger<br><span class="text-white/60 light:text-slate-600">New lead</span></div>
-                <div class="rounded-xl border border-white/10 bg-white/5 light:bg-slate-100 p-4 text-center">Router<br><span class="text-white/60 light:text-slate-600">Owner/Queue</span></div>
-                <div class="rounded-xl border border-white/10 bg-white/5 light:bg-slate-100 p-4 text-center">CRM<br><span class="text-white/60 light:text-slate-600">Update deal</span></div> -->
-              
-             <div class="grid grid-cols-3 gap-4">
-                <div class="rounded-xl border border-white/10 bg-white/5 p-4 text-center text-sm">Trigger<br><span class="text-white/60">New Lead / Invoice </span></div>
-                <div class="rounded-xl border border-white/10 bg-white/5 p-4 text-center text-sm">Process<br><span class="text-white/60">Classify & Route</span></div>
-                <div class="rounded-xl border border-white/10 bg-white/5 p-4 text-center text-sm">Act<br><span class="text-white/60">Follow-up / Outreach</span></div>
-                <div class="col-span-2 rounded-xl border border-white/10 bg-white/5 p-4 text-center text-sm">Notify<br><span class="text-white/60">Alerts & Updates</span></div>
-                <div class="rounded-xl border border-white/10 bg-white/5 p-4 text-center text-sm">Record<br><span class="text-white/60">CRM / Sheets Sync</span></div>
-              </div>
-                <!-- </div> -->
-              <!-- <button id="simulateBtn" class="mt-6 w-full rounded-xl bg-brand-500 px-4 py-2 text-sm font-semibold hover:bg-brand-600">Simulate Workflow</button> -->
-              <p id="simResult" class="mt-3 text-xs text-emerald-300/90 hidden">Lead routed in 0.9s • Reply sent • Deal stage updated</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-<!-- Offer Section: Free Automation Audit -->
-<section id="offer" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
-  <div class="rounded-3xl border border-white/10 bg-white/5 light:bg-white p-4 sm:p-6 flex flex-col md:flex-row items-center md:items-center justify-between gap-4">
-
-    <!-- PRICE BLOCK -->
-    <div class="min-w-0">
-
-      <!-- Mobile stacked -->
-      <div class="flex flex-col items-center md:hidden text-center">
-        <div class="text-sm text-white/70 light:text-slate-600">Automation Audit</div>
-
-        <div class="mt-2">
-          <!-- Free: brand gradient text -->
-          <div class="text-2xl sm:text-3xl font-extrabold leading-none bg-gradient-to-r from-brand-400 to-brand-500 bg-clip-text text-transparent">
-            Free
-          </div>
-
-          <!-- Gold badge -->
-          <div class="mt-2 inline-flex items-center rounded-full bg-gold/10 text-gold text-xs px-2 py-1 light:bg-gold/20 light:text-gold">
-            Limited slots — founders only
-          </div>
-        </div>
-      </div>
-
-      <!-- Desktop inline -->
-      <div class="hidden md:flex items-center gap-4 text-left">
-        <div class="text-sm text-white/70 light:text-slate-600">Automation Audit</div>
-
-        <div class="flex items-baseline gap-4 min-w-0">
-          <!-- Free: brand gradient -->
-          <span class="text-3xl font-extrabold leading-none bg-gradient-to-r from-brand-400 to-brand-500 bg-clip-text text-transparent">
-            Free
-          </span>
-
-          <!-- Badge -->
-          <span class="inline-flex items-center h-6 rounded-full bg-gold/10 text-gold text-xs px-2 py-0.5 light:bg-gold/20 light:text-gold">
-            Limited slots — founders only
-          </span>
-        </div>
-      </div>
-    </div>
-
-    <!-- MESSAGE -->
-    <div class="flex-1 text-sm text-white/70 light:text-slate-600 px-1 md:px-6 text-center md:text-left">
-      Get a deep-dive automation audit of your workflows, bottlenecks, and opportunities — <b>free for a limited time.</b>
-    </div>
-
-    <!-- CTA -->
-    <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full md:w-auto">
-      <button
-        id="claimOfferBtn"
-        class="w-full md:w-auto inline-flex justify-center items-center rounded-2xl bg-gradient-to-r from-brand-500 to-brand-400 px-4 py-2 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(106,59,255,0.12)] hover:scale-105 transition-transform duration-150"
-        aria-label="Claim free automation audit">
-        Claim Free Audit
-      </button>
-
-      <a href="#learn"
-        class="hidden md:inline-flex items-center text-sm font-medium text-white/80 light:text-slate-700 hover:underline px-3 py-2">
-        Learn more
+<body>
+  <header class="site-header">
+    <div class="container nav-shell">
+      <a class="brand" href="#top" aria-label="Convoria home">
+        <span class="brand-mark" aria-hidden="true">
+          <img src="black.png" alt="" />
+        </span>
+        <span>Convoria</span>
       </a>
-
-      <a href="#learn" class="md:hidden mt-1 text-xs text-white/70 text-center hover:underline">Learn more</a>
+      <nav class="nav-links" id="navLinks" aria-label="Primary navigation">
+        <a href="#services">Services</a>
+        <a href="#how-it-works">How it Works</a>
+        <a href="#about">About</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <a class="button" href="#contact">Book Free Audit</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="navLinks">
+        <span></span>
+      </button>
     </div>
+  </header>
 
-  </div>
-</section>
-
-
-  <!-- Learn More (hidden by default) -->
-  <section id="learn" class="hidden mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-0" aria-hidden="true">
-    <div class="rounded-3xl border border-white/10 bg-white/5 light:bg-white p-6 sm:p-8 opacity-0 transform -translate-y-3">
-      <div class="grid gap-8 md:grid-cols-2 items-start">
-        <!-- Left column: header + CTA -->
-        <div class="md:col-span-1">
-        <h2 class="text-2xl font-bold tracking-tight">Learn More — Beta Offer</h2>
-          <p class="mt-3 text-sm text-white/70 light:text-slate-600">
-            We’re in the starting phase and want to improve our system by working with real clients and solving real problems. 
-            For the first 5 beta clients, the original setup fee of <span class="font-semibold text-white">Rs.5000</span> is completely waived. 
-            You get a <span class="font-semibold text-white">30-day free trial</span> — cancel anytime, no credit card required. 
-            After the trial, if you choose to continue using the system, it’s just <span class="font-semibold text-white">$99/month</span>. 
-            This offer is in exchange for your valuable feedback to help us improve the product.
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-layout">
+        <div class="reveal">
+          <span class="eyebrow">Operations Automation</span>
+          <h1>Nothing gets missed &mdash;<br />from incoming requests<br />to final payment.</h1>
+          <p class="lead">
+            We turn emails, leads, and tasks into structured workflows so follow-ups happen and payments don't get delayed, without manual tracking.
           </p>
-          <!-- <ul class="mt-3 space-y-2 text-sm text-white/70 light:text-slate-600">
-            <li>• The original $999 setup (waived for first 5 clients)</li>
-            <li>• Free 30-day trial, cancel anytime, no credit card</li>
-            <li>• After-trial pricing is just $99/month</li>
-            <li>• Offer in exchange for real feedback to improve your system</li>
-            <li>• 1 weeks hypercare and QA</li>
-          </ul> -->
+          <div class="hero-actions">
+            <a class="button" href="#contact">Book Free Audit</a>
+            <a class="button-secondary" href="#services">See Services</a>
+          </div>
+          <p class="trust-line">No complex setup &middot; Works with your existing tools</p>
+        </div>
+        <aside class="diagram reveal" style="--delay: 120ms;">
+          <div class="diagram-top">
+            <span>Workflow visibility</span>
+            <span class="status-pill">Automation active</span>
+          </div>
+          <div class="workflow-list" aria-label="Workflow diagram">
+            <div class="workflow-item">
+              <span class="workflow-icon">1</span>
+              <div class="workflow-copy"><strong>Incoming</strong><span>New lead, email, form, or invoice arrives.</span></div>
+              <span class="workflow-meta">Captured</span>
+            </div>
+            <div class="workflow-item">
+              <span class="workflow-icon">2</span>
+              <div class="workflow-copy"><strong>Process</strong><span>Rules sort, enrich, and assign the next step.</span></div>
+              <span class="workflow-meta">Structured</span>
+            </div>
+            <div class="workflow-item">
+              <span class="workflow-icon">3</span>
+              <div class="workflow-copy"><strong>Action</strong><span>Tasks, replies, reminders, or updates fire instantly.</span></div>
+              <span class="workflow-meta">Triggered</span>
+            </div>
+            <div class="workflow-item">
+              <span class="workflow-icon">4</span>
+              <div class="workflow-copy"><strong>Notify</strong><span>Your team sees what matters without chasing inboxes.</span></div>
+              <span class="workflow-meta">Visible</span>
+            </div>
+            <div class="workflow-item">
+              <span class="workflow-icon">5</span>
+              <div class="workflow-copy"><strong>Track</strong><span>Every follow-up and payment status stays accountable.</span></div>
+              <span class="workflow-meta">Recorded</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
 
-          
+    <section id="services">
+      <div class="container">
+        <div class="section-heading reveal">
+          <h2>Core automation systems that keep operations moving.</h2>
+          <p>Convoria is built for businesses that already have demand and don't want revenue or customer communication slipping through the cracks.</p>
+        </div>
+        <div class="cards-grid">
+          <article class="service-card reveal" style="--delay: 60ms;"><span class="card-label">01</span><h3>Incoming -> Task</h3><p>We convert inbound emails, forms, and requests into clean tasks with ownership, deadlines, and the right context attached.</p></article>
+          <article class="service-card reveal" style="--delay: 140ms;"><span class="card-label">02</span><h3>Follow-ups</h3><p>We automate the next touchpoint so prospects, clients, and team members get timely follow-ups without relying on memory.</p></article>
+          <article class="service-card reveal" style="--delay: 220ms;"><span class="card-label">03</span><h3>Payment Reminders</h3><p>We trigger polite reminders, status checks, and escalation rules to reduce late payments and keep cash flow predictable.</p></article>
+        </div>
+      </div>
+    </section>
 
-          <div class="mt-6 flex gap-3">
-            <button id="claimOfferBtn2" class="inline-flex items-center rounded-2xl bg-gradient-to-r from-brand-500 to-brand-400 px-4 py-2 text-sm font-semibold text-white shadow-md hover:scale-105 transition-transform duration-150">
-              Claim Free Trial
+    <section id="how-it-works">
+      <div class="container">
+        <div class="section-heading reveal">
+          <h2>How it works</h2>
+          <p>We keep the process lean: map what matters, automate the handoffs, and give your team a system they can trust every day.</p>
+        </div>
+        <div class="how-grid">
+          <article class="process-step reveal" style="--delay: 40ms;"><span class="step-number">1</span><h3>Audit</h3><p>We review your current requests, inbox flow, task handling, and payment process to spot missed steps and delay points.</p></article>
+          <article class="process-step reveal" style="--delay: 120ms;"><span class="step-number">2</span><h3>Design</h3><p>We define the workflow logic, ownership rules, automations, and alerts that fit your existing tools and operating rhythm.</p></article>
+          <article class="process-step reveal" style="--delay: 200ms;"><span class="step-number">3</span><h3>Launch</h3><p>We implement the workflow with lightweight automation and clean interfaces, so there's no heavy platform migration.</p></article>
+          <article class="process-step reveal" style="--delay: 280ms;"><span class="step-number">4</span><h3>Refine</h3><p>We monitor outcomes, tighten edge cases, and make sure your team sees exactly what happened and what comes next.</p></article>
+        </div>
+      </div>
+    </section>
+    <section id="about">
+      <div class="container">
+        <article class="about-card reveal">
+          <div class="about-copy">
+            <div>
+              <h2>Built for teams that want reliability, not more admin.</h2>
+              <p>Convoria helps businesses create calm, structured operations behind the scenes. Instead of relying on scattered inboxes, memory, or manual follow-up, we design automation that captures requests, pushes the right action forward, and keeps payments visible until they're closed.</p>
+            </div>
+            <div class="about-metrics">
+              <div class="metric"><strong>Faster response flow</strong><span class="workflow-copy"><span>Reduce lag between incoming work and the first action.</span></span></div>
+              <div class="metric"><strong>Clear accountability</strong><span class="workflow-copy"><span>Every request gets an owner, status, and next step.</span></span></div>
+              <div class="metric"><strong>Less manual tracking</strong><span class="workflow-copy"><span>Your team spends less time checking, chasing, and reminding.</span></span></div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="container faq-layout">
+        <div class="faq-intro reveal">
+          <h2>Questions teams usually ask first.</h2>
+          <p>The goal is simple: make the system dependable without making your setup complicated.</p>
+        </div>
+        <div class="faq-list">
+          <article class="faq-item reveal" data-open="true" style="--delay: 60ms;">
+            <button type="button" class="faq-trigger" aria-expanded="true">
+              <h3>Will this work with the tools we already use?</h3>
+              <span class="faq-icon" aria-hidden="true">+</span>
             </button>
-            <!-- <a href="#contact" class="inline-flex items-center rounded-2xl border border-white/10 px-4 py-2 text-sm text-white/80 hover:text-white">Book a Call</a> -->
-          </div>
-
-          <p class="mt-3 text-xs text-white/60 light:text-slate-500">No credit card required. Limited to the first 5 signups.</p>
-
-
-                      <!-- Small footer for the section -->
-      <div class="mt-8 text-sm text-white/60 light:text-slate-600">
-        <strong>Questions?</strong> Email <a class="underline hover:text-white" href="mailto:convoria@gmail.com">convoria@gmail.com</a> or <a class="underline hover:text-white" href="#contact">book a call</a>.
-      </div>
-        </div>
-
-        <!-- Middle column: what's included -->
-        <!-- <div class="md:col-span-1">
-          <h3 class="text-lg font-semibold">What's included</h3>
-          <ul class="mt-3 space-y-2 text-sm text-white/70 light:text-slate-600">
-            <li>• The original $999 setup (waived for first 5 clients)</li>
-            <li>• Free 30-day trial, cancel anytime, no credit card</li>
-            <li>• After-trial pricing is just $99/month</li>
-            <li>• Offer in exchange for real feedback to improve your system</li>
-            <li>• 1 weeks hypercare and QA</li>
-          </ul>
-        </div> -->
-
-        <!-- Right column: timeline, eligibility, terms -->
-        <div class="md:col-span-1">
-          <h3 class="text-lg font-semibold">Timeline & terms</h3>
-          <div class="mt-3 space-y-2 text-sm text-white/70 light:text-slate-600">
-            <div><strong>Timeline:</strong> Most automations launch in <span class="font-semibold">1-2 weeks</span> depending on integrations.</div>
-            <div><strong>Eligibility:</strong> Offer limited to the first <span class="font-semibold">5</span> customers.</div>
-            <div><strong>After trial:</strong> Setup fee returns to <span class="font-semibold">Rs.5000</span>.</div>
-            <div><strong>Cancel:</strong> You can cancel anytime — we’ll assist with transfer/export of configs.</div>
-          </div>
-
-          <h4 class="mt-6 text-sm font-semibold">Next steps</h4>
-          <ol class="mt-2 text-sm text-white/70 light:text-slate-600 list-decimal list-inside space-y-1">
-            <li>Book a free call or hit “Claim Free Trial”.</li>
-            <li>We run a 15–30 min discovery call and confirm scope.</li>
-            <li>We start the build — you review & approve in the first 48–72 hours.</li>
-          </ol>
-
-
+            <div class="faq-answer"><p>Yes. Convoria is designed around your existing email, forms, CRM, spreadsheets, and payment workflow so you don't need a heavy rebuild to get results.</p></div>
+          </article>
+          <article class="faq-item reveal" data-open="false" style="--delay: 140ms;">
+            <button type="button" class="faq-trigger" aria-expanded="false">
+              <h3>How long does it take to get started?</h3>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer"><p>Most engagements start with a focused audit, then we prioritize the highest-impact workflow so you can launch quickly instead of waiting on a massive implementation.</p></div>
+          </article>
+          <article class="faq-item reveal" data-open="false" style="--delay: 220ms;">
+            <button type="button" class="faq-trigger" aria-expanded="false">
+              <h3>What kinds of businesses is this best for?</h3>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer"><p>It's best for service teams, agencies, operators, and growing businesses that handle recurring requests, follow-ups, or invoicing and want a more dependable operating system.</p></div>
+          </article>
         </div>
       </div>
+    </section>
 
-
-  </section>
-
-  <!-- CTA
-  <div class="text-center mt-12">
-    <a href="#contact" class="inline-block bg-brand-500 text-white font-semibold px-8 py-3 rounded-3xl shadow hover:bg-brand-600 transition">
-      Get a Free Workflow Assessment →
-    </a>
-  </div>
-</section> -->
-
-
-  <!-- Services -->
-  <section id="services" class="border-t border-white/10 bg-slate-950/40 light:bg-slate-50">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
-      <h2 class="text-2xl font-bold tracking-tight">What we automate</h2>
-      <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        <article class="rounded-3xl border border-white/10 bg-white/5 light:bg-white p-6">
-          <h3 class="font-semibold">Lead Response</h3>
-          <p class="mt-2 text-sm text-white/70 light:text-slate-600">Route hot leads and trigger outreach in seconds.</p>
+    <section id="contact">
+      <div class="container contact-shell">
+        <article class="contact-card reveal contact-copy">
+          <h2>Book a free audit.</h2>
+          <p>Tell us where requests or payments tend to slip, and we'll help map the first automation that gives your team the most relief.</p>
+          <div class="contact-points">
+            <div class="contact-point">Request handling that moves from inbox to action without manual chasing.</div>
+            <div class="contact-point">Follow-up systems that keep prospects and clients progressing automatically.</div>
+            <div class="contact-point">Payment visibility so reminders happen on time and revenue doesn't stall.</div>
+          </div>
         </article>
-        <article class="rounded-3xl border border-white/10 bg-white/5 light:bg-white p-6">
-          <h3 class="font-semibold">Invoices</h3>
-          <p class="mt-2 text-sm text-white/70 light:text-slate-600">Automated reminders and reporting, no manual follow-up.</p>
-        </article>
-        <article class="rounded-3xl border border-white/10 bg-white/5 light:bg-white p-6">
-          <h3 class="font-semibold">Onboarding</h3>
-          <p class="mt-2 text-sm text-white/70 light:text-slate-600">Checklists and syncs that run in the background.</p>
+        <article class="contact-card reveal" style="--delay: 120ms;">
+          <h2>Send a message</h2>
+          <form id="contactForm">
+            <input id="requestType" name="requestType" type="hidden" value="booking" />
+            <div class="form-row">
+              <div class="field">
+                <label for="name">Name</label>
+                <input id="name" name="name" type="text" placeholder="Your name" required />
+              </div>
+              <div class="field">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" placeholder="you@company.com" required />
+              </div>
+            </div>
+            <div class="field">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" placeholder="Tell us what's currently getting missed."></textarea>
+            </div>
+            <button class="button" type="submit">Book Free Audit</button>
+            <p class="form-note">Tell us what is getting missed and we will review it with you.</p>
+            <p class="form-status" id="formMsg" aria-live="polite"></p>
+          </form>
         </article>
       </div>
-    </div>
-  </section>
+    </section>
+  </main>
 
-
-    <!-- About Us -->
-  <section id="about" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20">
-    <div class="grid md:grid-cols-2 gap-12 items-center">
-      <!-- Left: Text -->
-      <div>
-        <h2 class="text-3xl font-bold tracking-tight mb-4">
-          About <span class="text-brand-400">Convoria</span>
-        </h2>
-        <p class="text-white/80 light:text-slate-700 leading-relaxed mb-6">
-          At Convoria, we help businesses escape the cycle of repetitive tasks by designing powerful AI-driven automation systems. 
-          Our philosophy is simple: build once, run forever. That means setting up workflows that work reliably in the background, 
-          freeing your team to focus on the high-value, creative work only humans can do.
-        </p>
-
-        <p class="text-white/80 light:text-slate-700 leading-relaxed mb-6">
-          We believe automation should amplify human potential, not replace it. 
-          That’s why we craft each system carefully to integrate with your existing tools, scale with your growth, and stay transparent 
-          so you’re always in control.
-        </p>
-
-        <ul class="space-y-2 text-white/80 light:text-slate-700">
-          <li class="flex items-start gap-3">
-            <span class="mt-1 h-2.5 w-2.5 rounded-full bg-gold"></span>
-            Trusted partner for high-growth startups & service brands
-          </li>
-          <li class="flex items-start gap-3">
-            <span class="mt-1 h-2.5 w-2.5 rounded-full bg-gold"></span>
-            No-code and low-code solutions for faster results
-          </li>
-          <li class="flex items-start gap-3">
-            <span class="mt-1 h-2.5 w-2.5 rounded-full bg-gold"></span>
-            Transparent systems you can monitor & improve anytime
-          </li>
-        </ul>
-      </div>
-
-      <!-- Right: Visual card -->
-      <div class="rounded-3xl border border-white/10 bg-white/5 light:bg-slate-100 p-8 shadow-xl">
-        <h3 class="text-xl font-semibold mb-4">Our Mission</h3>
-        <p class="text-white/70 light:text-slate-600 leading-relaxed">
-          To eliminate bottlenecks and manual grunt work from your operations, 
-          empowering your business to scale faster, serve more customers, 
-          and grow revenue without increasing headcount.
-        </p>
-        <div class="mt-6 border-t border-white/10 pt-6">
-          <h4 class="text-lg font-semibold mb-2">Core Values</h4>
-          <ul class="space-y-2 text-white/70 light:text-slate-600 text-sm">
-            <li>• Simplicity over complexity</li>
-            <li>• Long-term reliability over quick fixes</li>
-            <li>• Human-centered automation design</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section id="faq" class="border-t border-white/10 bg-slate-950/40 light:bg-slate-50">
-    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-16">
-      <h2 class="text-2xl font-bold tracking-tight">Frequently Asked Questions</h2>
-      <div class="mt-10 space-y-4">
-        <!-- FAQ Item -->
-        <details class="group rounded-2xl border border-white/10 bg-white/5 light:bg-white p-4">
-          <summary class="flex cursor-pointer items-center justify-between text-sm font-semibold text-white/80 light:text-slate-700">
-            How quickly can I set up an automation?
-            <span class="ml-2 transition-transform duration-200 group-open:rotate-45">+</span>
-          </summary>
-          <p class="mt-2 text-sm text-white/70 light:text-slate-600">
-              Most automations can be up and running in under 1-2 weeks, depending on complexity.
-          </p>
-        </details>
-
-        <details class="group rounded-2xl border border-white/10 bg-white/5 light:bg-white p-4">
-          <summary class="flex cursor-pointer items-center justify-between text-sm font-semibold text-white/80 light:text-slate-700">
-            Do I have to pay for the apps or software used in my automation?
-            <span class="ml-2 transition-transform duration-200 group-open:rotate-45">+</span>
-          </summary>
-          <p class="mt-2 text-sm text-white/70 light:text-slate-600">
-            Yes — any third-party apps, APIs, or software used in your automation (for example ChatGPT API, premium integrations, etc.) are billed separately.  
-            We’ll always let you know in advance which services have additional costs so you can approve them.  
-            If a tool offers a free plan, we’ll use that unless you choose to upgrade.
-          </p>
-        </details>
-
-        <!-- <details class="group rounded-2xl border border-white/10 bg-white/5 light:bg-white p-4">
-          <summary class="flex cursor-pointer items-center justify-between text-sm font-semibold text-white/80 light:text-slate-700">
-            Is the free beta for the first 5 clients still available?
-            <span class="ml-2 transition-transform duration-200 group-open:rotate-45">+</span>
-          </summary>
-          <p class="mt-2 text-sm text-white/70 light:text-slate-600">
-            Yes! If you see the offer mentioned on the site, it means the beta slots are still open and you can claim one of the 5 free spots. Once all slots are filled, the offer will no longer be displayed.
-          </p>
-        </details> -->
-
-      <details class="group rounded-2xl border border-white/10 bg-white/5 light:bg-white p-4">
-          <summary
-              class="flex cursor-pointer items-center justify-between text-sm font-semibold text-white/80 light:text-slate-700">
-              What kind of tasks can your AI automate?
-              <span class="ml-2 transition-transform duration-200 group-open:rotate-45">+</span>
-          </summary>
-          <p class="mt-2 text-sm text-white/70 light:text-slate-600">
-              We automate repetitive, rule-based tasks — anything from invoice follow-ups, lead responses, onboarding
-              workflows, customer intake forms, to cold outreach. Basically, if it’s repetitive, we can automate it! </p>
-      </details>
-
-  <details class="group rounded-2xl border border-white/10 bg-white/5 light:bg-white p-4">
-    <summary class="flex cursor-pointer items-center justify-between text-sm font-semibold text-white/80 light:text-slate-700">
-      Can you automate overdue invoices?
-      <span class="ml-2 transition-transform duration-200 group-open:rotate-45">+</span>
-    </summary>
-    <p class="mt-2 text-sm text-white/70 light:text-slate-600">
-      Yes. We automatically send reminders, follow up on unpaid invoices, and can integrate with your accounting system to streamline collections.
-    </p>
-  </details>
-
-  <!-- FAQ: Lead management -->
-  <details class="group rounded-2xl border border-white/10 bg-white/5 light:bg-white p-4">
-    <summary class="flex cursor-pointer items-center justify-between text-sm font-semibold text-white/80 light:text-slate-700">
-      Can you handle lead generation and cold outreach?
-      <span class="ml-2 transition-transform duration-200 group-open:rotate-45">+</span>
-    </summary>
-    <p class="mt-2 text-sm text-white/70 light:text-slate-600">
-      Yes! We can fetch leads, send personalized cold emails, follow up automatically, and track responses — helping you grow without manual effort.
-    </p>
-  </details>
-
-  <!-- FAQ: Onboarding & intake -->
-  <details class="group rounded-2xl border border-white/10 bg-white/5 light:bg-white p-4">
-    <summary class="flex cursor-pointer items-center justify-between text-sm font-semibold text-white/80 light:text-slate-700">
-      Can you automate client onboarding or intake?
-      <span class="ml-2 transition-transform duration-200 group-open:rotate-45">+</span>
-    </summary>
-    <p class="mt-2 text-sm text-white/70 light:text-slate-600">
-      Yes. We can set up forms, notifications, approvals, and follow-ups — making onboarding seamless for event planners, consultants, or service providers.
-    </p>
-  </details>
-
-        <details class="group rounded-2xl border border-white/10 bg-white/5 light:bg-white p-4">
-          <summary class="flex cursor-pointer items-center justify-between text-sm font-semibold text-white/80 light:text-slate-700">
-            Do I need a developer to maintain these workflows?
-            <span class="ml-2 transition-transform duration-200 group-open:rotate-45">+</span>
-          </summary>
-          <p class="mt-2 text-sm text-white/70 light:text-slate-600">
-            No. Our automations are designed to run reliably on their own with minimal oversight.
-          </p>
-        </details>
-
-        <details class="group rounded-2xl border border-white/10 bg-white/5 light:bg-white p-4">
-          <summary class="flex cursor-pointer items-center justify-between text-sm font-semibold text-white/80 light:text-slate-700">
-            What kind of businesses benefit most?
-            <span class="ml-2 transition-transform duration-200 group-open:rotate-45">+</span>
-          </summary>
-          <p class="mt-2 text-sm text-white/70 light:text-slate-600">
-            Any business with repetitive workflows like lead follow-up, invoicing, or onboarding can benefit immediately.
-          </p>
-        </details>
-
-        <details class="group rounded-2xl border border-white/10 bg-white/5 light:bg-white p-4">
-          <summary class="flex cursor-pointer items-center justify-between text-sm font-semibold text-white/80 light:text-slate-700">
-            Can I customize the automations for my workflow?
-            <span class="ml-2 transition-transform duration-200 group-open:rotate-45">+</span>
-          </summary>
-          <p class="mt-2 text-sm text-white/70 light:text-slate-600">
-            Absolutely. Each automation can be tailored to fit your exact process requirements.
-          </p>
-        </details>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- Contact -->
-  <section id="contact" class="border-t border-white/10">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
-      <div class="rounded-3xl border border-white/10 bg-white/5 p-8 grid gap-8 md:grid-cols-2">
-        <div>
-          <h2 class="text-2xl font-bold tracking-tight">Let’s automate your bottleneck</h2>
-          <p class="mt-2 text-white/70">Tell us your goal. We’ll propose a fast, low‑risk automation you can launch next week.</p>
-          <div class="mt-6 text-sm text-white/70">
-            <!-- <div>Email: <a class="underline hover:text-white" href="mailto:br@convoria.com">br@convoria.com</a></div> -->
-            <div>Site: <a class="underline hover:text-white" href="https://convoria.com" target="_blank" rel="noopener">convoria.com</a></div>
-              <div>
-    IG: 
-    <a class="underline hover:text-white" href="https://instagram.com/convoria.official" target="_blank" rel="noopener">instagram.com/convoria</a>
-  </div>
-  <div>
-    LinkedIn: 
-    <a class="underline hover:text-white" href="https://linkedin.com/company/convoria" target="_blank" rel="noopener">linkedin.com/convoria</a>
-  </div>
-          </div>
-        </div>
-       <form id="contactForm" class="grid gap-3" novalidate>
-  <!-- Tabs -->
-  <div class="flex rounded-xl border border-white/15 bg-slate-950 overflow-hidden">
-    <button type="button" id="tab-booking" class="flex-1 px-4 py-2 text-center font-medium bg-brand-500 text-white">
-      Booking
-    </button>
-    <button type="button" id="tab-query" class="flex-1 px-4 py-2 text-center font-medium hover:bg-brand-600 text-white/70">
-      Query
-    </button>
-  </div>
-  <!-- hidden field to submit which tab -->
-  <input type="hidden" name="formType" id="requestType" value="booking" />
-
-  <div>
-    <label class="text-sm text-white/70">Name</label>
-    <input required name="name" class="mt-1 w-full rounded-xl border border-white/15 bg-slate-950 px-4 py-3 outline-none focus:ring-2 focus:ring-brand-400" placeholder="Your name" />
-  </div>
-
-  <div>
-    <label class="text-sm text-white/70">Email</label>
-    <input required type="email" name="email" class="mt-1 w-full rounded-xl border border-white/15 bg-slate-950 px-4 py-3 outline-none focus:ring-2 focus:ring-brand-400" placeholder="you@company.com" />
-  </div>
-
-  <div>
-    <label class="text-sm text-white/70">What should we automate?</label>
-    <textarea required id="message" name="message" rows="4" class="mt-1 w-full rounded-xl border border-white/15 bg-slate-950 px-4 py-3 outline-none focus:ring-2 focus:ring-brand-400" placeholder="Describe your current workflow, where the bottlenecks happen, and what exactly you’re looking to automate"></textarea>
-  </div>
-
-  <div class="flex items-center justify-between">
-    <button class="rounded-2xl bg-brand-500 px-5 py-3 font-semibold hover:bg-brand-600" type="submit">Send Request</button>
-  </div>
-  <p id="formMsg" class="hidden text-sm"></p>
-</form>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="border-t border-white/10 bg-slate-950/80 light:bg-slate-100">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 text-sm text-white/60 light:text-slate-600 flex justify-center items-center">
-      ©&nbsp;<span id="year"></span>&nbsp;Convoria. All rights reserved.
+  <footer>
+    <div class="container footer-shell">
+      <p>Convoria</p>
+      <p>Operations automation for teams that don't want anything missed.</p>
     </div>
   </footer>
 
+  <div id="ai-chatbot-widget"></div>
+  <script src="chatbot.js"></script>
 
-  <script defer>
-        const $ = (s, el=document) => el.querySelector(s);
+  <script>
+    (function () {
+      const $ = function (selector, root) {
+        return (root || document).querySelector(selector);
+      };
+      const menuToggle = document.getElementById("menuToggle");
+      const navLinks = document.getElementById("navLinks");
+      const navAnchors = navLinks.querySelectorAll("a");
 
-    // Year
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Hero demo simulate
-    // document.getElementById('simulateBtn').addEventListener('click', () => {
-    //   const p = document.getElementById('simResult');
-    //   p.classList.remove('hidden');
-    //   p.textContent = 'Lead routed in ' + (0.7 + Math.random()*0.6).toFixed(1) + 's • Reply sent • Deal updated';
-    // });
-// Shortcut for querySelector
-// const $ = (selector) => document.querySelector(selector);
-
-// Contact form submission
-$('#contactForm').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const form = e.currentTarget;
-  const msg = $('#formMsg');
-
-  // Gather form data
-  const data = Object.fromEntries(new FormData(form).entries());
-  // data.formType = 'Book Slot';
-
-  // Minimal validation
-  if (!data.name || !data.email || !data.message) {
-    msg.className = 'text-sm text-amber-400';
-    msg.textContent = 'Fill all fields to send.';
-    msg.classList.remove('hidden');
-    return;
-  }
-
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(data.email)) {
-    msg.className = 'text-sm text-amber-400';
-    msg.textContent = 'Please enter a valid email address.';
-    msg.classList.remove('hidden');
-    return;
-  }
-
-  // Show success message and reset form
-  msg.className = 'text-sm text-emerald-400';
-  msg.textContent = 'Thanks! Your request is queued. We will reply within 24 hours.';
-  msg.classList.remove('hidden');
-  form.reset();
-
-  // Analytics hook
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({ event: 'lead_submit', payload: data });
-  console.log('Analytics event', { event: 'lead_submit', payload: data });
-
-  // Send data to Google Sheet via Apps Script
-  try {
-    await fetch(
-            'https://script.google.com/macros/s/AKfycbz_ITaPNbVxKQNZx4xJBAHKnJB1LjVSfjsOAzDD9NIdsScH1lKOmTM1py-PmfRWKNISzg/exec',
-      {
-        method: 'POST',
-        mode: 'no-cors', // required for Apps Script POST without CORS errors
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      }
-    );
-    console.log('Form data sent to Google Sheet.');
-  } catch (err) {
-    console.error('Error sending to Google Sheet:', err);
-  }
-});
-
-
- const tabBooking = document.getElementById('tab-booking');
-  const tabQuery = document.getElementById('tab-query');
-  const requestTypeInput = document.getElementById('requestType');
-  const message = document.getElementById('message');
-
-  function activateTab(type) {
-    if (type === 'booking') {
-      tabBooking.classList.add('bg-brand-500', 'text-white');
-      tabQuery.classList.remove('bg-brand-500', 'text-white');
-      tabQuery.classList.add('text-white/70');
-      requestTypeInput.value = 'booking';
-      message.placeholder = 'Describe your current workflow, where the bottlenecks happen, and what exactly you’re looking to automate';
-    } else {
-      tabQuery.classList.add('bg-brand-500', 'text-white');
-      tabBooking.classList.remove('bg-brand-500', 'text-white');
-      tabBooking.classList.add('text-white/70');
-      requestTypeInput.value = 'query';
-      message.placeholder = 'Describe the question or workflow you want answered/automated';
-    }
-  }
-
-  tabBooking.addEventListener('click', () => activateTab('booking'));
-  tabQuery.addEventListener('click', () => activateTab('query'));
-
-    
-  // Offer CTA behaviour: scroll to contact, focus first input, push analytics event
-  document.getElementById('claimOfferBtn').addEventListener('click', function (e) {
-    e.preventDefault();
-    // analytics hook
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({ event: 'offer_claim', offer: 'free_trial_first5' });
-
-    // smooth scroll to contact and focus input
-    const contact = document.getElementById('contact');
-    if (contact) {
-      contact.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      // slight delay to let browser scroll, then focus
-      setTimeout(() => {
-        const firstInput = contact.querySelector('input, textarea, button');
-        if (firstInput) firstInput.focus({ preventScroll: true });
-      }, 600);
-    }
-  });
-
-   (function () {
-    const learnLinks = document.querySelectorAll('a[href="#learn"]');
-    const learnSection = document.getElementById('learn');
-    const learnCard = learnSection?.querySelector('div.rounded-3xl');
-
-    // safety
-    if (!learnSection || !learnCard) return;
-
-    // small animation helper: show
-    function showLearn() {
-      learnSection.classList.remove('hidden');
-      learnSection.setAttribute('aria-hidden', 'false');
-      // animate: remove opacity/transform, with small delay for smoothness
-      requestAnimationFrame(() => {
-        learnCard.style.transition = 'opacity 320ms ease, transform 320ms ease, max-height 320ms ease';
-        learnCard.style.opacity = '1';
-        learnCard.style.transform = 'translateY(0)';
+      menuToggle.addEventListener("click", function () {
+        const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
+        menuToggle.setAttribute("aria-expanded", String(!isOpen));
+        navLinks.setAttribute("data-open", String(!isOpen));
       });
-      // scroll into view after a short delay so layout settled
-      setTimeout(() => {
-        learnSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 80);
-    }
 
-    // hide
-    function hideLearn() {
-      // reverse animation
-      learnCard.style.opacity = '0';
-      learnCard.style.transform = 'translateY(-10px)';
-      setTimeout(() => {
-        learnSection.classList.add('hidden');
-        learnSection.setAttribute('aria-hidden', 'true');
-      }, 300);
-    }
+      navAnchors.forEach(function (anchor) {
+        anchor.addEventListener("click", function () {
+          menuToggle.setAttribute("aria-expanded", "false");
+          navLinks.setAttribute("data-open", "false");
+        });
+      });
 
-    // toggle
-    function toggleLearn(e) {
-      if (e) e.preventDefault();
-      const isHidden = learnSection.classList.contains('hidden');
-      if (isHidden) {
-        showLearn();
-      } else {
-        hideLearn();
-        // optionally scroll back up to offer
-        const offer = document.getElementById('offer');
-        if (offer) offer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      const faqItems = document.querySelectorAll(".faq-item");
+
+      function updateFaqHeights() {
+        faqItems.forEach(function (item) {
+          const answer = item.querySelector(".faq-answer");
+          const isOpen = item.getAttribute("data-open") === "true";
+          answer.style.maxHeight = isOpen ? answer.scrollHeight + "px" : "0px";
+        });
       }
-    }
 
-    // wire all links that point to #learn
-    learnLinks.forEach(a => {
-      a.addEventListener('click', toggleLearn);
-    });
+      faqItems.forEach(function (item) {
+        const trigger = item.querySelector(".faq-trigger");
+        trigger.addEventListener("click", function () {
+          const isOpen = item.getAttribute("data-open") === "true";
+          faqItems.forEach(function (other) {
+            other.setAttribute("data-open", "false");
+            other.querySelector(".faq-trigger").setAttribute("aria-expanded", "false");
+          });
+          if (!isOpen) {
+            item.setAttribute("data-open", "true");
+            trigger.setAttribute("aria-expanded", "true");
+          }
+          updateFaqHeights();
+        });
+      });
 
-    // wire claim button inside learn to existing handler (if any)
-    document.getElementById('claimOfferBtn2')?.addEventListener('click', function (e) {
-      // reuse existing offer claim handler if present
-      const evt = new Event('click', { bubbles: true });
-      document.getElementById('claimOfferBtn')?.dispatchEvent(evt);
-    });
+      updateFaqHeights();
+      window.addEventListener("resize", updateFaqHeights);
 
-    // initialize card styles for animation (hidden state)
-    learnCard.style.opacity = '0';
-    learnCard.style.transform = 'translateY(-10px)';
-  })();
+      const form = $("#contactForm");
+      const msg = $("#formMsg");
 
-    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-  const mobileMenu = document.getElementById('mobileMenu');
+      form.addEventListener("submit", async function (event) {
+        event.preventDefault();
+        const data = Object.fromEntries(new FormData(form).entries());
 
-  mobileMenuBtn.addEventListener('click', () => {
-    mobileMenu.classList.toggle('hidden');
-  });
+        if (!data.name || !data.email || !data.message) {
+          msg.style.color = "#fbbf24";
+          msg.textContent = "Fill all fields to send.";
+          return;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(data.email)) {
+          msg.style.color = "#fbbf24";
+          msg.textContent = "Please enter a valid email address.";
+          return;
+        }
+
+        msg.style.color = "#c6cedd";
+        msg.textContent = "Sending your request...";
+
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ event: "lead_submit", payload: data });
+
+        try {
+          await fetch(
+            "https://script.google.com/macros/s/AKfycbxII4P3KYw0DDmV5xvpAP7ZZPA1akTl3xjjkIF-0bfa9eD0C_xR0oyjOsdoibayMBeR2Q/exec",
+            {
+              method: "POST",
+              mode: "no-cors",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(data),
+            }
+          );
+
+          msg.style.color = "#34d399";
+          msg.textContent = "Thanks! Your request is queued. We will reply within 24 hours.";
+          form.reset();
+          $("#requestType").value = "booking";
+        } catch (error) {
+          console.error("Error sending to Google Sheet:", error);
+          msg.style.color = "#fca5a5";
+          msg.textContent = "We could not send the request right now. Please try again.";
+        }
+      });
+
+      const revealItems = document.querySelectorAll(".reveal");
+      if ("IntersectionObserver" in window) {
+        const observer = new IntersectionObserver(
+          function (entries, currentObserver) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                currentObserver.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.15 }
+        );
+
+        revealItems.forEach(function (item) {
+          observer.observe(item);
+        });
+      } else {
+        revealItems.forEach(function (item) {
+          item.classList.add("is-visible");
+        });
+      }
+    })();
   </script>
-
-<!-- Add this to your index.html before </body> -->
-<div id="ai-chatbot-widget"></div>
-<script src="/chatbot.js"></script>
-
 </body>
 </html>
