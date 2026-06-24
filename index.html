@@ -1,4 +1,1228 @@
 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Convoria | WhatsApp, Email & ERP Workflow Automation</title>
+  <meta name="description" content="Convoria builds WhatsApp, email, CRM and ERP workflow automations that turn incoming requests into tracked tasks, tickets, follow-ups and reports." />
+  <link rel="icon" href="black.png" type="image/png" />
+  <style>
+    :root {
+      --bg: #05060a;
+      --bg-2: #080b12;
+      --panel: rgba(14, 18, 28, 0.72);
+      --panel-strong: rgba(18, 23, 34, 0.94);
+      --panel-soft: rgba(255, 255, 255, 0.035);
+      --text: #f6f7fb;
+      --muted: #9aa3b5;
+      --muted-2: #c7cfdf;
+      --border: rgba(255, 255, 255, 0.10);
+      --border-strong: rgba(255, 255, 255, 0.17);
+      --accent: #a56eff;
+      --accent-2: #7d91ff;
+      --accent-3: #f4b860;
+      --success: #72e4bd;
+      --danger: #fb7185;
+      --warning: #fbbf24;
+      --shadow: 0 24px 90px rgba(0, 0, 0, 0.42);
+      --radius-xl: 30px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --max: 1160px;
+      --nav: 76px;
+      --font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--font);
+      color: var(--text);
+      background:
+        radial-gradient(circle at 8% 4%, rgba(165, 110, 255, 0.24), transparent 28%),
+        radial-gradient(circle at 90% 8%, rgba(125, 145, 255, 0.18), transparent 26%),
+        radial-gradient(circle at 55% 105%, rgba(244, 184, 96, 0.08), transparent 30%),
+        linear-gradient(180deg, #05060a 0%, #070a11 46%, #05060a 100%);
+      min-height: 100vh;
+      line-height: 1.55;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px);
+      background-size: 76px 76px;
+      mask-image: linear-gradient(180deg, rgba(255,255,255,.46), transparent 82%);
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    button, input, textarea, select { font: inherit; }
+    p, h1, h2, h3 { margin: 0; }
+    .container { width: min(calc(100% - 2rem), var(--max)); margin: 0 auto; }
+    .section { padding: 5.5rem 0; }
+    .section-tight { padding: 3rem 0; }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(5, 6, 10, 0.72);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      backdrop-filter: blur(18px);
+    }
+    .nav {
+      min-height: var(--nav);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: .75rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      font-size: 1.08rem;
+    }
+    .brand-mark {
+      width: 43px;
+      height: 43px;
+      border-radius: 15px;
+      display: grid;
+      place-items: center;
+      background: #fff;
+      padding: 7px;
+      border: 1px solid rgba(255,255,255,.18);
+      box-shadow: 0 12px 26px rgba(0,0,0,.26);
+    }
+    .brand-mark img { border-radius: 11px; width: 100%; height: 100%; object-fit: cover; }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.05rem;
+      color: var(--muted-2);
+      font-size: .93rem;
+    }
+    .nav-links a { padding: .45rem .15rem; transition: color .18s ease; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta { display: flex; align-items: center; gap: .65rem; }
+    .menu-toggle {
+      display: none;
+      width: 46px;
+      height: 46px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(255,255,255,.03);
+      color: var(--text);
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+    }
+    .menu-toggle span, .menu-toggle::before, .menu-toggle::after {
+      content: "";
+      display: block;
+      width: 19px;
+      height: 2px;
+      border-radius: 99px;
+      background: currentColor;
+      transition: transform .18s ease, opacity .18s ease;
+    }
+    .menu-toggle span { margin: 4px 0; }
+    .menu-toggle[aria-expanded="true"]::before { transform: translateY(6px) rotate(45deg); }
+    .menu-toggle[aria-expanded="true"] span { opacity: 0; }
+    .menu-toggle[aria-expanded="true"]::after { transform: translateY(-6px) rotate(-45deg); }
+
+    .button, .button-secondary, .button-ghost {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .55rem;
+      min-height: 50px;
+      padding: 0 1.18rem;
+      border-radius: 999px;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease, background .18s ease;
+      white-space: nowrap;
+    }
+    .button {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: white;
+      box-shadow: 0 18px 40px rgba(127, 120, 255, .28);
+      border-color: rgba(255,255,255,.13);
+    }
+    .button-secondary {
+      color: var(--text);
+      background: rgba(255,255,255,.045);
+      border-color: var(--border);
+    }
+    .button-ghost {
+      min-height: 42px;
+      padding: 0 .9rem;
+      color: var(--muted-2);
+      background: rgba(255,255,255,.03);
+      border-color: var(--border);
+      font-size: .9rem;
+    }
+    .button:hover, .button-secondary:hover, .button-ghost:hover {
+      transform: translateY(-2px);
+      border-color: var(--border-strong);
+      box-shadow: 0 18px 42px rgba(2,4,14,.32);
+    }
+
+    .hero { padding: calc(var(--nav) + 3rem) 0 3.7rem; }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(350px, .95fr);
+      gap: 2rem;
+      align-items: start;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      padding: .55rem .88rem;
+      border-radius: 999px;
+      color: var(--muted-2);
+      background: rgba(255,255,255,.035);
+      border: 1px solid rgba(255,255,255,.08);
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .075em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before {
+      content: "";
+      width: .52rem;
+      height: .52rem;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--accent-3), var(--accent));
+      box-shadow: 0 0 0 6px rgba(165,110,255,.11);
+    }
+    h1 {
+      margin-top: 1rem;
+      font-size: clamp(2.7rem, 5.6vw, 5.3rem);
+      line-height: .92;
+      max-width: 12ch;
+      letter-spacing: -.075em;
+    }
+    .gradient-text {
+      background: linear-gradient(135deg, #ffffff 0%, #d8c7ff 44%, #f4b860 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .lead {
+      margin-top: 1.15rem;
+      max-width: 58ch;
+      color: var(--muted-2);
+      font-size: 1.05rem;
+    }
+    .lead strong { color: var(--text); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: .85rem; margin-top: 1.45rem; }
+    .filter-line {
+      margin-top: .95rem;
+      color: var(--muted);
+      font-size: .95rem;
+    }
+    .filter-line strong { color: #e5d6ff; }
+    .hero-tags { display: flex; flex-wrap: wrap; gap: .65rem; margin-top: 1.2rem; }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .58rem .82rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.035);
+      color: var(--muted-2);
+      font-size: .9rem;
+    }
+    .tag::before {
+      content: "";
+      width: .42rem;
+      height: .42rem;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    }
+
+    .workflow-panel, .panel, .card, .pricing-card, .form-card, .faq-item, .demo-card {
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.025));
+      backdrop-filter: blur(22px);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    .workflow-panel {
+      border-radius: var(--radius-xl);
+      padding: 1.35rem;
+      border-color: rgba(165,110,255,.18);
+      min-height: 505px;
+    }
+    .workflow-panel::before {
+      content: "";
+      position: absolute;
+      inset: -80px -100px auto auto;
+      width: 240px;
+      height: 240px;
+      border-radius: 999px;
+      background: rgba(165,110,255,.18);
+      filter: blur(16px);
+      pointer-events: none;
+    }
+    .workflow-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      padding: .48rem .72rem;
+      border-radius: 999px;
+      background: rgba(114,228,189,.08);
+      color: #d6fff1;
+      border: 1px solid rgba(114,228,189,.18);
+      font-size: .82rem;
+      font-weight: 700;
+    }
+    .status::before {
+      content: "";
+      width: .45rem;
+      height: .45rem;
+      border-radius: 999px;
+      background: var(--success);
+      box-shadow: 0 0 0 6px rgba(114,228,189,.1);
+    }
+    .flow-list { display: grid; gap: .8rem; position: relative; z-index: 1; }
+    .flow-item {
+      display: grid;
+      grid-template-columns: 44px 1fr auto;
+      align-items: center;
+      gap: .85rem;
+      padding: .84rem .88rem;
+      border-radius: 19px;
+      background: rgba(6,9,17,.74);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .flow-num {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, rgba(165,110,255,.9), rgba(125,145,255,.7));
+      font-weight: 900;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.16);
+    }
+    .flow-item strong { display: block; letter-spacing: -.03em; }
+    .flow-item span { color: var(--muted); font-size: .9rem; }
+    .flow-meta { color: var(--muted); font-size: .8rem; white-space: nowrap; }
+    .mini-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: .75rem;
+      margin-top: .85rem;
+      position: relative;
+      z-index: 1;
+    }
+    .mini-stat {
+      padding: .9rem;
+      border-radius: 17px;
+      background: rgba(6,9,17,.64);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .mini-stat strong { display:block; font-size: .95rem; letter-spacing: -.03em; }
+    .mini-stat span { display:block; color: var(--muted); font-size: .82rem; margin-top:.25rem; }
+
+    .proof-strip { padding: 1rem 0 2.8rem; }
+    .proof-grid { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 1rem; }
+    .proof-item {
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.035);
+      border-radius: 20px;
+      padding: 1rem;
+    }
+    .proof-item strong { display:block; letter-spacing:-.03em; }
+    .proof-item p { color: var(--muted); font-size:.94rem; margin-top:.25rem; }
+    .proof-item:first-child { border-color: rgba(244,184,96,.22); background: linear-gradient(135deg, rgba(244,184,96,.08), rgba(255,255,255,.025)); }
+
+    .section-heading { max-width: 760px; margin-bottom: 2rem; }
+    .kicker {
+      color: #d6c4ff;
+      display: inline-block;
+      margin-bottom: .75rem;
+      font-size: .78rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .09em;
+    }
+    h2 {
+      font-size: clamp(2rem, 4vw, 3.45rem);
+      line-height: 1.02;
+      letter-spacing: -.06em;
+      margin-bottom: .85rem;
+    }
+    .section-heading p { color: var(--muted); max-width: 64ch; font-size: 1rem; }
+
+    .demo-grid { display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 1rem; }
+    .demo-card { border-radius: var(--radius-lg); padding: 1rem; }
+    .video-box {
+      aspect-ratio: 16 / 10;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.1);
+      background:
+        radial-gradient(circle at 35% 25%, rgba(165,110,255,.18), transparent 34%),
+        linear-gradient(135deg, rgba(7,10,17,.95), rgba(18,23,34,.82));
+      display: grid;
+      place-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .play {
+      width: 62px;
+      height: 62px;
+      border-radius: 999px;
+      display:grid;
+      place-items:center;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: 0 18px 42px rgba(0,0,0,.35);
+    }
+    .play::before {
+      content:"";
+      display:block;
+      width: 0;
+      height: 0;
+      border-top: 11px solid transparent;
+      border-bottom: 11px solid transparent;
+      border-left: 17px solid #fff;
+      margin-left: 4px;
+    }
+    .video-label {
+      position:absolute;
+      left: .75rem;
+      bottom: .75rem;
+      padding: .36rem .58rem;
+      border-radius: 999px;
+      background: rgba(0,0,0,.35);
+      border:1px solid rgba(255,255,255,.09);
+      color: var(--muted-2);
+      font-size:.78rem;
+    }
+    .demo-card h3, .pricing-card h3, .card h3 { margin-top: 1rem; font-size: 1.32rem; letter-spacing:-.04em; line-height:1.1; }
+    .demo-card p, .pricing-card p, .card p { margin-top:.55rem; color: var(--muted); font-size:.95rem; }
+    .demo-list, .clean-list { list-style: none; padding: 0; margin: 1rem 0 0; display:grid; gap:.56rem; }
+    .demo-list li, .clean-list li {
+      position: relative;
+      padding-left: 1rem;
+      color: var(--muted-2);
+      font-size: .93rem;
+    }
+    .demo-list li::before, .clean-list li::before {
+      content:"";
+      position:absolute;
+      left:0;
+      top:.57rem;
+      width:.42rem;
+      height:.42rem;
+      border-radius:999px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    }
+
+    .pricing-grid { display:grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; align-items: stretch; }
+    .pricing-card { border-radius: var(--radius-lg); padding: 1.35rem; }
+    .pricing-card.featured {
+      border-color: rgba(165,110,255,.32);
+      background: linear-gradient(180deg, rgba(165,110,255,.12), rgba(255,255,255,.025));
+    }
+    .pricing-top { display:flex; justify-content:space-between; gap:1rem; align-items:flex-start; }
+    .package-label {
+      display:inline-flex;
+      align-items:center;
+      padding:.42rem .68rem;
+      border-radius:999px;
+      background: rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.08);
+      color: var(--muted-2);
+      font-size:.76rem;
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:.07em;
+    }
+    .popular { color:#1b1005; background: linear-gradient(135deg, #f8cf83, #f4b860); border:0; }
+    .price { margin-top:1rem; }
+    .price strong { display:block; font-size: clamp(1.7rem, 3vw, 2.45rem); letter-spacing:-.06em; line-height:1; }
+    .price span { display:block; margin-top:.34rem; color: var(--muted); font-size:.9rem; }
+    .include-title { margin-top:1.1rem; color: var(--text); font-weight:800; font-size:.96rem; }
+    .excluded { margin-top: 1rem; padding-top: 1rem; border-top:1px solid rgba(255,255,255,.08); }
+    .excluded .clean-list li::before { background: linear-gradient(135deg, var(--danger), #fda4af); }
+    .pricing-note {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 18px;
+      border: 1px solid rgba(244,184,96,.18);
+      background: rgba(244,184,96,.06);
+      color: #f6dfb8;
+      font-size: .95rem;
+    }
+
+    .workflow-grid, .fit-grid { display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:1rem; }
+    .card { border-radius: var(--radius-lg); padding:1.35rem; }
+    .card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      display:grid;
+      place-items:center;
+      background: rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.09);
+      font-weight: 900;
+      color: #d7c4ff;
+    }
+    .before-after { display:grid; grid-template-columns: 1fr 1fr; gap:1rem; }
+    .scenario {
+      border-radius: var(--radius-lg);
+      padding:1.45rem;
+      border:1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.03);
+    }
+    .scenario.bad { border-color: rgba(251,113,133,.22); background: rgba(127,29,29,.10); }
+    .scenario.good { border-color: rgba(114,228,189,.22); background: rgba(6,78,59,.10); }
+    .scenario.bad h3 { color:#fda4af; }
+    .scenario.good h3 { color:#8ff0ce; }
+    .scenario .clean-list li::before { background: linear-gradient(135deg, #a56eff, #7d91ff); }
+    .scenario.bad .clean-list li::before { background: linear-gradient(135deg, #fb7185, #fda4af); }
+    .scenario.good .clean-list li::before { background: linear-gradient(135deg, #72e4bd, #34d399); }
+
+    .process-grid { display:grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap:1rem; }
+    .step { border-radius: var(--radius-lg); padding:1.25rem; border:1px solid var(--border); background: rgba(255,255,255,.035); }
+    .step-num {
+      width:52px;
+      height:52px;
+      border-radius:18px;
+      display:grid;
+      place-items:center;
+      background: linear-gradient(135deg, rgba(165,110,255,.18), rgba(125,145,255,.16));
+      border:1px solid rgba(255,255,255,.08);
+      color: var(--muted-2);
+      font-weight:900;
+      margin-bottom:1rem;
+    }
+    .step h3 { font-size:1.18rem; letter-spacing:-.035em; }
+    .step p { color: var(--muted); margin-top:.5rem; font-size:.94rem; }
+
+    .fit-card { border-radius: var(--radius-lg); padding:1.35rem; border:1px solid rgba(255,255,255,.08); background: rgba(255,255,255,.035); }
+    .fit-card.good { border-color: rgba(114,228,189,.2); background: rgba(6,78,59,.08); }
+    .fit-card.bad { border-color: rgba(251,113,133,.19); background: rgba(127,29,29,.08); }
+    .fit-card h3 { font-size:1.35rem; letter-spacing:-.04em; }
+    .fit-card.good .clean-list li::before { background: linear-gradient(135deg, #72e4bd, #34d399); }
+    .fit-card.bad .clean-list li::before { background: linear-gradient(135deg, #fb7185, #fda4af); }
+
+    .faq-layout { display:grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap:1.25rem; align-items:start; }
+    .faq-list { display:grid; gap:.8rem; }
+    .faq-item { border-radius: 18px; padding:1.05rem 1.1rem; }
+    .faq-trigger {
+      width:100%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:1rem;
+      color: var(--text);
+      background:transparent;
+      border:0;
+      padding:0;
+      cursor:pointer;
+      text-align:left;
+    }
+    .faq-trigger h3 { font-size:1rem; letter-spacing:-.02em; }
+    .faq-icon {
+      width: 32px;
+      height:32px;
+      border-radius: 12px;
+      display:grid;
+      place-items:center;
+      background: rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.08);
+      flex:0 0 auto;
+      transition: transform .18s ease;
+    }
+    .faq-answer { max-height:0; overflow:hidden; transition:max-height .22s ease; }
+    .faq-answer p { color:var(--muted); padding-top:.85rem; font-size:.94rem; }
+    .faq-item[data-open="true"] .faq-icon { transform: rotate(45deg); }
+
+    .contact-grid { display:grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap:1.25rem; align-items:start; }
+    .form-card { border-radius: var(--radius-xl); padding:1.45rem; }
+    .contact-copy { border-radius: var(--radius-xl); padding:1.7rem; border:1px solid var(--border); background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.025)); box-shadow:var(--shadow); }
+    .contact-copy p { color: var(--muted); margin-top:.75rem; }
+    form { display:grid; gap:1rem; }
+    .form-row { display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:1rem; }
+    .field { display:grid; gap:.44rem; }
+    label { color: var(--muted-2); font-size:.93rem; }
+    input, textarea, select {
+      width:100%;
+      min-height: 48px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.1);
+      background: rgba(255,255,255,.035);
+      color: var(--text);
+      padding: .86rem .95rem;
+      outline: none;
+      transition: border-color .18s ease, background .18s ease, transform .18s ease;
+    }
+    select { color: var(--text); }
+    select option { color: #111827; background: #fff; }
+    textarea { resize: vertical; min-height: 126px; }
+    input::placeholder, textarea::placeholder { color:#737d90; }
+    input:focus, textarea:focus, select:focus { border-color: rgba(165,110,255,.56); background: rgba(255,255,255,.045); transform: translateY(-1px); }
+    .form-note, .form-status { color: var(--muted); font-size:.9rem; }
+    .form-status { min-height:1.25rem; }
+    .form-card .button { width:100%; }
+
+    footer { padding: 1.5rem 0 2rem; }
+    .footer-shell { display:flex; justify-content:space-between; align-items:center; gap:1rem; padding-top:1.25rem; border-top:1px solid rgba(255,255,255,.07); color:var(--muted); font-size:.93rem; }
+
+    .reveal { opacity:0; transform: translateY(22px); transition: opacity .48s ease, transform .48s ease; transition-delay: var(--delay, 0ms); }
+    .reveal.is-visible { opacity:1; transform: translateY(0); }
+
+    @media (max-width: 1040px) {
+      .nav-links { gap: .75rem; font-size:.88rem; }
+      .pricing-grid, .demo-grid, .workflow-grid, .fit-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .process-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    }
+    @media (max-width: 900px) {
+      .hero-grid, .faq-layout, .contact-grid { grid-template-columns: 1fr; }
+      h1 { max-width: 13ch; }
+      .proof-grid { grid-template-columns: 1fr; }
+      .workflow-panel { min-height: auto; }
+    }
+    @media (max-width: 760px) {
+      :root { --nav: 70px; }
+      .nav-links {
+        display:none;
+        position:absolute;
+        top: calc(100% + .65rem);
+        left:1rem;
+        right:1rem;
+        padding:1rem;
+        border-radius: 22px;
+        background: rgba(8,11,18,.96);
+        border:1px solid rgba(255,255,255,.09);
+        box-shadow: var(--shadow);
+        flex-direction:column;
+        align-items:flex-start;
+      }
+      .nav-links[data-open="true"] { display:flex; }
+      .nav-cta .button { display:none; }
+      .menu-toggle { display:inline-flex; }
+      .section { padding: 4.2rem 0; }
+      .hero { padding-top: calc(var(--nav) + 2rem); }
+      .pricing-grid, .demo-grid, .workflow-grid, .fit-grid, .process-grid, .before-after, .mini-stats, .form-row { grid-template-columns: 1fr; }
+      h1 { max-width:none; }
+      .flow-item { grid-template-columns: 42px 1fr; }
+      .flow-meta { grid-column: 2 / -1; }
+      .footer-shell { flex-direction: column; align-items:flex-start; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation:none !important; transition-duration:.01ms !important; transition-delay:0ms !important; }
+      .reveal, .reveal.is-visible { opacity:1; transform:none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="#top" aria-label="Convoria home">
+        <span class="brand-mark" aria-hidden="true"><img src="black.png" alt="" /></span>
+        <span>Convoria</span>
+      </a>
+      <nav class="nav-links" id="navLinks" aria-label="Primary navigation">
+        <a href="#demos">Demos</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#workflows">Workflows</a>
+        <a href="#process">Process</a>
+        <a href="#fit">Fit</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <div class="nav-cta">
+        <a class="button" href="#fit-check">Check Workflow Fit</a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="navLinks"><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="reveal">
+          <span class="eyebrow">WhatsApp • Email • CRM • ERP automation</span>
+          <h1>Turn incoming requests into <span class="gradient-text">tracked work.</span></h1>
+          <p class="lead">
+            Convoria builds workflow automation systems for service and operations-heavy businesses that still manage leads, requests, follow-ups, tickets, and updates manually across <strong>WhatsApp, email, CRM, ERP, and spreadsheets.</strong>
+          </p>
+          <div class="hero-actions">
+            <a class="button" href="#demos">Watch 90-second demo</a>
+            <a class="button-secondary" href="#fit-check">Check project fit</a>
+          </div>
+          <p class="filter-line"><strong>Automation pilots start from ₹25,000.</strong> CRM/ERP workflows usually start from ₹75,000+.</p>
+          <div class="hero-tags" aria-label="Main use cases">
+            <span class="tag">WhatsApp lead follow-up</span>
+            <span class="tag">Email-to-ticket</span>
+            <span class="tag">ERP/CRM updates</span>
+            <span class="tag">Reports & reminders</span>
+          </div>
+        </div>
+
+        <aside class="workflow-panel reveal" style="--delay: 120ms;" aria-label="Example workflow diagram">
+          <div class="workflow-top">
+            <span>Example workflow</span>
+            <span class="status">System active</span>
+          </div>
+          <div class="flow-list">
+            <div class="flow-item">
+              <span class="flow-num">1</span>
+              <div><strong>Message arrives</strong><span>WhatsApp enquiry, email request, form lead, or support issue.</span></div>
+              <span class="flow-meta">Captured</span>
+            </div>
+            <div class="flow-item">
+              <span class="flow-num">2</span>
+              <div><strong>Details extracted</strong><span>Name, requirement, status, urgency, ID, location, or project field.</span></div>
+              <span class="flow-meta">Structured</span>
+            </div>
+            <div class="flow-item">
+              <span class="flow-num">3</span>
+              <div><strong>Task/ticket created</strong><span>The right record is created in CRM, ERP, sheet, or task tool.</span></div>
+              <span class="flow-meta">Assigned</span>
+            </div>
+            <div class="flow-item">
+              <span class="flow-num">4</span>
+              <div><strong>Follow-up triggered</strong><span>Owner gets notified, reminder starts, unclear cases go to review.</span></div>
+              <span class="flow-meta">Moving</span>
+            </div>
+            <div class="flow-item">
+              <span class="flow-num">5</span>
+              <div><strong>Report updated</strong><span>Management sees open, pending, missed, and completed work.</span></div>
+              <span class="flow-meta">Visible</span>
+            </div>
+          </div>
+          <div class="mini-stats">
+            <div class="mini-stat"><strong>No copy-paste</strong><span>Messages become records.</span></div>
+            <div class="mini-stat"><strong>No lost owner</strong><span>Every item is assigned.</span></div>
+            <div class="mini-stat"><strong>No blind follow-up</strong><span>Status stays visible.</span></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="proof-strip">
+      <div class="container proof-grid">
+        <div class="proof-item reveal"><strong>Built for practical operations</strong><p>Not AI hype. The system is designed around intake, assignment, reminders, review, and reporting.</p></div>
+        <div class="proof-item reveal" style="--delay:80ms"><strong>Works with existing tools</strong><p>WhatsApp, email, sheets, CRM, ERP, forms, and internal task systems.</p></div>
+        <div class="proof-item reveal" style="--delay:160ms"><strong>Fixed-scope pilots</strong><p>Start small, prove the workflow, then expand only where ROI is clear.</p></div>
+      </div>
+    </section>
+
+    <section class="section" id="demos">
+      <div class="container">
+        <div class="section-heading reveal">
+          <span class="kicker">Demo library</span>
+          <h2>See the workflow before booking a call.</h2>
+          <p>Use these short demos to understand what we build. Replace the placeholders with your Loom or YouTube demo videos when ready.</p>
+        </div>
+        <div class="demo-grid">
+          <article class="demo-card reveal" style="--delay:40ms;">
+            <a class="video-box" href="#fit-check" aria-label="Request WhatsApp lead qualification demo">
+              <span class="play" aria-hidden="true"></span>
+              <span class="video-label">90-sec demo placeholder</span>
+            </a>
+            <h3>WhatsApp Lead Qualification</h3>
+            <p>For teams that receive enquiries on WhatsApp and manually chase every prospect.</p>
+            <ul class="demo-list">
+              <li>Ask 3–5 qualification questions</li>
+              <li>Tag hot, warm, or cold leads</li>
+              <li>Notify sales only when action is needed</li>
+              <li>Create reminders for follow-up</li>
+            </ul>
+          </article>
+          <article class="demo-card reveal" style="--delay:120ms;">
+            <a class="video-box" href="#fit-check" aria-label="Request Email-to-ticket automation demo">
+              <span class="play" aria-hidden="true"></span>
+              <span class="video-label">90-sec demo placeholder</span>
+            </a>
+            <h3>Email-to-Ticket Automation</h3>
+            <p>For support, ERP, and operations teams where incoming emails need structured action.</p>
+            <ul class="demo-list">
+              <li>Detect issue, acknowledgement, follow-up, or resolved message</li>
+              <li>Extract required fields</li>
+              <li>Create ticket or task</li>
+              <li>Send unclear cases to manual review</li>
+            </ul>
+          </article>
+          <article class="demo-card reveal" style="--delay:200ms;">
+            <a class="video-box" href="#fit-check" aria-label="Request Follow-up workflow demo">
+              <span class="play" aria-hidden="true"></span>
+              <span class="video-label">90-sec demo placeholder</span>
+            </a>
+            <h3>Follow-up & Reporting Workflow</h3>
+            <p>For teams that lose visibility after a lead, request, invoice, or task is created.</p>
+            <ul class="demo-list">
+              <li>Create follow-up schedule</li>
+              <li>Send reminders to the owner</li>
+              <li>Escalate missed actions</li>
+              <li>Update status report automatically</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="pricing">
+      <div class="container">
+        <div class="section-heading reveal">
+          <span class="kicker">Offers & pricing</span>
+          <h2>Clear scope. Clear starting range. No endless discovery.</h2>
+          <p>Small budget means small scope. Larger workflows require serious implementation and support. Pricing depends on tools, logic, access, and edge cases.</p>
+        </div>
+        <div class="pricing-grid">
+          <article class="pricing-card reveal" style="--delay:40ms;">
+            <div class="pricing-top"><span class="package-label">Starter</span></div>
+            <h3>Starter Workflow Pilot</h3>
+            <div class="price"><strong>₹25K–₹50K</strong><span>one-time setup</span></div>
+            <p>Best for small teams that want one simple workflow without heavy CRM or ERP complexity.</p>
+            <p class="include-title">Included</p>
+            <ul class="clean-list">
+              <li>1 workflow</li>
+              <li>1 trigger: WhatsApp, email, form, or sheet</li>
+              <li>1–2 tools connected</li>
+              <li>Basic capture, assignment, reminder, and testing</li>
+              <li>Handover walkthrough</li>
+            </ul>
+            <div class="excluded">
+              <p class="include-title">Not included</p>
+              <ul class="clean-list">
+                <li>ERP integration</li>
+                <li>Complex AI decision-making</li>
+                <li>Custom dashboards</li>
+                <li>Unlimited revisions</li>
+              </ul>
+            </div>
+            <p class="pricing-note">Optional support: ₹3K–₹7K/month.</p>
+          </article>
+
+          <article class="pricing-card featured reveal" style="--delay:120ms;">
+            <div class="pricing-top"><span class="package-label popular">Most relevant</span></div>
+            <h3>Business Automation Pilot</h3>
+            <div class="price"><strong>₹75K–₹1.5L</strong><span>setup + ₹10K–₹25K/month support</span></div>
+            <p>Best when missed follow-ups, manual entries, and poor visibility are already costing time or revenue.</p>
+            <p class="include-title">Included</p>
+            <ul class="clean-list">
+              <li>WhatsApp/email/form intake automation</li>
+              <li>Lead/request classification</li>
+              <li>Field extraction and owner assignment</li>
+              <li>CRM, ERP, sheet, or task-system update</li>
+              <li>Manual review logic for unclear cases</li>
+              <li>Basic reporting, testing, and launch support</li>
+            </ul>
+            <p class="pricing-note">Good fit for WhatsApp lead qualification, email-to-ticket, CRM follow-up, and ERP request workflows.</p>
+          </article>
+
+          <article class="pricing-card reveal" style="--delay:200ms;">
+            <div class="pricing-top"><span class="package-label">Advanced</span></div>
+            <h3>Full Workflow System</h3>
+            <div class="price"><strong>₹2L+</strong><span>setup + ₹25K+/month support</span></div>
+            <p>Best for teams with multiple workflows, departments, approval steps, or tool integrations.</p>
+            <p class="include-title">Included</p>
+            <ul class="clean-list">
+              <li>Multiple connected workflows</li>
+              <li>CRM/ERP/API integrations</li>
+              <li>Role-based assignment</li>
+              <li>Escalation logic</li>
+              <li>Dashboards and reporting</li>
+              <li>Ongoing monitoring and improvement</li>
+            </ul>
+            <p class="pricing-note">Good fit for sales + operations systems, support automation, approvals, and ERP-connected request management.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="workflows">
+      <div class="container">
+        <div class="section-heading reveal">
+          <span class="kicker">What we automate</span>
+          <h2>We do not automate everything. We automate repeatable work that leaks time, follow-ups, or visibility.</h2>
+          <p>The best projects have volume, clear rules, and a painful handoff between people or tools.</p>
+        </div>
+        <div class="workflow-grid">
+          <article class="card reveal" style="--delay:40ms;"><span class="card-icon">01</span><h3>Lead intake & qualification</h3><p>Capture leads from WhatsApp, forms, email, or sheets. Ask basic questions, tag quality, assign owners, and create reminders.</p></article>
+          <article class="card reveal" style="--delay:100ms;"><span class="card-icon">02</span><h3>Email-to-ticket</h3><p>Classify incoming emails, extract key fields, create tickets/tasks, and route unclear cases to manual review.</p></article>
+          <article class="card reveal" style="--delay:160ms;"><span class="card-icon">03</span><h3>CRM/ERP updates</h3><p>Reduce copy-paste between messages, sheets, CRM, ERP, and internal tools.</p></article>
+          <article class="card reveal" style="--delay:220ms;"><span class="card-icon">04</span><h3>Follow-up reminders</h3><p>Trigger reminders for sales, support, collections, approvals, or pending actions.</p></article>
+          <article class="card reveal" style="--delay:280ms;"><span class="card-icon">05</span><h3>Reports & visibility</h3><p>Show open tasks, missed actions, pending follow-ups, and completed items without manual reporting.</p></article>
+          <article class="card reveal" style="--delay:340ms;"><span class="card-icon">06</span><h3>Manual review queues</h3><p>When automation is unsure, route the item to a human instead of silently making bad decisions.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading reveal">
+          <span class="kicker">Before / after</span>
+          <h2>What changes after the workflow is fixed.</h2>
+          <p>This is the operational difference buyers should understand before they book a call.</p>
+        </div>
+        <div class="before-after">
+          <article class="scenario bad reveal" style="--delay:60ms;">
+            <h3>Before Convoria</h3>
+            <ul class="clean-list">
+              <li>Messages sit inside WhatsApp or inboxes</li>
+              <li>Team manually copies details into sheets or CRM</li>
+              <li>No clear owner for every request</li>
+              <li>Follow-ups depend on memory</li>
+              <li>Management sees problems late</li>
+            </ul>
+          </article>
+          <article class="scenario good reveal" style="--delay:140ms;">
+            <h3>After Convoria</h3>
+            <ul class="clean-list">
+              <li>Request is captured automatically</li>
+              <li>Important fields are structured</li>
+              <li>Task or ticket is created</li>
+              <li>Owner and reminder are assigned</li>
+              <li>Status is visible until completion</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="process">
+      <div class="container">
+        <div class="section-heading reveal">
+          <span class="kicker">Process</span>
+          <h2>Clear scope before anything is built.</h2>
+          <p>We keep the first call short. Detailed mapping happens only after there is budget, access, and a real workflow worth fixing.</p>
+        </div>
+        <div class="process-grid">
+          <article class="step reveal" style="--delay:40ms;"><span class="step-num">1</span><h3>Fit check</h3><p>15 minutes to confirm workflow, volume, tools, budget, decision-maker, and timeline.</p></article>
+          <article class="step reveal" style="--delay:120ms;"><span class="step-num">2</span><h3>Scope</h3><p>We define trigger, inputs, logic, outputs, exceptions, integrations, and what is excluded.</p></article>
+          <article class="step reveal" style="--delay:200ms;"><span class="step-num">3</span><h3>Build</h3><p>We implement the agreed workflow, test key cases, and show a working demo before launch.</p></article>
+          <article class="step reveal" style="--delay:280ms;"><span class="step-num">4</span><h3>Launch & support</h3><p>We hand over the workflow and monitor it through monthly support if the system is business-critical.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="fit">
+      <div class="container">
+        <div class="section-heading reveal">
+          <span class="kicker">Fit filter</span>
+          <h2>This is not for every business.</h2>
+          <p>A good website should attract serious buyers and repel time-wasters. Use this section to set expectations before the call.</p>
+        </div>
+        <div class="fit-grid">
+          <article class="fit-card good reveal" style="--delay:40ms;">
+            <h3>Good fit</h3>
+            <ul class="clean-list">
+              <li>You receive repeated leads, requests, tickets, or follow-ups</li>
+              <li>Your team uses WhatsApp, email, CRM, ERP, or sheets</li>
+              <li>Manual tracking is causing missed work or poor visibility</li>
+              <li>You can provide access and make decisions quickly</li>
+              <li>Budget starts from ₹25K for simple pilots</li>
+            </ul>
+          </article>
+          <article class="fit-card bad reveal" style="--delay:120ms;">
+            <h3>Not a fit</h3>
+            <ul class="clean-list">
+              <li>You want a ₹5K full custom automation</li>
+              <li>You are only exploring AI with no business workflow</li>
+              <li>You cannot provide tool access or sample data</li>
+              <li>Your process changes every day and has no repeatable pattern</li>
+              <li>You want full custom software at automation pricing</li>
+            </ul>
+          </article>
+          <article class="fit-card reveal" style="--delay:200ms;">
+            <h3>Payment terms</h3>
+            <ul class="clean-list">
+              <li>Small projects: 70% upfront, 30% before handover</li>
+              <li>Medium projects: 50% upfront, 30% after working demo, 20% before go-live</li>
+              <li>Monthly support is paid in advance</li>
+              <li>New workflows or major changes are quoted separately</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="container faq-layout">
+        <div class="section-heading reveal">
+          <span class="kicker">FAQ</span>
+          <h2>Questions serious buyers usually ask.</h2>
+          <p>Use this to reduce repeated questions and filter budget, timeline, and scope before the call.</p>
+        </div>
+        <div class="faq-list">
+          <article class="faq-item reveal" data-open="true">
+            <button class="faq-trigger" type="button" aria-expanded="true"><h3>Do you build full custom software?</h3><span class="faq-icon">+</span></button>
+            <div class="faq-answer"><p>No. We build workflow automations that connect existing tools, data, and processes. If you need a full custom SaaS or ERP, that is a different project.</p></div>
+          </article>
+          <article class="faq-item reveal" data-open="false" style="--delay:60ms;">
+            <button class="faq-trigger" type="button" aria-expanded="false"><h3>Can we start small?</h3><span class="faq-icon">+</span></button>
+            <div class="faq-answer"><p>Yes. Starter pilots begin from ₹25K–₹50K when the workflow is simple: one trigger, one output, and one or two tools. Complex CRM/ERP workflows require a larger budget.</p></div>
+          </article>
+          <article class="faq-item reveal" data-open="false" style="--delay:120ms;">
+            <button class="faq-trigger" type="button" aria-expanded="false"><h3>Why do you charge monthly support?</h3><span class="faq-icon">+</span></button>
+            <div class="faq-answer"><p>Business workflows need monitoring, fixes, prompt/rule tuning, tool updates, and small improvements. If the automation is important to operations, support should not be optional.</p></div>
+          </article>
+          <article class="faq-item reveal" data-open="false" style="--delay:180ms;">
+            <button class="faq-trigger" type="button" aria-expanded="false"><h3>Do we need to reveal everything on the first call?</h3><span class="faq-icon">+</span></button>
+            <div class="faq-answer"><p>No. The first call only checks fit. Detailed workflow mapping happens after the project is qualified and commercially agreed.</p></div>
+          </article>
+          <article class="faq-item reveal" data-open="false" style="--delay:240ms;">
+            <button class="faq-trigger" type="button" aria-expanded="false"><h3>What do you need from us?</h3><span class="faq-icon">+</span></button>
+            <div class="faq-answer"><p>We need access to relevant tools, sample messages/data, current workflow rules, decision-maker availability, and someone from your team who owns the process.</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="fit-check">
+      <div class="container contact-grid">
+        <article class="contact-copy reveal">
+          <span class="kicker">Fit check</span>
+          <h2>Check if your workflow is worth automating.</h2>
+          <p>The first step is not a long discovery call. Fill this form so we can understand if there is a real workflow, real volume, real budget, and a clear next step.</p>
+          <ul class="clean-list">
+            <li>Use this for WhatsApp leads, email-to-ticket, CRM/ERP updates, reporting, and follow-up workflows.</li>
+            <li>If the budget is below ₹25K or the workflow is not repeatable, custom automation may not be the right fit yet.</li>
+            <li>If it looks suitable, the next step is a 15-minute workflow fit call.</li>
+          </ul>
+        </article>
+        <article class="form-card reveal" style="--delay:120ms;">
+          <form id="fitForm">
+            <input id="requestType" name="requestType" type="hidden" value="workflow-fit-check" />
+            <div class="form-row">
+              <div class="field">
+                <label for="name">Name</label>
+                <input id="name" name="name" type="text" placeholder="Your name" required />
+              </div>
+              <div class="field">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" placeholder="you@company.com" required />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="field">
+                <label for="company">Company</label>
+                <input id="company" name="company" type="text" placeholder="Company name" required />
+              </div>
+              <div class="field">
+                <label for="phone">WhatsApp / Phone</label>
+                <input id="phone" name="phone" type="tel" placeholder="Your contact number" />
+              </div>
+            </div>
+            <div class="field">
+              <label for="workflow">What do you want to automate?</label>
+              <select id="workflow" name="workflow" required>
+                <option value="">Select one</option>
+                <option>WhatsApp lead follow-up</option>
+                <option>Email-to-ticket automation</option>
+                <option>CRM/ERP data entry</option>
+                <option>Reporting and reminders</option>
+                <option>Payment follow-up</option>
+                <option>Other workflow</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <div class="field">
+                <label for="volume">Weekly volume</label>
+                <select id="volume" name="volume" required>
+                  <option value="">Select volume</option>
+                  <option>Less than 25 requests/leads per week</option>
+                  <option>25–100 requests/leads per week</option>
+                  <option>100–500 requests/leads per week</option>
+                  <option>500+ requests/leads per week</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="budget">Budget range</label>
+                <select id="budget" name="budget" required>
+                  <option value="">Select budget</option>
+                  <option>Below ₹25K</option>
+                  <option>₹25K–₹50K</option>
+                  <option>₹75K–₹1.5L</option>
+                  <option>₹2L+</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="field">
+                <label for="tools">Tools involved</label>
+                <input id="tools" name="tools" type="text" placeholder="WhatsApp, email, CRM, ERP, sheets..." required />
+              </div>
+              <div class="field">
+                <label for="timeline">Timeline</label>
+                <select id="timeline" name="timeline" required>
+                  <option value="">Select timeline</option>
+                  <option>This week</option>
+                  <option>2–4 weeks</option>
+                  <option>1–2 months</option>
+                  <option>Just exploring</option>
+                </select>
+              </div>
+            </div>
+            <div class="field">
+              <label for="message">Briefly describe what is getting missed or done manually</label>
+              <textarea id="message" name="message" placeholder="Example: leads come on WhatsApp, sales team copies to sheet, follow-ups are missed..."></textarea>
+            </div>
+            <button class="button" type="submit">Submit Workflow Fit Check</button>
+            <p class="form-note">We review fit first. If suitable, the next step is a 15-minute call.</p>
+            <p class="form-status" id="formMsg" aria-live="polite"></p>
+          </form>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-shell">
+      <p>Convoria</p>
+      <p>Workflow automation for teams that do not want requests, follow-ups, or updates missed.</p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      const menuToggle = document.getElementById("menuToggle");
+      const navLinks = document.getElementById("navLinks");
+      const navAnchors = navLinks.querySelectorAll("a");
+
+      menuToggle.addEventListener("click", function () {
+        const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
+        menuToggle.setAttribute("aria-expanded", String(!isOpen));
+        navLinks.setAttribute("data-open", String(!isOpen));
+      });
+
+      navAnchors.forEach(function (anchor) {
+        anchor.addEventListener("click", function () {
+          menuToggle.setAttribute("aria-expanded", "false");
+          navLinks.setAttribute("data-open", "false");
+        });
+      });
+
+      const faqItems = document.querySelectorAll(".faq-item");
+      function updateFaqHeights() {
+        faqItems.forEach(function (item) {
+          const answer = item.querySelector(".faq-answer");
+          const isOpen = item.getAttribute("data-open") === "true";
+          answer.style.maxHeight = isOpen ? answer.scrollHeight + "px" : "0px";
+        });
+      }
+      faqItems.forEach(function (item) {
+        const trigger = item.querySelector(".faq-trigger");
+        trigger.addEventListener("click", function () {
+          const isOpen = item.getAttribute("data-open") === "true";
+          faqItems.forEach(function (other) {
+            other.setAttribute("data-open", "false");
+            other.querySelector(".faq-trigger").setAttribute("aria-expanded", "false");
+          });
+          if (!isOpen) {
+            item.setAttribute("data-open", "true");
+            trigger.setAttribute("aria-expanded", "true");
+          }
+          updateFaqHeights();
+        });
+      });
+      updateFaqHeights();
+      window.addEventListener("resize", updateFaqHeights);
+
+      const revealItems = document.querySelectorAll(".reveal");
+      if ("IntersectionObserver" in window) {
+        const observer = new IntersectionObserver(function (entries, currentObserver) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              currentObserver.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.14 });
+        revealItems.forEach(function (item) { observer.observe(item); });
+      } else {
+        revealItems.forEach(function (item) { item.classList.add("is-visible"); });
+      }
+
+      const form = document.getElementById("fitForm");
+      const msg = document.getElementById("formMsg");
+      const endpoint = "https://script.google.com/macros/s/AKfycbxII4P3KYw0DDmV5xvpAP7ZZPA1akTl3xjjkIF-0bfa9eD0C_xR0oyjOsdoibayMBeR2Q/exec";
+
+      form.addEventListener("submit", async function (event) {
+        event.preventDefault();
+        const data = Object.fromEntries(new FormData(form).entries());
+
+        if (!data.name || !data.email || !data.company || !data.workflow || !data.volume || !data.budget || !data.tools || !data.timeline) {
+          msg.style.color = "#fbbf24";
+          msg.textContent = "Please fill the required fields.";
+          return;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(data.email)) {
+          msg.style.color = "#fbbf24";
+          msg.textContent = "Please enter a valid email address.";
+          return;
+        }
+
+        msg.style.color = "#c7cfdf";
+        msg.textContent = "Submitting your workflow fit check...";
+
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ event: "workflow_fit_submit", payload: data });
+
+        try {
+          await fetch(endpoint, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+          });
+
+          msg.style.color = "#72e4bd";
+          msg.textContent = "Submitted. If the workflow looks suitable, we will reply with the next step.";
+          form.reset();
+          document.getElementById("requestType").value = "workflow-fit-check";
+        } catch (error) {
+          console.error("Form submission error:", error);
+          msg.style.color = "#fca5a5";
+          msg.textContent = "Could not submit right now. Please try again or contact us directly.";
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
+
+
+
+<!-- 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -189,12 +1413,12 @@
       box-shadow: 0 18px 38px rgba(11, 16, 29, 0.32);
     }
     main section { padding: 5.5rem 0; }
-    .hero { padding-top: calc(4rem + var(--nav-height)); padding-bottom: 4.5rem; }
+    .hero { padding-top: calc(2.9rem + var(--nav-height)); padding-bottom: 3rem; }
     .hero-layout, .split-layout {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(360px, 1fr);
-      gap: 2.5rem;
-      align-items: center;
+      grid-template-columns: minmax(0, 1.08fr) minmax(350px, 0.92fr);
+      gap: 2rem;
+      align-items: start;
     }
     .eyebrow {
       display: inline-flex;
@@ -219,20 +1443,225 @@
     }
     h1, h2, h3, p { margin: 0; }
     h1 {
-      margin-top: 1.4rem;
-      font-size: clamp(2.6rem, 6vw, 4.65rem);
-      line-height: 1;
+      margin-top: 1rem;
+      font-size: clamp(2.55rem, 4.7vw, 3.85rem);
+      line-height: 0.94;
       letter-spacing: -0.06em;
-      max-width: 13ch;
+      max-width: 11.5ch;
     }
     .hero p.lead {
-      margin-top: 1.4rem;
-      max-width: 58ch;
+      margin-top: 1rem;
+      max-width: 44ch;
       color: var(--muted-strong);
-      font-size: 1.08rem;
+      font-size: 1rem;
     }
-    .hero-actions { display: flex; flex-wrap: wrap; gap: 0.9rem; margin-top: 2rem; }
-    .trust-line { margin-top: 1rem; color: var(--muted); font-size: 0.95rem; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 0.9rem; margin-top: 1.35rem; }
+    .trust-line { margin-top: 0.85rem; color: var(--muted); font-size: 0.95rem; }
+    .urgency-line {
+      margin-top: 0.45rem;
+      color: #d7c5ff;
+      font-size: 0.92rem;
+    }
+    .hero-copy {
+      display: grid;
+      justify-items: start;
+      gap: 0.05rem;
+      align-content: start;
+      padding-top: 0.5rem;
+    }
+    .hero-micro {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+    .hero-micro-item,
+    .stack-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.62rem 0.9rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--muted-strong);
+      font-size: 0.9rem;
+    }
+    .hero-micro-item::before,
+    .stack-chip::before {
+      content: "";
+      width: 0.45rem;
+      height: 0.45rem;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #c79cff, #88a4ff);
+      box-shadow: 0 0 0 5px rgba(165, 110, 255, 0.12);
+    }
+    .hero-stats,
+    .proof-grid,
+    .results-grid,
+    .audience-grid,
+    .diagram-footer {
+      display: grid;
+      gap: 1rem;
+    }
+    .hero-stats {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 1.6rem;
+    }
+    .hero-stat,
+    .proof-item,
+    .result-card,
+    .audience-card,
+    .diagram-stat {
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.03);
+      padding: 1rem 1.05rem;
+    }
+    .hero-stat strong,
+    .proof-item strong,
+    .result-card strong,
+    .audience-card strong,
+    .diagram-stat strong {
+      display: block;
+      font-size: 1.02rem;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.3rem;
+    }
+    .hero-stat span,
+    .proof-item p,
+    .result-card p,
+    .audience-card p,
+    .diagram-stat span {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    .proof-strip {
+      padding-top: 1.1rem;
+      padding-bottom: 1.75rem;
+    }
+    .proof-grid {
+      grid-template-columns: 1.2fr 1fr 1fr;
+    }
+    .proof-item:first-child {
+      background:
+        linear-gradient(135deg, rgba(165, 110, 255, 0.14), transparent 55%),
+        rgba(255, 255, 255, 0.03);
+      border-color: rgba(165, 110, 255, 0.2);
+    }
+    .proof-item p { margin-top: 0.2rem; }
+    .integration-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+    }
+    .section-kicker {
+      display: inline-block;
+      margin-bottom: 0.9rem;
+      color: #cbb6ff;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .service-list,
+    .contact-benefits {
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0 0;
+      display: grid;
+      gap: 0.7rem;
+    }
+    .service-list li,
+    .contact-benefits li {
+      position: relative;
+      padding-left: 1rem;
+      color: var(--muted-strong);
+      font-size: 0.96rem;
+    }
+    .service-list li::before,
+    .contact-benefits li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.52rem;
+      width: 0.42rem;
+      height: 0.42rem;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #c79cff, #88a4ff);
+    }
+    .results-grid,
+    .audience-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .scenario-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.1rem;
+      margin-top: 1.8rem;
+    }
+    .scenario-card {
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.03);
+      box-shadow: var(--shadow);
+    }
+    .scenario-card.before {
+      border-color: rgba(248, 113, 113, 0.22);
+      background: rgba(127, 29, 29, 0.1);
+    }
+    .scenario-card.after {
+      border-color: rgba(52, 211, 153, 0.22);
+      background: rgba(6, 78, 59, 0.1);
+    }
+    .scenario-card h3 {
+      font-size: 1.2rem;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.9rem;
+    }
+    .scenario-card.before h3 {
+      color: #fca5a5;
+    }
+    .scenario-card.after h3 {
+      color: #6ee7b7;
+    }
+    .scenario-card.before .service-list li::before {
+      background: linear-gradient(135deg, #fda4af, #fb7185);
+    }
+    .scenario-card.after .service-list li::before {
+      background: linear-gradient(135deg, #86efac, #34d399);
+    }
+    .scenario-label,
+    .contact-pretitle {
+      display: inline-block;
+      color: #a78bfa;
+      font-size: 0.84rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+    .scenario-impact,
+    .contact-lead {
+      margin-top: 1rem;
+      color: var(--muted-strong);
+      font-size: 1rem;
+    }
+    .result-card strong {
+      font-size: 1.35rem;
+    }
+    .audience-card {
+      min-height: 100%;
+    }
+    .diagram-footer {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 0.8rem;
+      position: relative;
+      z-index: 1;
+    }
+    .diagram-stat {
+      background: rgba(8, 11, 18, 0.72);
+    }
     .panel, .card, .contact-card, .faq-item, .diagram, .about-card, .service-card, .process-step {
       border: 1px solid var(--border);
       background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
@@ -241,10 +1670,11 @@
     }
     .diagram {
       border-radius: var(--radius-xl);
-      padding: 1.85rem;
+      padding: 1.5rem;
       position: relative;
       overflow: hidden;
-      min-height: 420px;
+      min-height: 380px;
+      align-self: start;
       border-color: rgba(165, 110, 255, 0.18);
       box-shadow:
         0 24px 80px rgba(3, 6, 18, 0.5),
@@ -266,7 +1696,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
       color: var(--muted);
       font-size: 0.95rem;
     }
@@ -289,13 +1719,13 @@
       background: var(--success);
       box-shadow: 0 0 0 6px rgba(126, 231, 195, 0.12);
     }
-    .workflow-list { display: grid; gap: 1rem; position: relative; z-index: 1; }
+    .workflow-list { display: grid; gap: 0.85rem; position: relative; z-index: 1; }
     .workflow-item {
       display: grid;
       grid-template-columns: auto 1fr auto;
       gap: 0.9rem;
       align-items: center;
-      padding: 1rem 1rem 1rem 0.95rem;
+      padding: 0.85rem 0.95rem 0.85rem 0.85rem;
       border-radius: 20px;
       background: rgba(7, 10, 17, 0.74);
       border: 1px solid rgba(255, 255, 255, 0.08);
@@ -478,6 +1908,7 @@
     .form-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
     .form-note, .form-status, footer p { color: var(--muted); font-size: 0.95rem; }
     .form-status { min-height: 1.4rem; }
+    .contact-card form .button { width: 100%; }
     footer { padding: 0 0 2rem; }
     .footer-shell {
       display: flex;
@@ -500,7 +1931,7 @@
     }
     @media (max-width: 980px) {
       .hero-layout, .split-layout, .faq-layout, .contact-shell, .about-copy { grid-template-columns: 1fr; }
-      .cards-grid, .how-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .cards-grid, .how-grid, .hero-stats, .proof-grid, .results-grid, .audience-grid, .diagram-footer, .scenario-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .diagram { min-height: auto; }
     }
     @media (max-width: 760px) {
@@ -522,9 +1953,9 @@
       .nav-links[data-open="true"] { display: flex; }
       .menu-toggle { display: inline-flex; }
       .nav-shell > .button { display: none; }
-      .cards-grid, .how-grid, .form-row { grid-template-columns: 1fr; }
+      .cards-grid, .how-grid, .form-row, .hero-stats, .proof-grid, .results-grid, .audience-grid, .diagram-footer, .scenario-grid { grid-template-columns: 1fr; }
       h1 { max-width: none; }
-      .hero { padding-top: calc(2.5rem + var(--nav-height)); }
+      .hero { padding-top: calc(1.9rem + var(--nav-height)); }
       .service-card, .process-step, .about-card, .contact-card, .faq-item, .diagram { padding: 1.2rem; }
     }
     @media (prefers-reduced-motion: reduce) {
@@ -548,13 +1979,13 @@
         <span>Convoria</span>
       </a>
       <nav class="nav-links" id="navLinks" aria-label="Primary navigation">
-        <a href="#services">Services</a>
+        <a href="#services">Where It Breaks</a>
+        <a href="#outcomes">Outcomes</a>
         <a href="#how-it-works">How it Works</a>
-        <a href="#about">About</a>
-        <a href="#faq">FAQ</a>
+        <a href="#about">Who It's For</a>
         <a href="#contact">Contact</a>
       </nav>
-      <a class="button" href="#contact">Book Free Audit</a>
+      <a class="button" href="#contact">Find What's Breaking</a>
       <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="navLinks">
         <span></span>
       </button>
@@ -564,21 +1995,24 @@
   <main id="top">
     <section class="hero">
       <div class="container hero-layout">
-        <div class="reveal">
+        <div class="reveal hero-copy">
           <span class="eyebrow">Operations Automation</span>
-          <h1>Nothing gets missed &mdash;<br />from incoming requests<br />to final payment.</h1>
+          <h1>Nothing gets missed &mdash;<br />from request to payment.</h1>
           <p class="lead">
-            We turn emails, leads, and tasks into structured workflows so follow-ups happen and payments don't get delayed, without manual tracking.
+            Every request, follow-up, and payment is tracked, assigned, and completed &mdash; automatically.
+            <br /><br />
+            No chasing. No missed steps. No relying on memory.
           </p>
           <div class="hero-actions">
-            <a class="button" href="#contact">Book Free Audit</a>
-            <a class="button-secondary" href="#services">See Services</a>
+            <a class="button" href="#contact">Find What's Breaking</a>
+            <a class="button-secondary" href="#services">See What We Automate</a>
           </div>
-          <p class="trust-line">No complex setup &middot; Works with your existing tools</p>
+          <p class="trust-line">No complex setup &bull; Works with your existing tools</p>
+          <p class="urgency-line">Limited slots &mdash; we only take a few systems each month.</p>
         </div>
         <aside class="diagram reveal" style="--delay: 120ms;">
           <div class="diagram-top">
-            <span>Workflow visibility</span>
+            <span>Example live workflow</span>
             <span class="status-pill">Automation active</span>
           </div>
           <div class="workflow-list" aria-label="Workflow diagram">
@@ -608,6 +2042,20 @@
               <span class="workflow-meta">Recorded</span>
             </div>
           </div>
+          <div class="diagram-footer">
+            <div class="diagram-stat">
+              <strong>Inbox to owner</strong>
+              <span>No request sits unassigned.</span>
+            </div>
+            <div class="diagram-stat">
+              <strong>Follow-up logic</strong>
+              <span>Sequences trigger without manual chasing.</span>
+            </div>
+            <div class="diagram-stat">
+              <strong>Payment visibility</strong>
+              <span>Reminders keep moving until closed.</span>
+            </div>
+          </div>
         </aside>
       </div>
     </section>
@@ -615,78 +2063,111 @@
     <section id="services">
       <div class="container">
         <div class="section-heading reveal">
-          <h2>Core automation systems that keep operations moving.</h2>
-          <p>Convoria is built for businesses that already have demand and don't want revenue or customer communication slipping through the cracks.</p>
+          <span class="section-kicker">Where It Breaks</span>
+          <h2>Where operations usually break</h2>
+          <p>These are the points where work gets missed, prospects go cold, and revenue starts leaking without anyone noticing quickly enough.</p>
         </div>
         <div class="cards-grid">
-          <article class="service-card reveal" style="--delay: 60ms;"><span class="card-label">01</span><h3>Incoming -> Task</h3><p>We convert inbound emails, forms, and requests into clean tasks with ownership, deadlines, and the right context attached.</p></article>
-          <article class="service-card reveal" style="--delay: 140ms;"><span class="card-label">02</span><h3>Follow-ups</h3><p>We automate the next touchpoint so prospects, clients, and team members get timely follow-ups without relying on memory.</p></article>
-          <article class="service-card reveal" style="--delay: 220ms;"><span class="card-label">03</span><h3>Payment Reminders</h3><p>We trigger polite reminders, status checks, and escalation rules to reduce late payments and keep cash flow predictable.</p></article>
+          <article class="service-card reveal" style="--delay: 60ms;">
+            <span class="card-label">01</span>
+            <h3>Incoming &rarr; Task</h3>
+            <p>Leads, emails, and requests sit in inboxes. No clear owner. No clear next step. Things get missed.</p>
+          </article>
+          <article class="service-card reveal" style="--delay: 140ms;">
+            <span class="card-label">02</span>
+            <h3>Follow-ups</h3>
+            <p>Follow-ups depend on memory. Prospects go cold. Clients stall. Revenue slips quietly.</p>
+          </article>
+          <article class="service-card reveal" style="--delay: 220ms;">
+            <span class="card-label">03</span>
+            <h3>Payments</h3>
+            <p>Invoices are sent, but reminders don't happen. Cash flow becomes unpredictable.</p>
+          </article>
         </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-heading reveal">
+          <span class="scenario-label">Real workflow example</span>
+          <h2>What this looks like in your business</h2>
+          <p>Right now, this probably happens inside your team: a request comes in by email.</p>
+        </div>
+        <div class="scenario-grid">
+          <article class="scenario-card before reveal" style="--delay: 50ms;">
+            <h3>Before</h3>
+            <ul class="service-list">
+              <li>Email sits in inbox</li>
+              <li>Someone will check later</li>
+              <li>No ticket created</li>
+              <li>No follow-up sent</li>
+              <li>Client waits or leaves</li>
+            </ul>
+          </article>
+          <article class="scenario-card after reveal" style="--delay: 140ms;">
+            <h3>After Convoria</h3>
+            <ul class="service-list">
+              <li>Email is instantly captured</li>
+              <li>Ticket is created automatically</li>
+              <li>Assigned to the right person</li>
+              <li>Follow-up sent within seconds</li>
+              <li>Status tracked until completion</li>
+            </ul>
+          </article>
+        </div>
+        <p class="scenario-impact reveal" style="--delay: 220ms;">No missed requests. No manual tracking. No lost revenue.</p>
+      </div>
+    </section>
+
+    <section id="outcomes">
+      <div class="container">
+        <div class="section-heading reveal">
+          <span class="section-kicker">What Changes</span>
+          <h2>What changes once this is fixed</h2>
+          <p>Now everything is clear:</p>
+        </div>
+        <article class="about-card reveal">
+          <ul class="service-list">
+            <li>Every request gets captured and assigned</li>
+            <li>Follow-ups happen automatically</li>
+            <li>Nothing depends on memory</li>
+            <li>Payments stay visible until collected</li>
+          </ul>
+        </article>
       </div>
     </section>
 
     <section id="how-it-works">
       <div class="container">
         <div class="section-heading reveal">
-          <h2>How it works</h2>
-          <p>We keep the process lean: map what matters, automate the handoffs, and give your team a system they can trust every day.</p>
+          <span class="section-kicker">How It Works</span>
+          <h2>How we set this up</h2>
+          <p>Simple rollout. No unnecessary rebuild. No complexity theater.</p>
         </div>
         <div class="how-grid">
-          <article class="process-step reveal" style="--delay: 40ms;"><span class="step-number">1</span><h3>Audit</h3><p>We review your current requests, inbox flow, task handling, and payment process to spot missed steps and delay points.</p></article>
-          <article class="process-step reveal" style="--delay: 120ms;"><span class="step-number">2</span><h3>Design</h3><p>We define the workflow logic, ownership rules, automations, and alerts that fit your existing tools and operating rhythm.</p></article>
-          <article class="process-step reveal" style="--delay: 200ms;"><span class="step-number">3</span><h3>Launch</h3><p>We implement the workflow with lightweight automation and clean interfaces, so there's no heavy platform migration.</p></article>
-          <article class="process-step reveal" style="--delay: 280ms;"><span class="step-number">4</span><h3>Refine</h3><p>We monitor outcomes, tighten edge cases, and make sure your team sees exactly what happened and what comes next.</p></article>
+          <article class="process-step reveal" style="--delay: 40ms;"><span class="step-number">1</span><h3>Audit</h3><p>We map where requests, follow-ups, and payments are breaking.</p></article>
+          <article class="process-step reveal" style="--delay: 120ms;"><span class="step-number">2</span><h3>Design</h3><p>We define the workflow, rules, and ownership.</p></article>
+          <article class="process-step reveal" style="--delay: 200ms;"><span class="step-number">3</span><h3>Launch</h3><p>We connect it to your existing tools. No rebuild needed.</p></article>
+          <article class="process-step reveal" style="--delay: 280ms;"><span class="step-number">4</span><h3>Refine</h3><p>We monitor and improve based on real usage.</p></article>
         </div>
-      </div>
-    </section>
-    <section id="about">
-      <div class="container">
-        <article class="about-card reveal">
-          <div class="about-copy">
-            <div>
-              <h2>Built for teams that want reliability, not more admin.</h2>
-              <p>Convoria helps businesses create calm, structured operations behind the scenes. Instead of relying on scattered inboxes, memory, or manual follow-up, we design automation that captures requests, pushes the right action forward, and keeps payments visible until they're closed.</p>
-            </div>
-            <div class="about-metrics">
-              <div class="metric"><strong>Faster response flow</strong><span class="workflow-copy"><span>Reduce lag between incoming work and the first action.</span></span></div>
-              <div class="metric"><strong>Clear accountability</strong><span class="workflow-copy"><span>Every request gets an owner, status, and next step.</span></span></div>
-              <div class="metric"><strong>Less manual tracking</strong><span class="workflow-copy"><span>Your team spends less time checking, chasing, and reminding.</span></span></div>
-            </div>
-          </div>
-        </article>
       </div>
     </section>
 
-    <section id="faq">
-      <div class="container faq-layout">
-        <div class="faq-intro reveal">
-          <h2>Questions teams usually ask first.</h2>
-          <p>The goal is simple: make the system dependable without making your setup complicated.</p>
+    <section id="about">
+      <div class="container">
+        <div class="section-heading reveal">
+          <span class="section-kicker">Who It's For</span>
+          <h2>Who this is for</h2>
+          <p>This works best when responsiveness directly affects revenue and follow-through matters.</p>
         </div>
-        <div class="faq-list">
-          <article class="faq-item reveal" data-open="true" style="--delay: 60ms;">
-            <button type="button" class="faq-trigger" aria-expanded="true">
-              <h3>Will this work with the tools we already use?</h3>
-              <span class="faq-icon" aria-hidden="true">+</span>
-            </button>
-            <div class="faq-answer"><p>Yes. Convoria is designed around your existing email, forms, CRM, spreadsheets, and payment workflow so you don't need a heavy rebuild to get results.</p></div>
-          </article>
-          <article class="faq-item reveal" data-open="false" style="--delay: 140ms;">
-            <button type="button" class="faq-trigger" aria-expanded="false">
-              <h3>How long does it take to get started?</h3>
-              <span class="faq-icon" aria-hidden="true">+</span>
-            </button>
-            <div class="faq-answer"><p>Most engagements start with a focused audit, then we prioritize the highest-impact workflow so you can launch quickly instead of waiting on a massive implementation.</p></div>
-          </article>
-          <article class="faq-item reveal" data-open="false" style="--delay: 220ms;">
-            <button type="button" class="faq-trigger" aria-expanded="false">
-              <h3>What kinds of businesses is this best for?</h3>
-              <span class="faq-icon" aria-hidden="true">+</span>
-            </button>
-            <div class="faq-answer"><p>It's best for service teams, agencies, operators, and growing businesses that handle recurring requests, follow-ups, or invoicing and want a more dependable operating system.</p></div>
-          </article>
-        </div>
+        <article class="about-card reveal">
+          <ul class="service-list">
+            <li>Service businesses handling leads and clients</li>
+            <li>Teams where follow-ups affect revenue</li>
+            <li>Businesses relying on email, CRM, or spreadsheets</li>
+          </ul>
+        </article>
       </div>
     </section>
 
@@ -694,15 +2175,15 @@
       <div class="container contact-shell">
         <article class="contact-card reveal contact-copy">
           <h2>Book a free audit.</h2>
-          <p>Tell us where requests or payments tend to slip, and we'll help map the first automation that gives your team the most relief.</p>
-          <div class="contact-points">
-            <div class="contact-point">Request handling that moves from inbox to action without manual chasing.</div>
-            <div class="contact-point">Follow-up systems that keep prospects and clients progressing automatically.</div>
-            <div class="contact-point">Payment visibility so reminders happen on time and revenue doesn't stall.</div>
-          </div>
+          <p>We'll show you exactly where things are breaking and what to automate first.</p>
+          <ul class="contact-benefits">
+            <li>Find where requests are getting missed</li>
+            <li>Identify lost follow-ups</li>
+            <li>Spot delays in payments</li>
+          </ul>
         </article>
         <article class="contact-card reveal" style="--delay: 120ms;">
-          <h2>Send a message</h2>
+          <h2>Book Free Audit</h2>
           <form id="contactForm">
             <input id="requestType" name="requestType" type="hidden" value="booking" />
             <div class="form-row">
@@ -719,8 +2200,9 @@
               <label for="message">Message</label>
               <textarea id="message" name="message" placeholder="Tell us what's currently getting missed."></textarea>
             </div>
-            <button class="button" type="submit">Book Free Audit</button>
-            <p class="form-note">Tell us what is getting missed and we will review it with you.</p>
+            <p class="contact-lead">We'll show you exactly what's breaking &mdash; and how to fix it.</p>
+            <button class="button" type="submit">Get Free Audit</button>
+            <p class="form-note">We'll review and reply within 24 hours.</p>
             <p class="form-status" id="formMsg" aria-live="polite"></p>
           </form>
         </article>
@@ -862,4 +2344,4 @@
     })();
   </script>
 </body>
-</html>
+</html> -->
