@@ -1170,51 +1170,37 @@
         revealItems.forEach(function (item) { item.classList.add("is-visible"); });
       }
 
-      const form = document.getElementById("fitForm");
-      const msg = document.getElementById("formMsg");
-      // const endpoint = "https://script.google.com/macros/s/AKfycbxII4P3KYw0DDmV5xvpAP7ZZPA1akTl3xjjkIF-0bfa9eD0C_xR0oyjOsdoibayMBeR2Q/exec";
-      const endpoint = "https://script.google.com/macros/s/AKfycbx566K4r7DaWWLC3MfOfMtU2BcoqcqWF724jH5gVNxJQTLa65X9ZtsjkITGHXBG9zdwqg/exec";
+     const form = document.getElementById("fitForm");
+const msg = document.getElementById("formMsg");
 
-      form.addEventListener("submit", async function (event) {
-        event.preventDefault();
-        const data = Object.fromEntries(new FormData(form).entries());
+const endpoint ="https://script.google.com/macros/s/AKfycbx566K4r7DaWWLC3MfOfMtU2BcoqcqWF724jH5gVNxJQTLa65X9ZtsjkITGHXBG9zdwqg/exec";
+form.addEventListener("submit", async function (event) {
+  event.preventDefault();
 
-        if (!data.name || !data.email || !data.company || !data.workflow || !data.volume || !data.budget || !data.tools || !data.timeline) {
-          msg.style.color = "#fbbf24";
-          msg.textContent = "Please fill the required fields.";
-          return;
-        }
+  msg.textContent = "Submitting...";
 
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(data.email)) {
-          msg.style.color = "#fbbf24";
-          msg.textContent = "Please enter a valid email address.";
-          return;
-        }
+  try {
+    const formData = new FormData(form);
 
-        msg.style.color = "#c7cfdf";
-        msg.textContent = "Submitting your workflow fit check...";
+    // make sure requestType is present
+    formData.set("requestType", "workflow-fit-check");
+    console.log(formData)
 
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({ event: "workflow_fit_submit", payload: data });
+    await fetch(endpoint, {
+      method: "POST",
+      mode: "no-cors",
+      body: formData
+    });
 
-        try {
-          await fetch(endpoint, {
-            method: "POST",
-            mode: "no-cors",
-            body: JSON.stringify(data)
-          });
-
-          msg.style.color = "#72e4bd";
-          msg.textContent = "Submitted. If the workflow looks suitable, we will reply with the next step.";
-          form.reset();
-          document.getElementById("requestType").value = "workflow-fit-check";
-        } catch (error) {
-          console.error("Form submission error:", error);
-          msg.style.color = "#fca5a5";
-          msg.textContent = "Could not submit right now. Please try again or contact us directly.";
-        }
-      });
+    msg.style.color = "lightgreen";
+    msg.textContent = "Submitted successfully.";
+    form.reset();
+  } catch (err) {
+    console.error(err);
+    msg.style.color = "red";
+    msg.textContent = "Submission failed.";
+  }
+});
     })();
   </script>
 </body>
