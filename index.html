@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -657,7 +655,7 @@
         <span>Convoria</span>
       </a>
       <nav class="nav-links" id="navLinks" aria-label="Primary navigation">
-        <a href="#demos">Demos</a>
+        <!-- <a href="#demos">Demos</a> -->
         <a href="#pricing">Pricing</a>
         <a href="#workflows">Workflows</a>
         <a href="#process">Process</a>
@@ -681,8 +679,9 @@
             Convoria builds workflow automation systems for service and operations-heavy businesses that still manage leads, requests, follow-ups, tickets, and updates manually across <strong>WhatsApp, email, CRM, ERP, and spreadsheets.</strong>
           </p>
           <div class="hero-actions">
-            <a class="button" href="#demos">Watch 90-second demo</a>
-            <a class="button-secondary" href="#fit-check">Check project fit</a>
+            <!-- <a class="button" href="#demos">Watch 90-second demo</a> -->
+            <a class="button" href="#fit-check">Check project fit</a>
+            <!-- <a class="button-secondary" href="#fit-check">Check project fit</a> -->
           </div>
           <p class="filter-line"><strong>Automation pilots start from ₹25,000.</strong> CRM/ERP workflows usually start from ₹75,000+.</p>
           <div class="hero-tags" aria-label="Main use cases">
@@ -742,7 +741,7 @@
       </div>
     </section>
 
-    <section class="section" id="demos">
+    <!-- <section class="section" id="demos">
       <div class="container">
         <div class="section-heading reveal">
           <span class="kicker">Demo library</span>
@@ -794,7 +793,7 @@
           </article>
         </div>
       </div>
-    </section>
+    </section> -->
 
     <section class="section" id="pricing">
       <div class="container">
@@ -1170,37 +1169,51 @@
         revealItems.forEach(function (item) { item.classList.add("is-visible"); });
       }
 
-     const form = document.getElementById("fitForm");
-const msg = document.getElementById("formMsg");
+      const form = document.getElementById("fitForm");
+      const msg = document.getElementById("formMsg");
+      const endpoint = "https://script.google.com/macros/s/AKfycbxII4P3KYw0DDmV5xvpAP7ZZPA1akTl3xjjkIF-0bfa9eD0C_xR0oyjOsdoibayMBeR2Q/exec";
 
-const endpoint ="https://script.google.com/macros/s/AKfycbx566K4r7DaWWLC3MfOfMtU2BcoqcqWF724jH5gVNxJQTLa65X9ZtsjkITGHXBG9zdwqg/exec";
-form.addEventListener("submit", async function (event) {
-  event.preventDefault();
+      form.addEventListener("submit", async function (event) {
+        event.preventDefault();
+        const data = Object.fromEntries(new FormData(form).entries());
 
-  msg.textContent = "Submitting...";
+        if (!data.name || !data.email || !data.company || !data.workflow || !data.volume || !data.budget || !data.tools || !data.timeline) {
+          msg.style.color = "#fbbf24";
+          msg.textContent = "Please fill the required fields.";
+          return;
+        }
 
-  try {
-    const formData = new FormData(form);
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(data.email)) {
+          msg.style.color = "#fbbf24";
+          msg.textContent = "Please enter a valid email address.";
+          return;
+        }
 
-    // make sure requestType is present
-    formData.set("requestType", "workflow-fit-check");
-    console.log(formData)
+        msg.style.color = "#c7cfdf";
+        msg.textContent = "Submitting your workflow fit check...";
 
-    await fetch(endpoint, {
-      method: "POST",
-      mode: "no-cors",
-      body: formData
-    });
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ event: "workflow_fit_submit", payload: data });
 
-    msg.style.color = "lightgreen";
-    msg.textContent = "Submitted successfully.";
-    form.reset();
-  } catch (err) {
-    console.error(err);
-    msg.style.color = "red";
-    msg.textContent = "Submission failed.";
-  }
-});
+        try {
+          await fetch(endpoint, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+          });
+
+          msg.style.color = "#72e4bd";
+          msg.textContent = "Submitted. If the workflow looks suitable, we will reply with the next step.";
+          form.reset();
+          document.getElementById("requestType").value = "workflow-fit-check";
+        } catch (error) {
+          console.error("Form submission error:", error);
+          msg.style.color = "#fca5a5";
+          msg.textContent = "Could not submit right now. Please try again or contact us directly.";
+        }
+      });
     })();
   </script>
 </body>
