@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Convoria | WhatsApp, Email & ERP Workflow Automation</title>
-  <meta name="description" content="Convoria builds WhatsApp, email, CRM and ERP workflow automations that turn incoming requests into tracked tasks, tickets, follow-ups and reports." />
+  <title>Convoria | Email-to-Ticket Automation & Operational Workflows</title>
+  <meta name="description" content="Convoria turns support emails into tracked tickets automatically and builds custom workflows for existing business systems. Serving teams in India, Ireland, the UK and Australia." />
   <link rel="icon" href="black.png" type="image/png" />
   <style>
     :root {
@@ -645,6 +645,77 @@
       *, *::before, *::after { animation:none !important; transition-duration:.01ms !important; transition-delay:0ms !important; }
       .reveal, .reveal.is-visible { opacity:1; transform:none; }
     }
+
+    :root {
+      --accent: #a78bfa;
+      --accent-2: #6d9eff;
+      --accent-3: #ffc27c;
+      --success: #52e6b5;
+      --shadow: 0 28px 100px rgba(0, 0, 0, .48);
+    }
+    body {
+      background:
+        radial-gradient(ellipse at 10% 4%, rgba(167, 139, 250, .15), transparent 32%),
+        radial-gradient(ellipse at 92% 14%, rgba(109, 158, 255, .15), transparent 30%),
+        radial-gradient(ellipse at 50% 100%, rgba(109, 158, 255, .04), transparent 34%),
+        linear-gradient(180deg, #070810 0%, #080d16 48%, #05070c 100%);
+    }
+    .hero { padding-bottom: 4.6rem; }
+    .hero-grid { align-items: center; gap: clamp(2rem, 5vw, 4.5rem); }
+    h1 { max-width: 11ch; font-size: clamp(3.2rem, 6vw, 6rem); line-height: .9; }
+    .gradient-text { background-image: linear-gradient(120deg, #ffffff 5%, #c9b8ff 50%, #91b7ff 100%); }
+    .eyebrow { border-color: rgba(167,139,250,.2); background: rgba(167,139,250,.055); }
+    .eyebrow::before { background: var(--accent); box-shadow: 0 0 0 6px rgba(167,139,250,.12), 0 0 22px rgba(167,139,250,.36); }
+    .button { color: #fff; background: linear-gradient(120deg, #8c69ee, #627ff1); box-shadow: 0 14px 36px rgba(118,105,238,.22); }
+    .button-secondary { border-color: rgba(255,255,255,.16); }
+    .workflow-panel { min-height: 0; border-color: rgba(167,139,250,.22); background: linear-gradient(145deg, rgba(128,104,225,.09), rgba(255,255,255,.025) 42%); }
+    .workflow-panel::before { background: rgba(139,112,239,.16); }
+    .flow-num { color: #fff; background: linear-gradient(135deg, #8c69ee, #627ff1); }
+    .tag::before, .demo-list li::before, .clean-list li::before { background: linear-gradient(135deg, #a78bfa, #6d9eff); }
+    .proof-item:first-child { border-color: rgba(167,139,250,.24); background: linear-gradient(135deg, rgba(167,139,250,.09), rgba(255,255,255,.025)); }
+    .kicker { color: #c8b8ff; }
+    .demo-section { position: relative; overflow: hidden; background: linear-gradient(180deg, rgba(120,103,224,.055), rgba(255,255,255,.012) 45%, transparent); border-top: 1px solid rgba(255,255,255,.055); border-bottom: 1px solid rgba(255,255,255,.055); }
+    .demo-section .section-heading { max-width: 850px; }
+    .demo-layout { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(300px, .65fr); gap: 1.1rem; align-items: stretch; }
+    .demo-player, .demo-summary { border: 1px solid rgba(255,255,255,.11); border-radius: 26px; background: linear-gradient(145deg, rgba(18,25,37,.96), rgba(9,13,21,.96)); box-shadow: var(--shadow); overflow: hidden; }
+    .demo-player { padding: .85rem; }
+    .demo-player-heading, .demo-player-footer { display: flex; justify-content: space-between; align-items: center; gap: .8rem; color: var(--muted-2); font-size: .86rem; padding: .2rem .35rem .8rem; }
+    .demo-player-footer { padding: .8rem .35rem .2rem; color: var(--muted); font-size: .78rem; }
+    .live-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--success); box-shadow: 0 0 0 5px rgba(82,230,181,.12), 0 0 18px rgba(82,230,181,.4); margin-right: .2rem; }
+    .demo-duration { margin-left: auto; color: #b9c7ff; font-variant-numeric: tabular-nums; }
+    .demo-video { display: block; width: 100%; aspect-ratio: 16 / 9; background: #020407; border: 1px solid rgba(255,255,255,.08); border-radius: 18px; object-fit: contain; }
+    .demo-summary { padding: clamp(1.3rem, 2.4vw, 2rem); display: flex; flex-direction: column; }
+    .demo-overline { color: #c8b8ff; font-size: .75rem; font-weight: 900; text-transform: uppercase; letter-spacing: .13em; }
+    .demo-summary h3 { margin: .7rem 0 1.1rem; max-width: 18ch; font-size: clamp(1.45rem, 2.2vw, 2rem); line-height: 1.08; letter-spacing: -.05em; }
+    .demo-step { display: grid; grid-template-columns: 42px 1fr; gap: .75rem; align-items: center; padding: .78rem 0; border-top: 1px solid rgba(255,255,255,.075); }
+    .demo-step > span { color: #aebaff; font-size: .78rem; font-weight: 900; letter-spacing: .05em; }
+    .demo-step strong, .demo-step small { display: block; }
+    .demo-step small { margin-top: .12rem; color: var(--muted); font-size: .82rem; line-height: 1.4; }
+    .demo-cta { margin-top: auto; padding-inline: .9rem; white-space: normal; text-align: center; }
+    .engagement-section { background: radial-gradient(ellipse at 50% 0%, rgba(109,158,255,.075), transparent 52%); }
+    .engagement-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 1rem; }
+    .engagement-card { min-height: 225px; padding: 1.5rem; border: 1px solid rgba(255,255,255,.09); border-radius: 23px; background: linear-gradient(150deg, rgba(255,255,255,.045), rgba(255,255,255,.015)); }
+    .engagement-featured { border-color: rgba(167,139,250,.32); background: linear-gradient(145deg, rgba(167,139,250,.11), rgba(109,158,255,.07) 60%, rgba(255,255,255,.018)); transform: translateY(-8px); }
+    .engagement-number { display: inline-block; color: #c8b8ff; font-size: .78rem; font-weight: 900; letter-spacing: .12em; }
+    .engagement-card h3 { margin-top: 1.4rem; font-size: 1.35rem; letter-spacing: -.04em; }
+    .engagement-card p { margin-top: .55rem; color: var(--muted); font-size: .94rem; }
+    .quote-strip { display: flex; justify-content: space-between; align-items: center; gap: 1.2rem; margin-top: 1rem; padding: 1.3rem 1.45rem; border: 1px solid rgba(255,255,255,.08); border-radius: 22px; background: rgba(255,255,255,.025); }
+    .quote-strip p { color: var(--muted-2); }
+    .quote-strip strong { color: var(--text); }
+    #fit-check { scroll-margin-top: 90px; }
+    @media (max-width: 900px) {
+      .demo-layout { grid-template-columns: 1fr; }
+      .demo-summary { min-height: 0; }
+      .demo-cta { margin-top: 1.2rem; }
+    }
+    @media (max-width: 760px) {
+      h1 { font-size: clamp(3rem, 13vw, 4.4rem); }
+      .engagement-grid { grid-template-columns: 1fr; }
+      .engagement-card { min-height: 0; }
+      .engagement-featured { transform: none; }
+      .quote-strip { align-items: flex-start; flex-direction: column; }
+      .demo-player-heading, .demo-player-footer { flex-wrap: wrap; }
+    }
   </style>
 </head>
 <body>
@@ -656,8 +727,9 @@
       </a>
       <nav class="nav-links" id="navLinks" aria-label="Primary navigation">
         <!-- <a href="#demos">Demos</a> -->
-        <a href="#pricing">Pricing</a>
+        <a href="#demo">Email-to-ticket</a>
         <a href="#workflows">Workflows</a>
+        <a href="#pricing">Engagement</a>
         <a href="#process">Process</a>
         <a href="#fit">Fit</a>
         <a href="#faq">FAQ</a>
@@ -673,61 +745,55 @@
     <section class="hero">
       <div class="container hero-grid">
         <div class="reveal">
-          <span class="eyebrow">WhatsApp • Email • CRM • ERP automation</span>
-          <h1>Turn incoming requests into <span class="gradient-text">tracked work.</span></h1>
+          <span class="eyebrow">Email-to-ticket automation • India, Ireland, UK & Australia</span>
+          <h1>Turn support emails into <span class="gradient-text">tickets automatically.</span></h1>
           <p class="lead">
-            Convoria builds workflow automation systems for service and operations-heavy businesses that still manage leads, requests, follow-ups, tickets, and updates manually across <strong>WhatsApp, email, CRM, ERP, and spreadsheets.</strong>
+            Convoria reads incoming support emails, extracts the details your team needs, creates a ticket in your existing system, and logs the outcome. Your team handles exceptions while routine requests keep moving.
           </p>
           <div class="hero-actions">
-            <!-- <a class="button" href="#demos">Watch 90-second demo</a> -->
-            <a class="button" href="#fit-check">Check project fit</a>
-            <!-- <a class="button-secondary" href="#fit-check">Check project fit</a> -->
+            <a class="button" href="#demo">See the workflow</a>
+            <a class="button-secondary" href="#fit-check">Request a demo</a>
           </div>
-          <p class="filter-line"><strong>Automation pilots start from ₹25,000.</strong> CRM/ERP workflows usually start from ₹75,000+.</p>
-          <div class="hero-tags" aria-label="Main use cases">
-            <span class="tag">WhatsApp lead follow-up</span>
-            <span class="tag">Email-to-ticket</span>
-            <span class="tag">ERP/CRM updates</span>
-            <span class="tag">Reports & reminders</span>
+          <p class="filter-line">Built for teams in India, Ireland, the UK, Australia, and beyond. Every project is scoped around your systems, volume, and requirements.</p>
+          <div class="hero-tags" aria-label="Main services">
+            <span class="tag">Email-to-ticket automation</span>
+            <span class="tag">Existing-system integration</span>
+            <span class="tag">Human review for exceptions</span>
+            <span class="tag">Custom operational workflows</span>
           </div>
         </div>
 
         <aside class="workflow-panel reveal" style="--delay: 120ms;" aria-label="Example workflow diagram">
           <div class="workflow-top">
-            <span>Example workflow</span>
-            <span class="status">System active</span>
+            <span>Email-to-ticket workflow</span>
+            <span class="status">Human review included</span>
           </div>
           <div class="flow-list">
             <div class="flow-item">
               <span class="flow-num">1</span>
-              <div><strong>Message arrives</strong><span>WhatsApp enquiry, email request, form lead, or support issue.</span></div>
+              <div><strong>Support email arrives</strong><span>A customer request lands in the monitored inbox.</span></div>
               <span class="flow-meta">Captured</span>
             </div>
             <div class="flow-item">
               <span class="flow-num">2</span>
-              <div><strong>Details extracted</strong><span>Name, requirement, status, urgency, ID, location, or project field.</span></div>
+              <div><strong>Information extracted</strong><span>Customer, issue, priority, and required ticket fields are identified.</span></div>
               <span class="flow-meta">Structured</span>
             </div>
             <div class="flow-item">
               <span class="flow-num">3</span>
-              <div><strong>Task/ticket created</strong><span>The right record is created in CRM, ERP, sheet, or task tool.</span></div>
+              <div><strong>Ticket created</strong><span>Details are added to the compatible support or business system.</span></div>
               <span class="flow-meta">Assigned</span>
             </div>
             <div class="flow-item">
               <span class="flow-num">4</span>
-              <div><strong>Follow-up triggered</strong><span>Owner gets notified, reminder starts, unclear cases go to review.</span></div>
-              <span class="flow-meta">Moving</span>
-            </div>
-            <div class="flow-item">
-              <span class="flow-num">5</span>
-              <div><strong>Report updated</strong><span>Management sees open, pending, missed, and completed work.</span></div>
-              <span class="flow-meta">Visible</span>
+              <div><strong>Confirmation and log</strong><span>The outcome is recorded; uncertain cases go to a person for review.</span></div>
+              <span class="flow-meta">Tracked</span>
             </div>
           </div>
           <div class="mini-stats">
-            <div class="mini-stat"><strong>No copy-paste</strong><span>Messages become records.</span></div>
-            <div class="mini-stat"><strong>No lost owner</strong><span>Every item is assigned.</span></div>
-            <div class="mini-stat"><strong>No blind follow-up</strong><span>Status stays visible.</span></div>
+            <div class="mini-stat"><strong>Less copy-paste</strong><span>Email details become ticket fields.</span></div>
+            <div class="mini-stat"><strong>Clear ownership</strong><span>Tickets reach the right queue or owner.</span></div>
+            <div class="mini-stat"><strong>Exceptions reviewed</strong><span>People handle cases automation cannot resolve.</span></div>
           </div>
         </aside>
       </div>
@@ -735,132 +801,68 @@
 
     <section class="proof-strip">
       <div class="container proof-grid">
-        <div class="proof-item reveal"><strong>Built for practical operations</strong><p>Not AI hype. The system is designed around intake, assignment, reminders, review, and reporting.</p></div>
-        <div class="proof-item reveal" style="--delay:80ms"><strong>Works with existing tools</strong><p>WhatsApp, email, sheets, CRM, ERP, forms, and internal task systems.</p></div>
-        <div class="proof-item reveal" style="--delay:160ms"><strong>Fixed-scope pilots</strong><p>Start small, prove the workflow, then expand only where ROI is clear.</p></div>
+        <div class="proof-item reveal"><strong>Start with your inbox</strong><p>Turn incoming support emails into structured, assigned tickets with a traceable outcome.</p></div>
+        <div class="proof-item reveal" style="--delay:80ms"><strong>Keep your existing systems</strong><p>We check compatibility with your CRM, ERP, helpdesk, email, and internal tools before proposing a build.</p></div>
+        <div class="proof-item reveal" style="--delay:160ms"><strong>Serving teams across markets</strong><p>Projects for businesses in India, Ireland, the UK, and Australia are scoped to their workflow and requirements.</p></div>
       </div>
     </section>
 
-    <!-- <section class="section" id="demos">
+    <section class="section demo-section" id="demo">
       <div class="container">
         <div class="section-heading reveal">
-          <span class="kicker">Demo library</span>
-          <h2>See the workflow before booking a call.</h2>
-          <p>Use these short demos to understand what we build. Replace the placeholders with your Loom or YouTube demo videos when ready.</p>
+          <span class="kicker">See it in action</span>
+          <h2>From support email to ticket, without the copy-paste.</h2>
+          <p>Watch the walkthrough, then see how the same approach can fit your inbox and existing tools.</p>
         </div>
-        <div class="demo-grid">
-          <article class="demo-card reveal" style="--delay:40ms;">
-            <a class="video-box" href="#fit-check" aria-label="Request WhatsApp lead qualification demo">
-              <span class="play" aria-hidden="true"></span>
-              <span class="video-label">90-sec demo placeholder</span>
-            </a>
-            <h3>WhatsApp Lead Qualification</h3>
-            <p>For teams that receive enquiries on WhatsApp and manually chase every prospect.</p>
-            <ul class="demo-list">
-              <li>Ask 3–5 qualification questions</li>
-              <li>Tag hot, warm, or cold leads</li>
-              <li>Notify sales only when action is needed</li>
-              <li>Create reminders for follow-up</li>
-            </ul>
-          </article>
-          <article class="demo-card reveal" style="--delay:120ms;">
-            <a class="video-box" href="#fit-check" aria-label="Request Email-to-ticket automation demo">
-              <span class="play" aria-hidden="true"></span>
-              <span class="video-label">90-sec demo placeholder</span>
-            </a>
-            <h3>Email-to-Ticket Automation</h3>
-            <p>For support, ERP, and operations teams where incoming emails need structured action.</p>
-            <ul class="demo-list">
-              <li>Detect issue, acknowledgement, follow-up, or resolved message</li>
-              <li>Extract required fields</li>
-              <li>Create ticket or task</li>
-              <li>Send unclear cases to manual review</li>
-            </ul>
-          </article>
-          <article class="demo-card reveal" style="--delay:200ms;">
-            <a class="video-box" href="#fit-check" aria-label="Request Follow-up workflow demo">
-              <span class="play" aria-hidden="true"></span>
-              <span class="video-label">90-sec demo placeholder</span>
-            </a>
-            <h3>Follow-up & Reporting Workflow</h3>
-            <p>For teams that lose visibility after a lead, request, invoice, or task is created.</p>
-            <ul class="demo-list">
-              <li>Create follow-up schedule</li>
-              <li>Send reminders to the owner</li>
-              <li>Escalate missed actions</li>
-              <li>Update status report automatically</li>
-            </ul>
-          </article>
+        <div class="demo-layout">
+          <div class="demo-player reveal">
+            <div class="demo-player-heading"><span class="live-dot"></span><span>Convoria product walkthrough</span><span class="demo-duration">2 min 10 sec</span></div>
+            <video class="demo-video" controls playsinline preload="metadata" aria-label="Support email to ticket automation product walkthrough">
+              <source src="assets/support-email-to-ticket-demo.mp4" type="video/mp4" />
+              Your browser does not support embedded video playback.
+            </video>
+            <div class="demo-player-footer"><span>Real workflow demonstration</span><span>Email intake / ticket creation / review</span></div>
+          </div>
+          <aside class="demo-summary reveal" style="--delay:100ms;">
+            <span class="demo-overline">The workflow</span>
+            <h3>Routine requests move. Exceptions reach a person.</h3>
+            <div class="demo-step"><span>01</span><div><strong>Read</strong><small>Capture the incoming support email.</small></div></div>
+            <div class="demo-step"><span>02</span><div><strong>Understand</strong><small>Extract customer, issue, and ticket fields.</small></div></div>
+            <div class="demo-step"><span>03</span><div><strong>Create</strong><small>Route the ticket into a compatible system.</small></div></div>
+            <div class="demo-step"><span>04</span><div><strong>Confirm</strong><small>Log the result and flag uncertain cases.</small></div></div>
+            <a class="button demo-cta" href="#fit-check">Plan a walkthrough for my team <span aria-hidden="true">→</span></a>
+          </aside>
         </div>
       </div>
-    </section> -->
+    </section>
 
-    <section class="section" id="pricing">
+    <section class="section engagement-section" id="pricing">
       <div class="container">
         <div class="section-heading reveal">
-          <span class="kicker">Offers & pricing</span>
-          <h2>Clear scope. Clear starting range. No endless discovery.</h2>
-          <p>Small budget means small scope. Larger workflows require serious implementation and support. Pricing depends on tools, logic, access, and edge cases.</p>
+          <span class="kicker">Clear scope. Clear quote.</span>
+          <h2>Pricing that fits your workflow and your market.</h2>
+          <p>We do not publish a one-size-fits-all price. After checking your volume, system access, integrations, and exception rules, we send a written quote in the project currency you choose.</p>
         </div>
-        <div class="pricing-grid">
-          <article class="pricing-card reveal" style="--delay:40ms;">
-            <div class="pricing-top"><span class="package-label">Starter</span></div>
-            <h3>Starter Workflow Pilot</h3>
-            <div class="price"><strong>₹25K–₹50K</strong><span>one-time setup</span></div>
-            <p>Best for small teams that want one simple workflow without heavy CRM or ERP complexity.</p>
-            <p class="include-title">Included</p>
-            <ul class="clean-list">
-              <li>1 workflow</li>
-              <li>1 trigger: WhatsApp, email, form, or sheet</li>
-              <li>1–2 tools connected</li>
-              <li>Basic capture, assignment, reminder, and testing</li>
-              <li>Handover walkthrough</li>
-            </ul>
-            <div class="excluded">
-              <p class="include-title">Not included</p>
-              <ul class="clean-list">
-                <li>ERP integration</li>
-                <li>Complex AI decision-making</li>
-                <li>Custom dashboards</li>
-                <li>Unlimited revisions</li>
-              </ul>
-            </div>
-            <p class="pricing-note">Optional support: ₹3K–₹7K/month.</p>
+        <div class="engagement-grid">
+          <article class="engagement-card reveal" style="--delay:40ms;">
+            <span class="engagement-number">01</span>
+            <h3>Feasibility first</h3>
+            <p>Review the inbox, ticketing platform, available connectors, permissions, and the way your team handles exceptions.</p>
           </article>
-
-          <article class="pricing-card featured reveal" style="--delay:120ms;">
-            <div class="pricing-top"><span class="package-label popular">Most relevant</span></div>
-            <h3>Business Automation Pilot</h3>
-            <div class="price"><strong>₹75K–₹1.5L</strong><span>setup + ₹10K–₹25K/month support</span></div>
-            <p>Best when missed follow-ups, manual entries, and poor visibility are already costing time or revenue.</p>
-            <p class="include-title">Included</p>
-            <ul class="clean-list">
-              <li>WhatsApp/email/form intake automation</li>
-              <li>Lead/request classification</li>
-              <li>Field extraction and owner assignment</li>
-              <li>CRM, ERP, sheet, or task-system update</li>
-              <li>Manual review logic for unclear cases</li>
-              <li>Basic reporting, testing, and launch support</li>
-            </ul>
-            <p class="pricing-note">Good fit for WhatsApp lead qualification, email-to-ticket, CRM follow-up, and ERP request workflows.</p>
+          <article class="engagement-card engagement-featured reveal" style="--delay:120ms;">
+            <span class="engagement-number">02</span>
+            <h3>One agreed scope</h3>
+            <p>Confirm the workflow, deliverables, timeline, support needs, payment terms, and preferred currency before build begins.</p>
           </article>
-
-          <article class="pricing-card reveal" style="--delay:200ms;">
-            <div class="pricing-top"><span class="package-label">Advanced</span></div>
-            <h3>Full Workflow System</h3>
-            <div class="price"><strong>₹2L+</strong><span>setup + ₹25K+/month support</span></div>
-            <p>Best for teams with multiple workflows, departments, approval steps, or tool integrations.</p>
-            <p class="include-title">Included</p>
-            <ul class="clean-list">
-              <li>Multiple connected workflows</li>
-              <li>CRM/ERP/API integrations</li>
-              <li>Role-based assignment</li>
-              <li>Escalation logic</li>
-              <li>Dashboards and reporting</li>
-              <li>Ongoing monitoring and improvement</li>
-            </ul>
-            <p class="pricing-note">Good fit for sales + operations systems, support automation, approvals, and ERP-connected request management.</p>
+          <article class="engagement-card reveal" style="--delay:200ms;">
+            <span class="engagement-number">03</span>
+            <h3>Built for your systems</h3>
+            <p>Implement, review, and hand over the workflow with a clear path for human handling of uncertain cases.</p>
           </article>
+        </div>
+        <div class="quote-strip reveal">
+          <p><strong>Serving India and international clients.</strong> Currency and commercial terms are agreed with you before work starts.</p>
+          <a class="button" href="#fit-check">Get a scoped quote</a>
         </div>
       </div>
     </section>
@@ -868,17 +870,17 @@
     <section class="section" id="workflows">
       <div class="container">
         <div class="section-heading reveal">
-          <span class="kicker">What we automate</span>
-          <h2>We do not automate everything. We automate repeatable work that leaks time, follow-ups, or visibility.</h2>
-          <p>The best projects have volume, clear rules, and a painful handoff between people or tools.</p>
+          <span class="kicker">How the service fits together</span>
+          <h2>Email-to-ticket first. Custom operational workflows when the process calls for them.</h2>
+          <p>We start with repeatable email handling, then scope other workflow needs across your existing tools where there is a clear business case.</p>
         </div>
         <div class="workflow-grid">
-          <article class="card reveal" style="--delay:40ms;"><span class="card-icon">01</span><h3>Lead intake & qualification</h3><p>Capture leads from WhatsApp, forms, email, or sheets. Ask basic questions, tag quality, assign owners, and create reminders.</p></article>
-          <article class="card reveal" style="--delay:100ms;"><span class="card-icon">02</span><h3>Email-to-ticket</h3><p>Classify incoming emails, extract key fields, create tickets/tasks, and route unclear cases to manual review.</p></article>
-          <article class="card reveal" style="--delay:160ms;"><span class="card-icon">03</span><h3>CRM/ERP updates</h3><p>Reduce copy-paste between messages, sheets, CRM, ERP, and internal tools.</p></article>
-          <article class="card reveal" style="--delay:220ms;"><span class="card-icon">04</span><h3>Follow-up reminders</h3><p>Trigger reminders for sales, support, collections, approvals, or pending actions.</p></article>
-          <article class="card reveal" style="--delay:280ms;"><span class="card-icon">05</span><h3>Reports & visibility</h3><p>Show open tasks, missed actions, pending follow-ups, and completed items without manual reporting.</p></article>
-          <article class="card reveal" style="--delay:340ms;"><span class="card-icon">06</span><h3>Manual review queues</h3><p>When automation is unsure, route the item to a human instead of silently making bad decisions.</p></article>
+          <article class="card reveal" style="--delay:40ms;"><span class="card-icon">01</span><h3>Email-to-ticket automation</h3><p>Classify incoming support emails, identify the customer and issue, extract ticket fields, create and route tickets, then log the outcome.</p></article>
+          <article class="card reveal" style="--delay:100ms;"><span class="card-icon">02</span><h3>Custom operational workflows</h3><p>Connect repeatable processes across existing CRMs, ERPs, helpdesks, and internal systems after checking feasibility.</p></article>
+          <article class="card reveal" style="--delay:160ms;"><span class="card-icon">03</span><h3>System integrations</h3><p>Check available APIs, connectors, permissions, and data flows before connecting your current tools.</p></article>
+          <article class="card reveal" style="--delay:220ms;"><span class="card-icon">04</span><h3>Confirmations and logging</h3><p>Record what was created, where it was routed, and whether a customer or team confirmation is needed.</p></article>
+          <article class="card reveal" style="--delay:280ms;"><span class="card-icon">05</span><h3>Human review for exceptions</h3><p>Send uncertain, incomplete, or sensitive emails to a person instead of creating a ticket from a guess.</p></article>
+          <article class="card reveal" style="--delay:340ms;"><span class="card-icon">06</span><h3>Other repeatable workflows</h3><p>Extend the same feasibility-first approach to approvals, updates, reminders, and reporting across your operations.</p></article>
         </div>
       </div>
     </section>
@@ -886,29 +888,29 @@
     <section class="section">
       <div class="container">
         <div class="section-heading reveal">
-          <span class="kicker">Before / after</span>
-          <h2>What changes after the workflow is fixed.</h2>
-          <p>This is the operational difference buyers should understand before they book a call.</p>
+          <span class="kicker">The manual email-to-ticket process</span>
+          <h2>From inbox handling to a logged, assigned ticket.</h2>
+          <p>When each request is processed by hand, small delays and missed details add up. The workflow can handle the repeatable steps and leave exceptions for human review.</p>
         </div>
         <div class="before-after">
           <article class="scenario bad reveal" style="--delay:60ms;">
             <h3>Before Convoria</h3>
             <ul class="clean-list">
-              <li>Messages sit inside WhatsApp or inboxes</li>
-              <li>Team manually copies details into sheets or CRM</li>
-              <li>No clear owner for every request</li>
-              <li>Follow-ups depend on memory</li>
-              <li>Management sees problems late</li>
+              <li>Someone reads each email and works out who the customer is</li>
+              <li>The issue and urgency are identified manually</li>
+              <li>Details are copied into a ticketing or CRM system</li>
+              <li>A ticket is created and assigned by hand</li>
+              <li>Confirmation and status logging can be missed</li>
             </ul>
           </article>
           <article class="scenario good reveal" style="--delay:140ms;">
             <h3>After Convoria</h3>
             <ul class="clean-list">
-              <li>Request is captured automatically</li>
-              <li>Important fields are structured</li>
-              <li>Task or ticket is created</li>
-              <li>Owner and reminder are assigned</li>
-              <li>Status is visible until completion</li>
+              <li>Incoming email is captured and classified</li>
+              <li>Customer, issue, and required fields are extracted</li>
+              <li>Ticket is created and routed in a compatible system</li>
+              <li>Confirmation and activity are logged</li>
+              <li>Unclear cases are sent to a person to review</li>
             </ul>
           </article>
         </div>
@@ -919,13 +921,13 @@
       <div class="container">
         <div class="section-heading reveal">
           <span class="kicker">Process</span>
-          <h2>Clear scope before anything is built.</h2>
-          <p>We keep the first call short. Detailed mapping happens only after there is budget, access, and a real workflow worth fixing.</p>
+          <h2>Check feasibility before anything is built.</h2>
+          <p>We confirm the workflow, volume, existing-system compatibility, access, exception cases, and budget before proposing a build.</p>
         </div>
         <div class="process-grid">
-          <article class="step reveal" style="--delay:40ms;"><span class="step-num">1</span><h3>Fit check</h3><p>15 minutes to confirm workflow, volume, tools, budget, decision-maker, and timeline.</p></article>
-          <article class="step reveal" style="--delay:120ms;"><span class="step-num">2</span><h3>Scope</h3><p>We define trigger, inputs, logic, outputs, exceptions, integrations, and what is excluded.</p></article>
-          <article class="step reveal" style="--delay:200ms;"><span class="step-num">3</span><h3>Build</h3><p>We implement the agreed workflow, test key cases, and show a working demo before launch.</p></article>
+          <article class="step reveal" style="--delay:40ms;"><span class="step-num">1</span><h3>Feasibility check</h3><p>We review your inbox, volume, existing systems, available access, and what those tools can connect to.</p></article>
+          <article class="step reveal" style="--delay:120ms;"><span class="step-num">2</span><h3>Workflow scope</h3><p>We agree the fields, routing rules, confirmations, logs, human-review exceptions, and project scope.</p></article>
+          <article class="step reveal" style="--delay:200ms;"><span class="step-num">3</span><h3>Build</h3><p>We build and validate the workflow against agreed examples, including exception cases, then walk you through the result.</p></article>
           <article class="step reveal" style="--delay:280ms;"><span class="step-num">4</span><h3>Launch & support</h3><p>We hand over the workflow and monitor it through monthly support if the system is business-critical.</p></article>
         </div>
       </div>
@@ -935,24 +937,24 @@
       <div class="container">
         <div class="section-heading reveal">
           <span class="kicker">Fit filter</span>
-          <h2>This is not for every business.</h2>
-          <p>A good website should attract serious buyers and repel time-wasters. Use this section to set expectations before the call.</p>
+          <h2>A good fit starts with a repeatable email workflow.</h2>
+          <p>We check whether the process, email volume, and current systems support a reliable automation before recommending implementation.</p>
         </div>
         <div class="fit-grid">
           <article class="fit-card good reveal" style="--delay:40ms;">
             <h3>Good fit</h3>
             <ul class="clean-list">
-              <li>You receive repeated leads, requests, tickets, or follow-ups</li>
-              <li>Your team uses WhatsApp, email, CRM, ERP, or sheets</li>
-              <li>Manual tracking is causing missed work or poor visibility</li>
-              <li>You can provide access and make decisions quickly</li>
-              <li>Budget starts from ₹25K for simple pilots</li>
+              <li>Your team handles repeated support emails that need tickets</li>
+              <li>You can share the current ticket fields and routing rules</li>
+              <li>Your email and ticketing systems offer a feasible integration path</li>
+              <li>You want human review for ambiguous or sensitive cases</li>
+              <li>You are based in India, Ireland, the UK, Australia, or another market</li>
             </ul>
           </article>
           <article class="fit-card bad reveal" style="--delay:120ms;">
             <h3>Not a fit</h3>
             <ul class="clean-list">
-              <li>You want a ₹5K full custom automation</li>
+              <li>You expect automation to work without access or feasibility checks</li>
               <li>You are only exploring AI with no business workflow</li>
               <li>You cannot provide tool access or sample data</li>
               <li>Your process changes every day and has no repeatable pattern</li>
@@ -986,7 +988,7 @@
           </article>
           <article class="faq-item reveal" data-open="false" style="--delay:60ms;">
             <button class="faq-trigger" type="button" aria-expanded="false"><h3>Can we start small?</h3><span class="faq-icon">+</span></button>
-            <div class="faq-answer"><p>Yes. Starter pilots begin from ₹25K–₹50K when the workflow is simple: one trigger, one output, and one or two tools. Complex CRM/ERP workflows require a larger budget.</p></div>
+            <div class="faq-answer"><p>Yes. We can begin with one repeatable workflow when the integration is feasible. We agree the scope, project currency, and quote with you before implementation.</p></div>
           </article>
           <article class="faq-item reveal" data-open="false" style="--delay:120ms;">
             <button class="faq-trigger" type="button" aria-expanded="false"><h3>Why do you charge monthly support?</h3><span class="faq-icon">+</span></button>
@@ -997,8 +999,12 @@
             <div class="faq-answer"><p>No. The first call only checks fit. Detailed workflow mapping happens after the project is qualified and commercially agreed.</p></div>
           </article>
           <article class="faq-item reveal" data-open="false" style="--delay:240ms;">
-            <button class="faq-trigger" type="button" aria-expanded="false"><h3>What do you need from us?</h3><span class="faq-icon">+</span></button>
-            <div class="faq-answer"><p>We need access to relevant tools, sample messages/data, current workflow rules, decision-maker availability, and someone from your team who owns the process.</p></div>
+            <button class="faq-trigger" type="button" aria-expanded="false"><h3>Will this work with our current system?</h3><span class="faq-icon">+</span></button>
+            <div class="faq-answer"><p>We check your email and ticketing tools, available APIs or connectors, permissions, and workflow requirements first. We confirm feasibility before proposing an implementation.</p></div>
+          </article>
+          <article class="faq-item reveal" data-open="false" style="--delay:300ms;">
+            <button class="faq-trigger" type="button" aria-expanded="false"><h3>Can you work with businesses outside India?</h3><span class="faq-icon">+</span></button>
+            <div class="faq-answer"><p>Yes. Convoria is positioning its services for businesses in India, Ireland, the UK, Australia, and other markets. We confirm project scope and pricing in an agreed currency during the fit check.</p></div>
           </article>
         </div>
       </div>
@@ -1008,12 +1014,12 @@
       <div class="container contact-grid">
         <article class="contact-copy reveal">
           <span class="kicker">Fit check</span>
-          <h2>Check if your workflow is worth automating.</h2>
-          <p>The first step is not a long discovery call. Fill this form so we can understand if there is a real workflow, real volume, real budget, and a clear next step.</p>
+          <h2>Request an email-to-ticket demo.</h2>
+          <p>Tell us how support emails are handled today and which systems your team uses. We will review the workflow and check feasibility before recommending a next step.</p>
           <ul class="clean-list">
-            <li>Use this for WhatsApp leads, email-to-ticket, CRM/ERP updates, reporting, and follow-up workflows.</li>
-            <li>If the budget is below ₹25K or the workflow is not repeatable, custom automation may not be the right fit yet.</li>
-            <li>If it looks suitable, the next step is a 15-minute workflow fit call.</li>
+            <li>Use this form for email-to-ticket automation or a custom workflow across your existing systems.</li>
+            <li>Include the support email volume, current ticketing or CRM tools, and how exceptions are handled.</li>
+            <li>We agree the project scope and preferred currency with you before sharing a written quote.</li>
           </ul>
         </article>
         <article class="form-card reveal" style="--delay:120ms;">
@@ -1032,7 +1038,7 @@
             <div class="form-row">
               <div class="field">
                 <label for="company">Company</label>
-                <input id="company" name="company" type="text" placeholder="Company name" required />
+                <input id="company" name="company" type="text" placeholder="Company name and country" required />
               </div>
               <div class="field">
                 <label for="phone">WhatsApp / Phone</label>
@@ -1063,13 +1069,13 @@
                 </select>
               </div>
               <div class="field">
-                <label for="budget">Budget range</label>
+                <label for="budget">Budget status</label>
                 <select id="budget" name="budget" required>
-                  <option value="">Select budget</option>
-                  <option>Below ₹25K</option>
-                  <option>₹25K–₹50K</option>
-                  <option>₹75K–₹1.5L</option>
-                  <option>₹2L+</option>
+                  <option value="">Select one</option>
+                  <option>We have an approved project budget</option>
+                  <option>We are setting a budget after reviewing scope</option>
+                  <option>Please provide a quote in our preferred currency</option>
+                  <option>We need a feasibility discussion first</option>
                 </select>
               </div>
             </div>
@@ -1091,10 +1097,10 @@
             </div>
             <div class="field">
               <label for="message">Briefly describe what is getting missed or done manually</label>
-              <textarea id="message" name="message" placeholder="Example: leads come on WhatsApp, sales team copies to sheet, follow-ups are missed..."></textarea>
+              <textarea id="message" name="message" placeholder="Example: support emails are copied into our ticket system by hand. Include your country and current tools if useful."></textarea>
             </div>
             <button class="button" type="submit">Submit Workflow Fit Check</button>
-            <p class="form-note">We review fit first. If suitable, the next step is a 15-minute call.</p>
+            <p class="form-note">We review the workflow and system compatibility first. If suitable, the next step is a tailored walkthrough.</p>
             <p class="form-status" id="formMsg" aria-live="polite"></p>
           </form>
         </article>
@@ -1105,7 +1111,7 @@
   <footer>
     <div class="container footer-shell">
       <p>Convoria</p>
-      <p>Workflow automation for teams that do not want requests, follow-ups, or updates missed.</p>
+      <p>Email-to-ticket automation and custom operational workflows for teams in India and internationally.</p>
     </div>
   </footer>
 
