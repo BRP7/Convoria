@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Microsoft licence billing check for UK MSPs | Convoria</title>
+<meta name="description" content="A spreadsheet that compares your Microsoft/CSP invoice with your PSA billing and flags licences that look unbilled. Your data stays on your machine.">
+<!--
+  BEFORE YOU PUBLISH, replace or confirm:
+  1. PAYMENT_LINK_GOES_HERE  (two buttons: hero and pricing box) with your Gumroad / Stripe / Paddle link.
+  2. The data-handling list: only keep promises you will actually keep.
+  3. The 14-day refund: only keep it if you will honour it.
+  4. Check VAT / tax / invoicing with your accountant before taking money.
+  Email used for "run it for you": info@getconvoria.com
+-->
+<style>
+:root{
+  --paper:#F7F8FA; --card:#FFFFFF; --ink:#0F1B2D; --muted:#566275; --rule:#D5DAE1;
+  --brand:#1B3A6B; --brand-dark:#122B52; --flag:#B3261E; --flag-bg:#FBEDEC;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6}
+.wrap{max-width:880px;margin:0 auto;padding:0 22px}
+header.top{padding:22px 0;border-bottom:1px solid var(--rule)}
+header.top .wrap{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap}
+.brand{font-family:var(--serif);font-weight:700;font-size:20px;letter-spacing:.01em}
+.brand-note{color:var(--muted);font-size:14px}
+h1,h2,h3{font-family:var(--serif);line-height:1.2;margin:0 0 .5em}
+h1{font-size:clamp(32px,6vw,48px);max-width:16em;letter-spacing:-.01em}
+h2{font-size:clamp(24px,4vw,30px);margin-top:0}
+h3{font-size:19px}
+p{margin:0 0 1em;max-width:62ch}
+section{padding:54px 0;border-bottom:1px solid var(--rule)}
+section:last-of-type{border-bottom:0}
+.lede{font-size:19px;color:var(--muted);max-width:56ch}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin:26px 0 8px}
+.btn{display:inline-block;padding:13px 22px;border-radius:6px;font-weight:600;text-decoration:none;font-size:16px;border:2px solid var(--brand);transition:background .15s,color .15s}
+.btn.primary{background:var(--brand);color:#fff}
+.btn.primary:hover{background:var(--brand-dark);border-color:var(--brand-dark)}
+.btn.secondary{background:transparent;color:var(--brand)}
+.btn.secondary:hover{background:var(--brand);color:#fff}
+.btn:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid #7AA2E3;outline-offset:3px}
+.fine{font-size:14px;color:var(--muted)}
+.hero{padding:56px 0 48px}
+
+/* the ledger: the memorable element */
+.ledger{background:var(--card);border:1px solid var(--rule);border-radius:4px;margin-top:34px;overflow:hidden}
+.ledger-head{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:14px 18px;border-bottom:2px solid var(--ink);background:#EEF1F5}
+.ledger-head strong{font-family:var(--serif);font-size:18px}
+.ledger-head span{font-size:13px;color:var(--flag);font-weight:600}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));border-bottom:1px solid var(--rule)}
+.stat{padding:14px 18px;border-right:1px solid var(--rule)}
+.stat:last-child{border-right:0}
+.stat b{display:block;font-family:var(--serif);font-size:26px;font-variant-numeric:tabular-nums}
+.stat small{color:var(--muted);font-size:13px;line-height:1.3;display:block}
+.stat.confirmed b{color:var(--muted)}
+.table-scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:15px;min-width:620px}
+th,td{text-align:left;padding:11px 18px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-size:13px;color:var(--muted);font-weight:600;background:#FAFBFC}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.flag td:first-child{border-left:4px solid var(--flag)}
+tr.note td:first-child{border-left:4px solid var(--rule)}
+tr.flag td.num{color:var(--flag);font-weight:700}
+.ledger-foot{padding:12px 18px;font-size:13px;color:var(--muted);background:#FAFBFC}
+
+/* steps: a real sequence */
+ol.steps{list-style:none;margin:24px 0 0;padding:0;display:grid;gap:18px;counter-reset:s}
+ol.steps li{counter-increment:s;padding-left:54px;position:relative;max-width:62ch}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:0;width:36px;height:36px;border:2px solid var(--ink);border-radius:50%;display:grid;place-items:center;font-family:var(--serif);font-weight:700}
+ol.steps strong{display:block;font-family:var(--serif);font-size:19px;margin-bottom:2px}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:34px}
+@media (max-width:720px){.two{grid-template-columns:1fr;gap:6px}}
+ul.plain{margin:0 0 1em;padding-left:20px}
+ul.plain li{margin-bottom:.5em;max-width:60ch}
+.limits{border-left:4px solid var(--flag);background:var(--flag-bg);padding:18px 22px;border-radius:0 4px 4px 0;max-width:68ch}
+.limits p:last-child{margin-bottom:0}
+
+.price-box{background:var(--card);border:1px solid var(--ink);border-radius:4px;padding:28px;max-width:560px}
+.price{font-family:var(--serif);font-size:44px;font-weight:700;line-height:1;margin:0 0 4px;font-variant-numeric:tabular-nums}
+.price-box ul{margin:16px 0 22px;padding-left:20px}
+.price-box li{margin-bottom:.4em}
+
+details{border-top:1px solid var(--rule);padding:14px 0;max-width:68ch}
+details:last-of-type{border-bottom:1px solid var(--rule)}
+summary{cursor:pointer;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-size:22px;line-height:1;color:var(--muted)}
+details[open] summary::after{content:"\2212"}
+details p{margin:10px 0 0;color:var(--muted)}
+a.inline{color:var(--brand);font-weight:600}
+footer{padding:32px 0 48px;color:var(--muted);font-size:14px}
+footer .wrap{display:flex;flex-direction:column;gap:6px}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <span class="brand">Convoria</span>
+    <span class="brand-note">Automation studio, India</span>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="wrap">
+    <h1>Check your Microsoft licence billing for gaps</h1>
+    <p class="lede">A spreadsheet for UK MSPs. It compares your Microsoft/CSP invoice with your PSA billing and flags licences that look unbilled, over-billed or inconsistent. Your data stays on your machine.</p>
+    <div class="cta-row">
+      <a class="btn primary" href="PAYMENT_LINK_GOES_HERE">Get early access for £49</a>
+      <a class="btn secondary" href="mailto:info@getconvoria.com?subject=Please%20run%20the%20licence%20billing%20check%20for%20us">Ask us to run it for you</a>
+    </div>
+    <p class="fine">14-day refund. Early access: not yet tested on every PSA or distributor format.</p>
+
+    <div class="ledger" aria-label="Sample report summary">
+      <div class="ledger-head">
+        <strong>Sample summary: Sep and Oct comparison</strong>
+        <span>Fictional data, not a typical result</span>
+      </div>
+      <div class="stats">
+        <div class="stat"><b>12</b><small>customers reviewed, 15 licence lines</small></div>
+        <div class="stat"><b>4</b><small>gaps in both periods</small></div>
+        <div class="stat"><b>£449</b><small>estimated monthly difference, potential and unverified</small></div>
+        <div class="stat confirmed"><b>£0</b><small>confirmed until you verify against contracts</small></div>
+      </div>
+      <div class="table-scroll">
+      <table>
+        <thead><tr><th>Customer</th><th>Licence</th><th>Finding</th><th class="num">Est. per month</th></tr></thead>
+        <tbody>
+          <tr class="flag"><td>C09</td><td>Business Basic</td><td>Paid to supplier, customer not in PSA</td><td class="num">£241.50</td></tr>
+          <tr class="flag"><td>C08</td><td>Business Premium</td><td>Recurring under-billing</td><td class="num">£120.00</td></tr>
+          <tr class="flag"><td>C03</td><td>Business Standard</td><td>Recurring under-billing</td><td class="num">£87.50</td></tr>
+          <tr class="note"><td>C07</td><td>Business Standard</td><td>Recurring over-billing, credit risk</td><td class="num">not counted</td></tr>
+          <tr class="note"><td>C05</td><td>Business Standard</td><td>Latest period only, possible timing</td><td class="num">not counted</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="ledger-foot">Customers are coded and all figures are invented to show the layout. Gaps are leads to verify, not recoverable revenue.</div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <h2>How it works</h2>
+    <ol class="steps">
+      <li><strong>Export two files</strong>Your Microsoft/CSP invoice and your PSA billing lines, for two billing periods.</li>
+      <li><strong>Paste them in</strong>Map your customer names and licence names once. The template flags anything it cannot match.</li>
+      <li><strong>Read the summary</strong>See recurring gaps, one-period gaps, exceptions and what to verify first.</li>
+    </ol>
+  </div>
+</section>
+
+<section id="scope">
+  <div class="wrap two">
+    <div>
+      <h2>What you get</h2>
+      <ul class="plain">
+        <li>The working spreadsheet, with a sample already filled in.</li>
+        <li>A step-by-step guide to matching real exports.</li>
+        <li>An exceptions list: unmapped names, duplicates, credits, missing periods.</li>
+        <li>A verification log, so only confirmed items count as recoverable.</li>
+      </ul>
+    </div>
+    <div>
+      <h2>What it cannot tell you</h2>
+      <div class="limits">
+        <p>A gap is a lead, not lost revenue. Contracts, discounts, bundles, proration and billing policy can all explain a difference.</p>
+        <p>Only your contracts and customer invoices can confirm what is billable.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="price">
+  <div class="wrap">
+    <h2>Early access</h2>
+    <div class="price-box">
+      <p class="price">£49</p>
+      <p class="fine">One-off. No subscription.</p>
+      <ul>
+        <li>Template, setup guide and sample report</li>
+        <li>14-day refund if it is not useful</li>
+        <li>You tell us which formats it does not handle, and we fix what we can</li>
+      </ul>
+      <a class="btn primary" href="PAYMENT_LINK_GOES_HERE">Get early access for £49</a>
+    </div>
+  </div>
+</section>
+
+<section id="done">
+  <div class="wrap">
+    <h2>Prefer not to do it yourself?</h2>
+    <p>Send us your two exports and we will run the review and send back the findings, with the items to verify first. Tell us your PSA and distributor when you write.</p>
+    <p><a class="btn secondary" href="mailto:info@getconvoria.com?subject=Please%20run%20the%20licence%20billing%20check%20for%20us">Email info@getconvoria.com</a></p>
+  </div>
+</section>
+
+<section id="data">
+  <div class="wrap">
+    <h2>Your data</h2>
+    <p>With the template, nothing is sent to us. If you ask us to run the review:</p>
+    <ul class="plain">
+      <li>Files are kept in one encrypted folder and used only for your report.</li>
+      <li>Send them by expiring link or a password-protected file.</li>
+      <li>Customer names can be replaced with codes before you send.</li>
+      <li>Files are deleted within 14 days of delivering the report, unless you agree otherwise.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <h2>Questions</h2>
+    <details><summary>Which PSAs and distributors does it support?</summary><p>It works from exports, so any PSA or distributor that can export customer, product, period, quantity and price should work after mapping. It is early access, and some formats will need extra mapping.</p></details>
+    <details><summary>Do you need access to our systems?</summary><p>No. The template needs two exports. We never ask for logins.</p></details>
+    <details><summary>Will it find lost revenue?</summary><p>It finds differences between two files. Whether they are lost revenue depends on your contracts, which is why the summary separates estimates from confirmed amounts.</p></details>
+    <details><summary>Who is behind this?</summary><p>Convoria, a small automation studio in India. Write to <a class="inline" href="mailto:info@getconvoria.com">info@getconvoria.com</a>.</p></details>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Convoria, India. info@getconvoria.com</span>
+    <span>Sample data is fictional. This is a spreadsheet tool, not financial, legal or tax advice.</span>
+  </div>
+</footer>
+
+</body>
+</html>
