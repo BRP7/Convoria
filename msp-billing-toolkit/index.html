@@ -4,15 +4,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Microsoft 365 billing reconciliation toolkit for UK MSPs | Convoria</title>
+  <title>Microsoft 365 billing review for UK MSPs | Convoria</title>
   <meta name="description"
-    content="An early-access Excel toolkit from Convoria that compares Microsoft/CSP licence records with PSA billing and highlights potential discrepancies for UK MSPs to investigate.">
-  <meta property="og:title" content="Microsoft 365 billing reconciliation toolkit for UK MSPs | Convoria">
+    content="A done-for-you review from Convoria that compares Microsoft or distributor licence invoices with what a UK MSP bills its customers, and returns a list of differences to investigate.">
+  <meta property="og:title" content="Microsoft 365 billing review for UK MSPs | Convoria">
   <meta property="og:description"
-    content="An early-access Excel toolkit for comparing Microsoft/CSP licence records with PSA billing records.">
+    content="A done-for-you check of two billing periods: what Microsoft charges against what you bill each customer.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Convoria">
-  <!-- CHANGED: canonical is now an absolute URL -->
   <link rel="canonical" href="https://www.convoria.com/msp-billing-toolkit/">
   <link rel="icon" href="../black.png" type="image/png">
   <script>try { if (localStorage.getItem('convoria-theme') === 'dark') document.documentElement.dataset.theme = 'dark'; } catch (error) { }</script>
@@ -20,19 +19,18 @@
   <script defer src="../assets/convoria.js"></script>
   <!--
     BEFORE YOU PUBLISH, CONFIRM EACH OF THESE (delete any promise you will not keep):
-    1. "We reply within one working day with a payment link"  -> only if you will.
-    2. "Workbook delivered by email within one working day of payment" -> only if you will.
-    3. "14-day refund" -> only if you will honour it.
-    4. "First 5 buyers get a 20-minute mapping session" -> only if you will do it.
-    4b. "£49 for the first five buyers, then £99" -> only if you will actually raise the price after five sales.
-    4c. Review price: £495 for up to 25 customers, £795 for 26 to 60, half to start and half on delivery
-        -> same numbers as your call script. Change both together.
-    5. "We can sign your NDA or provide a short one" -> have a one-page NDA ready.
-    6. Tax: confirm VAT / GST / invoicing with your accountant before taking money.
-    7. Email: the site is convoria.com but the address is info@getconvoria.com. Send test emails
+    1. Review price: £495 for up to 25 customers, £795 for 26 to 60, half to start and half on delivery
+       -> same numbers as your call script. Change both together.
+    2. "We reply within one working day" -> only if you will.
+    3. "We can sign your NDA or provide a short one" -> have a one-page NDA ready.
+    4. Tax: confirm VAT / GST / invoicing with your accountant before taking money.
+    5. Email: the site is convoria.com but the address is info@getconvoria.com. Send test emails
        from it to a Gmail and an Outlook address and check they arrive in the inbox, or use an address
        at convoria.com. Set up SPF, DKIM and DMARC for whichever domain you send from.
-    8. When you have a payment link, see the "ENABLE CHECKOUT" comment in the price box.
+    6. The sample PDF is at ../assets/Convoria_Sample_Report_Fictional_Data.pdf. Replace the old file
+       with the new 4-page version (same file name) so the links keep working.
+    7. The toolkit offer (£49 / £99, payment link, 14-day refund, mapping session) has been removed.
+       Search the rest of the site for "toolkit" and "£49" and remove any other mentions.
   -->
 </head>
 
@@ -40,12 +38,12 @@
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header">
     <div class="container header-row"><a class="wordmark" href="./"
-        aria-label="Microsoft 365 billing reconciliation toolkit"><img class="brand-logo" src="../black.png"
+        aria-label="Microsoft 365 billing review"><img class="brand-logo" src="../black.png"
           alt="">Convoria</a><button class="menu-toggle" type="button" data-menu-toggle aria-controls="site-navigation"
         aria-expanded="false">Menu</button>
-      <nav class="site-nav" id="site-navigation" data-site-nav aria-label="Product navigation"><a
+      <nav class="site-nav" id="site-navigation" data-site-nav aria-label="Page navigation"><a
           href="#overview">Overview</a><a href="#sample-report">Sample report</a><a href="#how-it-works">How it
-          works</a><a href="#questions">FAQ</a><a href="#early-access">Early access</a></nav><button
+          works</a><a href="#questions">FAQ</a><a href="#review">Review</a></nav><button
         class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark theme" aria-pressed="false"
         title="Switch to dark theme"><span data-theme-icon aria-hidden="true">☾</span></button>
     </div>
@@ -53,40 +51,29 @@
   <main id="main">
     <section class="product-hero" id="overview">
       <div class="container product-hero-grid">
-        <div><span class="eyebrow">A Convoria early-access product</span>
-          <h1>Microsoft 365 billing reconciliation for UK MSPs.</h1>
-          <p class="hero-copy">An Excel-based toolkit that compares Microsoft/CSP licence records with PSA billing
-            records and highlights potential discrepancies worth investigating. Your data stays on your machine.</p>
-          <p class="hero-note">This is an early-access spreadsheet product, not a mature SaaS platform. A potential
-            discrepancy requires manual verification and does not itself confirm an error, credit or recoverable
-            revenue.</p>
-          <!-- CHANGED: the primary action is now the sample report; the second button goes to early access -->
+        <div><span class="eyebrow">A Convoria service</span>
+          <h1>Microsoft 365 billing review for UK MSPs.</h1>
+          <p class="hero-copy">We compare what Microsoft or your distributor charges you with what you bill each
+            customer, for your last two billing periods, and return a list of differences worth investigating.</p>
+          <p class="hero-note">A difference is a lead to check, not proof of an error, a credit or recoverable revenue.
+            Nothing is counted as confirmed until it has been checked against the contract and the customer invoice.
+          </p>
           <div class="button-row"><a class="button" href="../assets/Convoria_Sample_Report_Fictional_Data.pdf"
               target="_blank" rel="noopener">Get the sample report (PDF)</a><a class="button button--secondary"
-              href="#early-access">See early access</a></div>
+              href="#review">See the review</a></div>
         </div>
-        <aside class="price-box" id="early-access"><span class="eyebrow">Early access</span>
-          <div class="price">£49</div>
-          <p>Early-access price for the first five buyers, then £99. One-time price for the spreadsheet toolkit. Tax and invoice details are confirmed before payment.</p>
+        <aside class="price-box" id="review"><span class="eyebrow">Done-for-you review</span>
+          <div class="price">£495</div>
+          <p>For up to 25 customers. £795 for 26 to 60. Larger businesses are quoted after we see the export formats.</p>
           <ul class="plain-list">
-            <li>The workbook and a guide to mapping your exports, delivered by email within one working day of payment.</li>
-            <li>The first 5 early-access buyers also get a 20-minute mapping session on their own export.</li>
-            <li>14-day refund: tell us within 14 days if it is not useful and we will refund you.</li>
+            <li>Covers your last two billing periods.</li>
+            <li>An exceptions list and a walkthrough call.</li>
+            <li>Half to start, half when you receive the report.</li>
           </ul>
-          <!-- CHANGED: email is the purchase step until a payment link exists -->
-          <div class="availability">To buy, request early access. We reply by email within one working day with a
-            payment link.</div>
+          <div class="availability">Scope, data handling and terms are agreed in writing before any work begins.</div>
           <div class="button-row"><a class="button"
-              href="mailto:info@getconvoria.com?subject=Early%20access%20to%20the%20MSP%20billing%20toolkit">Request
-              early access</a></div>
-          <!--
-            ENABLE CHECKOUT (when you have a payment link):
-            1. Delete the "availability" div and the button above.
-            2. Paste this instead, with your real link:
-               <div class="button-row"><a class="button" data-checkout href="PAYMENT_LINK_GOES_HERE" rel="noopener">Buy early access for £49</a>
-               <a class="button button--secondary" href="mailto:info@getconvoria.com?subject=Early%20access%20question">Ask a question first</a></div>
-            3. If convoria.js controls the data-checkout button, check it still works after the change.
-          -->
+              href="mailto:info@getconvoria.com?subject=Microsoft%20365%20billing%20review%20enquiry">Ask about a
+              review</a></div>
         </aside>
       </div>
     </section>
@@ -94,28 +81,28 @@
       <div class="container">
         <div class="section-head"><span class="eyebrow">What it does</span>
           <div>
-            <h2>Bring two billing views into one review.</h2>
-            <p>The toolkit is designed to make a reconciliation review easier to work through, not to replace the checks
-              and judgement required to resolve a billing issue.</p>
+            <h2>Two billing views, one list of records to check.</h2>
+            <p>The review is a structured check that points you to the records worth a closer look. It does not replace
+              the checks and judgement needed to resolve a billing issue.</p>
           </div>
         </div>
         <div class="two-column">
           <div class="muted-panel">
-            <h3>It helps you</h3>
+            <h3>It gives you</h3>
             <ul class="check-list">
-              <li>Compare Microsoft/CSP invoice records against PSA billing records.</li>
-              <li>Surface potential unbilled, over-billed and inconsistent licence lines.</li>
-              <li>Highlight exceptions that need a person to verify source data and commercial context.</li>
-              <li>Keep a more structured record of a reconciliation review.</li>
+              <li>A comparison of Microsoft or distributor invoice quantities against what you bill each customer.</li>
+              <li>A list of possible unbilled, over-billed and inconsistent licence lines.</li>
+              <li>An exceptions list for names that did not match, duplicates, credits and missing periods.</li>
+              <li>A walkthrough call to go through what to verify first.</li>
             </ul>
           </div>
           <div class="muted-panel">
             <h3>It does not do</h3>
             <ul class="check-list">
-              <li>Confirm that a discrepancy is an invoice error or recoverable revenue.</li>
-              <li>Automatically change records in Microsoft, a distributor portal or a PSA.</li>
-              <li>Replace internal approvals, contract checks or customer communication.</li>
-              <li>Guarantee compatibility until your export format has been reviewed.</li>
+              <li>Confirm that a difference is an invoice error or recoverable revenue.</li>
+              <li>Change anything in Microsoft, a distributor portal or your billing system.</li>
+              <li>Replace your internal approvals, contract checks or customer communication.</li>
+              <li>Guarantee any recovery.</li>
             </ul>
           </div>
         </div>
@@ -132,17 +119,16 @@
                 rel="noopener">Download the fictional sample report (PDF)</a></p>
           </div>
         </div>
-        <!-- CHANGED: same fictional data as the PDF (latest period quantities; September and October compared) -->
         <div class="data-table-wrap">
           <table class="data-table">
-            <caption>Fictional sample reconciliation report: 12 customers, September and October compared (latest
-              period quantities shown)</caption>
+            <caption>Fictional sample report: 12 customers, September and October compared (October quantities shown)
+            </caption>
             <thead>
               <tr>
                 <th>Customer</th>
                 <th>Licence</th>
-                <th>Microsoft/CSP</th>
-                <th>PSA billing</th>
+                <th>Microsoft</th>
+                <th>Billed</th>
                 <th>Difference</th>
                 <th>Review status</th>
               </tr>
@@ -154,7 +140,7 @@
                 <td>35</td>
                 <td>none</td>
                 <td class="flag">+35</td>
-                <td>Customer not in PSA; confirm contract status</td>
+                <td>Customer not in billing system; confirm contract status</td>
               </tr>
               <tr>
                 <td>C08</td>
@@ -162,7 +148,7 @@
                 <td>42</td>
                 <td>36</td>
                 <td class="flag">+6</td>
-                <td>Gap in both periods; check agreement quantity</td>
+                <td>Differs in both months; check agreement quantity</td>
               </tr>
               <tr>
                 <td>C03</td>
@@ -170,7 +156,7 @@
                 <td>85</td>
                 <td>78</td>
                 <td class="flag">+7</td>
-                <td>Gap in both periods; check discounts and bundles</td>
+                <td>Differs in both months; check discounts and bundles</td>
               </tr>
               <tr>
                 <td>C05</td>
@@ -178,7 +164,7 @@
                 <td>48</td>
                 <td>40</td>
                 <td class="flag">+8</td>
-                <td>Latest period only; possible timing, not counted</td>
+                <td>October only; possible timing, not counted</td>
               </tr>
               <tr>
                 <td>C07</td>
@@ -194,13 +180,13 @@
                 <td>24</td>
                 <td>25</td>
                 <td class="flag">-1</td>
-                <td>Latest period only; possible missed removal</td>
+                <td>October only; possible missed removal, not counted</td>
               </tr>
             </tbody>
           </table>
         </div>
         <p class="hero-note">In this fictional sample the estimated monthly difference is £449 (potential and
-          unverified) and confirmed recoverable revenue is £0. A difference is a review lead only; it must be checked
+          unverified) and confirmed recoverable revenue is £0. A difference is a lead only. It must be checked
           against dates, agreements, product mapping and source records.</p>
       </div>
     </section>
@@ -208,29 +194,28 @@
       <div class="container">
         <div class="section-head"><span class="eyebrow">How it works</span>
           <div>
-            <h2>Designed for a deliberate monthly or quarterly check.</h2>
+            <h2>Four steps, with a person checking at the end.</h2>
           </div>
         </div>
         <div class="process-grid">
           <article><span class="number">01</span>
-            <h3>Export</h3>
-            <p>Export the relevant Microsoft/CSP invoice or licence data and the corresponding PSA billing data for
-              two billing periods.</p>
+            <h3>You send two exports</h3>
+            <p>The Microsoft or distributor invoices and your customer billing export for the last two billing periods.
+              Customer-level licence counts only.</p>
           </article>
           <article><span class="number">02</span>
-            <h3>Map</h3>
-            <p>Review the columns, customer identifiers and product names so that the two sources can be compared
-              meaningfully.</p>
+            <h3>We match</h3>
+            <p>Customer and product names are mapped so equivalent records can be compared. Anything that cannot be
+              mapped is listed, never dropped.</p>
           </article>
           <article><span class="number">03</span>
-            <h3>Review</h3>
-            <p>Use the output to investigate records that need a closer look, with a human checking the underlying
-              detail.</p>
+            <h3>We report</h3>
+            <p>Differences are separated into those in both months, those in one month only, and over-billing. You
+              receive a findings list and an exceptions list.</p>
           </article>
           <article><span class="number">04</span>
-            <h3>Resolve</h3>
-            <p>Record the outcome in your own process and make any necessary changes only after your usual checks and
-              approvals.</p>
+            <h3>You verify</h3>
+            <p>We walk through the list on a call. Any change is made only after your usual checks and approvals.</p>
           </article>
         </div>
       </div>
@@ -238,32 +223,32 @@
     <section class="section">
       <div class="container two-column">
         <div><span class="eyebrow">What is included</span>
-          <h2>The early-access toolkit.</h2>
+          <h2>The review.</h2>
           <ul class="plain-list">
-            <li>Excel workbook for comparing two data exports.</li>
-            <li>Guidance for preparing and mapping source data.</li>
-            <li>Exception list for unmapped names, duplicates, credits and missing periods.</li>
-            <li>A verification log, so only items you have confirmed count as recoverable.</li>
-            <li>Example structure using fictional data.</li>
+            <li>Comparison of your last two billing periods.</li>
+            <li>A findings list, with the items to verify first.</li>
+            <li>An exceptions list for unmapped names, duplicates, credits and missing periods.</li>
+            <li>A walkthrough call.</li>
           </ul>
         </div>
-        <div><span class="eyebrow">Product limitations</span>
-          <h2>Important before you buy.</h2>
+        <div><span class="eyebrow">Limitations</span>
+          <h2>Important before you start.</h2>
           <ul class="plain-list">
-            <li>Every PSA, distributor export and product catalogue can differ.</li>
-            <li>Your data may require column or product mapping before a useful comparison is possible.</li>
+            <li>Every billing system, distributor export and product catalogue can differ.</li>
+            <li>Your data may need column or product mapping before a useful comparison is possible.</li>
             <li>Use the results as an investigation list, not an automatic billing decision.</li>
-            <li>Early access means the toolkit has not been validated on every possible data format.</li>
+            <li>The method has been built and tested on fictional data. A first real export may need extra mapping
+              work.</li>
           </ul>
         </div>
       </div>
     </section>
     <section class="section contact-section">
       <div class="container contact-grid">
-        <div><span class="eyebrow">Done-for-you option</span>
-          <h2>Prefer a reconciliation review handled with you?</h2>
-          <p>Send us your two exports and we run the review and return a findings list, with the items to verify
-            first.</p>
+        <div><span class="eyebrow">Next step</span>
+          <h2>Want a review of your own billing?</h2>
+          <p>Tell us which systems you bill from and where your Microsoft invoices come from, and we will confirm the
+            scope.</p>
           <ul class="plain-list">
             <li>£495 for up to 25 customers, £795 for 26 to 60. Larger businesses are quoted after we see the export formats.</li>
             <li>Covers your last two billing periods, an exceptions list, and a walkthrough call.</li>
@@ -272,21 +257,18 @@
           </ul>
           <p>Scope, data handling and terms are agreed in writing before any work begins.</p>
           <p><a class="button"
-              href="mailto:info@getconvoria.com?subject=Done-for-you%20MSP%20reconciliation%20enquiry">Ask about a
-              reconciliation review</a></p>
+              href="mailto:info@getconvoria.com?subject=Microsoft%20365%20billing%20review%20enquiry">Ask about a
+              review</a></p>
         </div>
-        <!-- CHANGED: concrete, conditional commitments instead of "no public commitments" -->
         <div class="contact-form"><span class="eyebrow">Data handling</span>
           <h3>Keep control of sensitive billing data.</h3>
-          <p>With the toolkit, nothing is sent to us: you work with your own spreadsheet and exports. For a
-            done-for-you review, we only need customer-level licence counts, not user names or personal data, and
-            customer names can be replaced with codes.</p>
+          <p>We only need customer-level licence counts, not user names or personal data, and customer names can be
+            replaced with codes.</p>
           <p>Before any files are shared, we agree in writing the transfer method, who can access the files, and when
             they are deleted. We can sign your NDA or provide a short one.</p>
         </div>
       </div>
     </section>
-    <!-- CHANGED: new section so buyers can see who is behind the product -->
     <section class="section">
       <div class="container two-column">
         <div><span class="eyebrow">About</span>
@@ -297,7 +279,7 @@
         <div class="muted-panel">
           <h3>Contact</h3>
           <p>BR, Convoria<br>info@getconvoria.com</p>
-          <p>We reply to early-access and review enquiries by email within one working day.</p>
+          <p>We reply to enquiries by email within one working day.</p>
         </div>
       </div>
     </section>
@@ -311,50 +293,44 @@
         <div class="faq-list">
           <details>
             <summary>How much does it cost?</summary>
-            <p>The toolkit is £49 for the first five early-access buyers, then £99. The done-for-you review is £495
-              for up to 25 customers or £795 for 26 to 60, with larger businesses quoted after we see the export
-              formats.</p>
+            <p>The review is £495 for up to 25 customers or £795 for 26 to 60, with half paid to start and half on
+              delivery. Larger businesses are quoted after we see the export formats.</p>
+          </details>
+          <details>
+            <summary>What do I receive?</summary>
+            <p>A findings list with the items to verify first, an exceptions list, and a walkthrough call, covering
+              your last two billing periods.</p>
           </details>
           <details>
             <summary>Has it been tested on real MSP data?</summary>
-            <p>Not yet. It has been built and tested on fictional data. That is why this is early access, and why the
-              first 5 buyers get a mapping session on their own export. We expect some formats to need mapping work.</p>
+            <p>Not yet. The method has been built and tested on fictional data. We expect some real exports to need
+              mapping work, and we agree scope with you before starting.</p>
           </details>
           <details>
-            <summary>Will this work with my PSA or distributor?</summary>
-            <p>It may work where your export contains sufficient customer, product, period, quantity and billing
-              information. Export formats vary, so compatibility and any mapping requirements should be reviewed before
-              relying on the toolkit.</p>
+            <summary>Will this work with my billing system or distributor?</summary>
+            <p>It may work where your export contains enough customer, product, period, quantity and billing
+              information. Export formats vary, so we review them before agreeing scope.</p>
           </details>
           <details>
             <summary>Does a flagged record mean I have lost revenue?</summary>
-            <p>No. A flag only identifies a potential difference between two data sources. It needs manual verification
+            <p>No. A flag only identifies a possible difference between two data sources. It needs manual verification
               against source records, dates, agreements and your billing rules.</p>
           </details>
           <details>
-            <summary>What do I receive after paying?</summary>
-            <p>The workbook and a guide to mapping your exports, by email within one working day of payment. The first 5
-              buyers also get a 20-minute mapping session.</p>
+            <summary>What data do you need, and how is it protected?</summary>
+            <p>Customer-level licence counts only, with no user names, and customer names can be replaced with codes.
+              The transfer method, who can access the files and when they are deleted are agreed in writing before any
+              files are shared.</p>
           </details>
           <details>
-            <summary>Can I get a refund?</summary>
-            <p>Yes, for the toolkit: if it is not useful, tell us within 14 days of purchase and we will refund you. The review is a service, so its terms are agreed in writing before work starts.</p>
+            <summary>Is this software?</summary>
+            <p>No. It is a done-for-you service. It supports a structured review and does not replace your billing
+              system.</p>
           </details>
           <details>
-            <summary>Is this a SaaS platform?</summary>
-            <p>No. It is an early-access Excel-based product from Convoria. It is intended to support a structured
-              review, not to replace your PSA or billing system.</p>
-          </details>
-          <details>
-            <summary>Can Convoria perform the review for us?</summary>
-            <p>Yes. The review is £495 for up to 25 customers or £795 for 26 to 60, with half paid to start and half on
-              delivery. Contact us with the systems and export formats involved, and we will agree scope, data handling
-              and terms in writing before starting.</p>
-          </details>
-          <details>
-            <summary>How do I buy the toolkit?</summary>
-            <p>Use the early-access request link. The price is £49 for the first five buyers and £99 after that. We
-              reply by email within one working day with a payment link and the invoice details.</p>
+            <summary>How do I start?</summary>
+            <p>Email us with the systems and export formats involved. We reply within one working day, and scope and
+              terms are agreed in writing before any work starts.</p>
           </details>
         </div>
       </div>
@@ -364,17 +340,17 @@
     <div class="container">
       <div class="footer-grid">
         <div><a class="wordmark" href="./"><img class="brand-logo" src="../black.png" alt="">Convoria</a>
-          <p>Microsoft 365 billing reconciliation toolkit for UK MSPs. Convoria is based in India.</p>
+          <p>Microsoft 365 billing review for UK MSPs. Convoria is based in India.</p>
         </div>
-        <div class="footer-links"><strong>Toolkit</strong><a href="#overview">Overview</a><a
+        <div class="footer-links"><strong>Review</strong><a href="#overview">Overview</a><a
             href="#sample-report">Sample report</a><a href="#how-it-works">How it works</a><a href="#questions">FAQ</a>
         </div>
-        <div class="footer-links"><strong>Early access</strong><a href="#early-access">Early access from £49</a><a
-            href="mailto:info@getconvoria.com?subject=MSP%20billing%20toolkit%20enquiry">info@getconvoria.com</a><a
+        <div class="footer-links"><strong>Contact</strong><a href="#review">Review from £495</a><a
+            href="mailto:info@getconvoria.com?subject=Microsoft%20365%20billing%20review%20enquiry">info@getconvoria.com</a><a
             href="mailto:info@getconvoria.com?subject=Privacy%20question">Privacy questions</a></div>
       </div>
       <div class="footer-bottom"><span>© <span id="year"></span> Convoria.</span><span>Microsoft 365 billing
-          reconciliation toolkit.</span></div>
+          review.</span></div>
     </div>
   </footer>
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
